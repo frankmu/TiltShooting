@@ -15,7 +15,6 @@
 		AC66560E1610FD6B004E4104 /* Target.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656081610FD6B004E4104 /* Target.m */; };
 		AC6656191610FE86004E4104 /* Aim.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656111610FE85004E4104 /* Aim.m */; };
 		AC66561A1610FE86004E4104 /* Canvas.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656131610FE85004E4104 /* Canvas.m */; };
-		AC66561B1610FE86004E4104 /* CoreEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656151610FE86004E4104 /* CoreEvent.m */; };
 		AC66561C1610FE86004E4104 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656171610FE86004E4104 /* Enemy.m */; };
 		ACE3E2AF16095B1600976AFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2AE16095B1600976AFD /* QuartzCore.framework */; };
 		ACE3E2B116095B1600976AFD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B016095B1600976AFD /* OpenGLES.framework */; };
@@ -217,8 +216,6 @@
 		AC6656111610FE85004E4104 /* Aim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aim.m; sourceTree = "<group>"; };
 		AC6656121610FE85004E4104 /* Canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
 		AC6656131610FE85004E4104 /* Canvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Canvas.m; sourceTree = "<group>"; };
-		AC6656141610FE86004E4104 /* CoreEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreEvent.h; sourceTree = "<group>"; };
-		AC6656151610FE86004E4104 /* CoreEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreEvent.m; sourceTree = "<group>"; };
 		AC6656161610FE86004E4104 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
 		AC6656171610FE86004E4104 /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
 		AC6656181610FE86004E4104 /* ModelImports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelImports.h; sourceTree = "<group>"; };
@@ -622,8 +619,6 @@
 				AC6656111610FE85004E4104 /* Aim.m */,
 				AC6656121610FE85004E4104 /* Canvas.h */,
 				AC6656131610FE85004E4104 /* Canvas.m */,
-				AC6656141610FE86004E4104 /* CoreEvent.h */,
-				AC6656151610FE86004E4104 /* CoreEvent.m */,
 				AC6656161610FE86004E4104 /* Enemy.h */,
 				AC6656171610FE86004E4104 /* Enemy.m */,
 				AC6656181610FE86004E4104 /* ModelImports.h */,
@@ -1477,7 +1472,6 @@
 				AC66560E1610FD6B004E4104 /* Target.m in Sources */,
 				AC6656191610FE86004E4104 /* Aim.m in Sources */,
 				AC66561A1610FE86004E4104 /* Canvas.m in Sources */,
-				AC66561B1610FE86004E4104 /* CoreEvent.m in Sources */,
 				AC66561C1610FE86004E4104 /* Enemy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
