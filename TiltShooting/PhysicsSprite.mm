@@ -10,7 +10,6 @@
 #import "PhysicsSprite.h"
 
 // Needed PTM_RATIO
-#import "HelloWorldLayer.h"
 
 #pragma mark - PhysicsSprite
 @implementation PhysicsSprite
@@ -58,11 +57,11 @@
 	
 	return transform_;
 }
-
+/*
 -(void) dealloc
 {
-	// 
+	// disabled for ARC
 	[super dealloc];
 }
-
+*/
 @end

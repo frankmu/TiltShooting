@@ -143,13 +143,16 @@
 {
 	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
 }
-
+ /* disabled for [ARC]
 - (void) dealloc
 {
+   
 	[window_ release];
 	[navController_ release];
 	
 	[super dealloc];
-}
+  
+}   
+  */
 @end
 
