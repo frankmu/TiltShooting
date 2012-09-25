@@ -11,6 +11,7 @@
 #import "MainScene.h"
 @interface MenuLayer : CCLayer {
     int x;
+    int y;
 }
 
 @end
