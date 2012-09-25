@@ -18,6 +18,7 @@
 @property (strong) ModelDaemon *daemon;
 @property float canvasX, canvasY, canvasW, canvasH;
 @property float deviceW, deviceH;
+@property int hasRecord;
 
 @end
 
@@ -31,7 +32,7 @@
             canvasW = _canvasW, canvasH = _canvasH;
 @synthesize deviceW = _deviceW, deviceH = _deviceH;
 @synthesize flushInterval = _flushInterval;
-@synthesize status = _status;
+@synthesize hasRecord = _hasRecord;
 
 + (id<ModelInterface>) instance {
     static id<ModelInterface> shared = nil;
@@ -53,6 +54,8 @@
         // default canvas and device setting
         [self decideCanvasX:-200.0 canvasY:-200.0 canvasWidth:800
                canvasHeight:800 deviceWidth:960 deviceHeight:460];
+        // int conf
+        self.hasRecord = 0;
     }
     return self;
 }

@@ -15,8 +15,7 @@
 
 @implementation Target
 
-@synthesize x = _x;
-@synthesize y = _y;
+@synthesize x = _x, y = _y, width = _width, height = _height;
 @synthesize aux = _aux;
 
 - (id) initWithPositionX:(float)x Y:(float)y {

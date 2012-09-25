@@ -15,6 +15,8 @@
 // please use *InDevice (* is "x" or "y") to get the position in device
 @property float x;
 @property float y;
+@property float width;
+@property float height;
 @property id aux;
 
 - (id) initWithPositionX: (float)x Y: (float)y;
