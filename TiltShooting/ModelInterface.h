@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CoreEventListener.h"
 #import "Aim.h"
+#import "Status.h"
 
 @protocol ModelInterface <NSObject>
 
@@ -53,5 +54,8 @@
 - (void) setCanvasX: (float) cx Y: (float) cy;
 - (void) setCanvasWidth: (float) cw height: (float) ch;
 - (void) setDeviceWidth: (float) dw height: (float)  dh;
+
+/* Conf. */
+- (Status *) status;
 
 @end

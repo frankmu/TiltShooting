@@ -31,6 +31,7 @@
             canvasW = _canvasW, canvasH = _canvasH;
 @synthesize deviceW = _deviceW, deviceH = _deviceH;
 @synthesize flushInterval = _flushInterval;
+@synthesize status = _status;
 
 + (id<ModelInterface>) instance {
     static id<ModelInterface> shared = nil;

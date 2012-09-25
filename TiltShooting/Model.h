@@ -10,12 +10,14 @@
 #import "ModelInterface.h"
 #import "Enemy.h"
 #import "Aim.h"
+#import "Status.h"
 
 @interface Model : NSObject <ModelInterface>
 
 @property (strong) NSMutableArray *enemyList;
 @property (strong) NSMutableArray *bombList;
 @property (strong) Aim *aim;
+@property (strong) Status *status;
 @property NSTimeInterval flushInterval;
 
 @end
