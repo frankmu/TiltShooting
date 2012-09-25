@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		963CF6BE16116C91005C393A /* HelperScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 963CF6BD16116C91005C393A /* HelperScene.m */; };
 		AC6656091610FD6B004E4104 /* Bomb.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6655FC1610FD6B004E4104 /* Bomb.m */; };
 		AC66560A1610FD6B004E4104 /* GameBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6655FF1610FD6B004E4104 /* GameBrain.m */; };
 		AC66560B1610FD6B004E4104 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656011610FD6B004E4104 /* Model.m */; };
@@ -199,6 +200,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		963CF6BC16116C91005C393A /* HelperScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperScene.h; sourceTree = "<group>"; };
+		963CF6BD16116C91005C393A /* HelperScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelperScene.m; sourceTree = "<group>"; };
 		AC6655FB1610FD6B004E4104 /* Bomb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bomb.h; sourceTree = "<group>"; };
 		AC6655FC1610FD6B004E4104 /* Bomb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bomb.m; sourceTree = "<group>"; };
 		AC6655FD1610FD6B004E4104 /* CoreEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreEventListener.h; sourceTree = "<group>"; };
@@ -1219,6 +1222,8 @@
 		ACE3E4F616095DB700976AFD /* view */ = {
 			isa = PBXGroup;
 			children = (
+				963CF6BC16116C91005C393A /* HelperScene.h */,
+				963CF6BD16116C91005C393A /* HelperScene.m */,
 				ACE3E4F716095DEB00976AFD /* GameLayer.m */,
 				ACE3E4F816095DEB00976AFD /* GameLayer.h */,
 				ACE3E4F916095DEB00976AFD /* GameOverScene.h */,
@@ -1479,6 +1484,7 @@
 				AC66561A1610FE86004E4104 /* Canvas.m in Sources */,
 				AC66561C1610FE86004E4104 /* Enemy.m in Sources */,
 				AC66561F16115BC8004E4104 /* Status.m in Sources */,
+				963CF6BE16116C91005C393A /* HelperScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
