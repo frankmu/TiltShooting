@@ -12,6 +12,7 @@
 @interface MenuLayer : CCLayer {
     int x;
     int y;
+    int u;
 }
 
 @end
