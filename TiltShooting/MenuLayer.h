@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "MainScene.h"
 @interface MenuLayer : CCLayer {
-    
+    int y;
 }
 
 @end
