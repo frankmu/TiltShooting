@@ -3,6 +3,7 @@
 //  TiltShooting
 //
 //  Created by yirui zhang on 9/17/12.
+//  
 //
 //
 
@@ -39,7 +40,7 @@
 - (void) resume;
 - (void) stop;
 - (void) save;
-- (void) shoot: (Target *) target;
+- (void) shoot;
 
 /* Data Access Interface */
 - (NSMutableArray *) enemyList;
@@ -56,6 +57,6 @@
 - (void) setDeviceWidth: (float) dw height: (float)  dh;
 
 /* Conf. */
-- (Status *) status;
+- (int) hasRecord;
 
 @end

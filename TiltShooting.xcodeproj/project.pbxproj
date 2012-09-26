@@ -23,7 +23,6 @@
 		AC6656191610FE86004E4104 /* Aim.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656111610FE85004E4104 /* Aim.m */; };
 		AC66561A1610FE86004E4104 /* Canvas.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656131610FE85004E4104 /* Canvas.m */; };
 		AC66561C1610FE86004E4104 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656171610FE86004E4104 /* Enemy.m */; };
-		AC66561F16115BC8004E4104 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = AC66561E16115BC8004E4104 /* Status.m */; };
 		ACE3E2AF16095B1600976AFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2AE16095B1600976AFD /* QuartzCore.framework */; };
 		ACE3E2B116095B1600976AFD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B016095B1600976AFD /* OpenGLES.framework */; };
 		ACE3E2B316095B1600976AFD /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B216095B1600976AFD /* OpenAL.framework */; };
@@ -236,8 +235,6 @@
 		AC6656161610FE86004E4104 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
 		AC6656171610FE86004E4104 /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
 		AC6656181610FE86004E4104 /* ModelImports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelImports.h; sourceTree = "<group>"; };
-		AC66561D16115BC8004E4104 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
-		AC66561E16115BC8004E4104 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		ACE3E2AA16095B1600976AFD /* TiltShooting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiltShooting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE3E2AE16095B1600976AFD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ACE3E2B016095B1600976AFD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -634,15 +631,10 @@
 		AC66560F1610FD75004E4104 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				AC6656101610FE85004E4104 /* Aim.h */,
-				AC6656111610FE85004E4104 /* Aim.m */,
+				AC665624161265BD004E4104 /* targets */,
 				AC6656121610FE85004E4104 /* Canvas.h */,
 				AC6656131610FE85004E4104 /* Canvas.m */,
-				AC6656161610FE86004E4104 /* Enemy.h */,
-				AC6656171610FE86004E4104 /* Enemy.m */,
 				AC6656181610FE86004E4104 /* ModelImports.h */,
-				AC6655FB1610FD6B004E4104 /* Bomb.h */,
-				AC6655FC1610FD6B004E4104 /* Bomb.m */,
 				AC6655FD1610FD6B004E4104 /* CoreEventListener.h */,
 				AC6655FE1610FD6B004E4104 /* GameBrain.h */,
 				AC6655FF1610FD6B004E4104 /* GameBrain.m */,
@@ -653,12 +645,23 @@
 				AC6656041610FD6B004E4104 /* ModelInterface.h */,
 				AC6656051610FD6B004E4104 /* ModelUtilities.h */,
 				AC6656061610FD6B004E4104 /* ModelUtilities.m */,
-				AC6656071610FD6B004E4104 /* Target.h */,
-				AC6656081610FD6B004E4104 /* Target.m */,
-				AC66561D16115BC8004E4104 /* Status.h */,
-				AC66561E16115BC8004E4104 /* Status.m */,
 			);
 			name = model;
+			sourceTree = "<group>";
+		};
+		AC665624161265BD004E4104 /* targets */ = {
+			isa = PBXGroup;
+			children = (
+				AC6656101610FE85004E4104 /* Aim.h */,
+				AC6656111610FE85004E4104 /* Aim.m */,
+				AC6656161610FE86004E4104 /* Enemy.h */,
+				AC6656171610FE86004E4104 /* Enemy.m */,
+				AC6655FB1610FD6B004E4104 /* Bomb.h */,
+				AC6655FC1610FD6B004E4104 /* Bomb.m */,
+				AC6656071610FD6B004E4104 /* Target.h */,
+				AC6656081610FD6B004E4104 /* Target.m */,
+			);
+			name = targets;
 			sourceTree = "<group>";
 		};
 		ACE3E29F16095B1600976AFD = {
@@ -1503,7 +1506,6 @@
 				AC6656191610FE86004E4104 /* Aim.m in Sources */,
 				AC66561A1610FE86004E4104 /* Canvas.m in Sources */,
 				AC66561C1610FE86004E4104 /* Enemy.m in Sources */,
-				AC66561F16115BC8004E4104 /* Status.m in Sources */,
 				963CF6BE16116C91005C393A /* HelperScene.m in Sources */,
 				963CF6C116117225005C393A /* MenuScene.m in Sources */,
 				963CF6C4161172A7005C393A /* OptionScene.m in Sources */,

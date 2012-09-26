@@ -17,7 +17,6 @@
 @property (strong) NSMutableArray *enemyList;
 @property (strong) NSMutableArray *bombList;
 @property (strong) Aim *aim;
-@property (strong) Status *status;
 @property NSTimeInterval flushInterval;
 
 @end
