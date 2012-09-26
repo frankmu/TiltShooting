@@ -14,6 +14,7 @@
 
 @implementation GameLayer
 
+@synthesize level;
 @synthesize background;
 @synthesize aimCross;
 @synthesize targetList;
@@ -29,6 +30,15 @@
 	// Apple recommends to re-assign "self" with the "super" return value
 	if( (self=[super init] )) {
         
+        NSLog(@"init gameLayer");
+        
+        
+        //start listen
+        
+        //viewer draw background
+        
+        //start model
+
         CGSize size = [[CCDirector sharedDirector] winSize];
 		// Load background 1440*960 ??
 		background = [CCSprite spriteWithFile:@"nightsky.png"];
@@ -36,8 +46,7 @@
         background.position=ccp( size.width /2 , size.height/2 );
         
         // create and initialize a Label
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
-        
+        CCLabelTTF *label = [CCLabelTTF labelWithString:@"Game Layer:can't move, only sound" fontName:@"Marker Felt" fontSize:32];        
 		// ask director for the window size
 		
         
@@ -47,7 +56,7 @@
 		// add the label as a child to this Layer
 		[self addChild: label];
 
-        
+        NSLog(@"init gameLayer bg");
 		/*
 		// indecator
 		CCSprite *spriteInd = [CCSprite spriteWithFile:@"enemy.png" rect:CGRectMake(0,0,40,40)];
@@ -68,7 +77,8 @@
         aimCross=[CCSprite spriteWithFile:@"aimcross.png"];
         aimCross.position =  ccp( size.width /2 , size.height/2 );
         [self addChild:aimCross z:1 tag:1];
-        
+        NSLog(@"init gameLayer aimcross");
+
         /*
 		// Check Game Stae
 		[self schedule:@selector(ShowState) interval: 0.5];
@@ -111,11 +121,23 @@
 		spriteExplodeBig.position = ccp(240, 160);
 		[spriteExplodeBig setVisible:NO];
 		
-		// Enable touch
-		[self setIsTouchEnabled:YES];
+        //preload sound effetc
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"gunShotOntarget.mp3"];
 		
+        //show weapon
+        
+        //register to model
+        id<ModelInterface> model = [[Model class] instance];
+        [model addToCoreEventListenerList:self];
+        //start model
+        //*************
+        //*************
+        // Enable touch
+		[self setIsTouchEnabled:YES];
+		NSLog(@"enable gameLayer touch %d",self.isTouchEnabled);
+        
 		// Get origenal OpenGL ES view point ??????
-		[[self camera] eyeX:&viewOrgX eyeY:&viewOrgY eyeZ:&viewOrgZ];
+		//[[self camera] eyeX:&viewOrgX eyeY:&viewOrgY eyeZ:&viewOrgZ];
 		
 		/*// init param
 		CGSize size = [[CCDirector sharedDirector] winSize];
@@ -130,97 +152,26 @@
 	}
 	return self;
 }
-
+/*
 -(void) checkMove: (UIAcceleration *)acceleration{
         
-    NSLog(@"Acceleration.x= %f, Acceleration.y=%f",acceleration.x,acceleration.y);
-#define  kPlayerSpeed 1;
-    //CCSprite *aim=[[self getChildByTag:1] aimCross];
-    float currentX = aimCross.position.x;
-    float currentY = aimCross.position.y;
-    float destX,destY,x,y;
-    if(acceleration.x > 0.25) {  // tilting the device upwards
-        x=- acceleration.y * kPlayerSpeed;
-        y=acceleration.x * kPlayerSpeed;
-        destX = currentX - acceleration.y * kPlayerSpeed;
-        destY = currentY + acceleration.x * kPlayerSpeed;
-        // shouldMove = YES;
-    } else if (acceleration.x < -0.25) {  // tilting the device downwards
-        x=- acceleration.y * kPlayerSpeed;
-        y=acceleration.x * kPlayerSpeed;
-        destX = currentX - acceleration.y * kPlayerSpeed;
-        destY = currentY + acceleration.x * kPlayerSpeed;
-        // shouldMove = YES;
-    } else if(acceleration.y < -0.25) {  // tilting the device to the right
-        x=- acceleration.y * kPlayerSpeed;
-        y=acceleration.x * kPlayerSpeed;
-        destX = currentX - acceleration.y * kPlayerSpeed;
-        destY = currentY + acceleration.x * kPlayerSpeed;
-        // shouldMove = YES;
-    } else if (acceleration.y > 0.25) {  // tilting the device to the left
-        x=- acceleration.y * kPlayerSpeed;
-        y=acceleration.x * kPlayerSpeed;
-        destX = currentX - acceleration.y * kPlayerSpeed;
-        destY = currentY + acceleration.x * kPlayerSpeed;
-        //  shouldMove = YES;
-    } else {
-        destX = currentX;
-        destY = currentY;
-        
-    }
-   // aim.position=CGPointMake(destX,destY);
-    
-   //Move background ????
-    [self setWorldPositionX:x Y:y];
-
-   // self.aimCross.position=CGPointMake(aimCross.position.x+acceleration.x, aimCross.position.y+acceleration.y);
+  
 }
 - (void) setWorldPositionX:(float)x Y:(float)y{
-    /*CGRect rc;
-	
-	rc = [tank textureRect];
-	
-	// NSLog([NSString stringWithFormat:@"Map Pos - tank.x =  %.2f, tank width = %.2f ", tank.position.x, rc.size.width]);
-	
-	// Check if the dozer is near the edge of the map
-	if(tank.position.x < screenWidth/2 - rc.size.width / 2)
-		mapX = 0;
-	else if(tank.position.x > [self gameWorldWidth] - (screenWidth / 2))
-		mapX = -[self gameWorldWidth];
-	else
-		mapX = -(tank.position.x - (screenWidth/2) + rc.size.width / 2);
-	
-	if(tank.position.y < screenHeight/2 - rc.size.height / 2)
-		mapY = 0;
-	else if(tank.position.y > [self gameWorldHeight] - (screenHeight/2))
-		mapY = -[self gameWorldHeight];
-	else
-		mapY = -(tank.position.y - (screenHeight/2) + rc.size.height / 2);
-	
-	// Reset the map if the next position is past the edge
-	if(mapX > 0) mapX = 0;
-	if(mapY > 0) mapY = 0;
-	
-	if(mapX < -([self gameWorldWidth] - screenWidth)) mapX = -([self gameWorldWidth] - screenWidth);
-	if(mapY < -([self gameWorldHeight] - screenHeight)) mapY = -([self gameWorldHeight] - screenHeight);
-	
-	// [gameWorld setPosition:ccp(mapX, mapY)];
-	gameWorld.position = ccp(mapX, mapY);
-   */
-     background.position=ccp(background.position.x-x,background.position.y-y);
-    
-    
-
+  
 }
+ */
 // register to get touches input
 -(void) registerWithTouchDispatcher
 {
-	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+    NSLog(@"register gamelayer to touch dispatcher");
+	[[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 }
 
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-	
+    NSLog(@"touch began once");
+    return YES;
 }
 -(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
@@ -229,8 +180,24 @@
 
 -(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-	id<ModelInterface> model = [[Model class] instance];
+    NSLog(@"touch ended once");
+    id<ModelInterface> model = [[Model class] instance];
     [[SimpleAudioEngine sharedEngine] playEffect:@"gunShotOntarget.mp3"];
+    
 }
+
+//register to listenerlist of model
+//listen to model
+- (int) targetAppear: (Target *) target{}
+- (int) targetDisAppear: (Target *) target{}
+- (int) targetMove: (Target *) target{}
+
+/* other object */
+- (int) canvasMovetoX: (float) x Y: (float) y{}
+- (int) impact: (Target *) target by: (Target *) target{}
+
+/* game control signals */
+- (int) gameInitFinished{}
+
 
 @end

@@ -11,7 +11,7 @@
 
 @implementation IntroScene
 
-@synthesize introLayer = _introLayer;
+//@synthesize introLayer = _introLayer;
 @synthesize introScene = _introScene;
 +(id) ShowScene{
     
@@ -21,11 +21,19 @@
 
 -(id) init{
     
-    self.introScene = [CCScene node];
-    
-    self.introLayer = [IntroLayer node];
-    
-    [self.introScene addChild:self.introLayer z:0 tag:0];
+    // always call "super" init
+	// Apple recommends to re-assign "self" with the "super" return value
+	if( (self=[super init] ))
+	{
+        NSLog(@"Initialize the IntroScene with a child IntroLayer");
+        
+        self.introScene = self;//[CCScene node];
+        
+        //self.introLayer = [IntroLayer node];
+        IntroLayer *introLayer=[IntroLayer node];
+        [self.introScene addChild:introLayer z:0 tag:1];
+    }
+
     return self;
 }
 

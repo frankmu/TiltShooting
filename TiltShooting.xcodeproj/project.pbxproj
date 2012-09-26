@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		963CF6BE16116C91005C393A /* HelperScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 963CF6BD16116C91005C393A /* HelperScene.m */; };
+		963CF6C116117225005C393A /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 963CF6C016117225005C393A /* MenuScene.m */; };
+		963CF6C4161172A7005C393A /* OptionScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 963CF6C3161172A7005C393A /* OptionScene.m */; };
+		963CF6C7161172C4005C393A /* ScoreLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 963CF6C6161172C4005C393A /* ScoreLayer.m */; };
+		96B7B3A71613722600CF20EB /* Viewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B7B3A61613722600CF20EB /* Viewer.m */; };
+		96B7B3A81613733700CF20EB /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4D216095B1900976AFD /* IntroLayer.m */; };
+		96B7B3A9161373D200CF20EB /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4FC16095DEB00976AFD /* IntroScene.m */; };
 		AC6656091610FD6B004E4104 /* Bomb.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6655FC1610FD6B004E4104 /* Bomb.m */; };
 		AC66560A1610FD6B004E4104 /* GameBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6655FF1610FD6B004E4104 /* GameBrain.m */; };
 		AC66560B1610FD6B004E4104 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656011610FD6B004E4104 /* Model.m */; };
@@ -187,12 +193,10 @@
 		ACE3E4C416095B1900976AFD /* b2Rope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4C316095B1900976AFD /* b2Rope.cpp */; };
 		ACE3E4CA16095B1900976AFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4C916095B1900976AFD /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ACE3E4CD16095B1900976AFD /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4CC16095B1900976AFD /* AppDelegate.mm */; };
-		ACE3E4D316095B1900976AFD /* IntroLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4D216095B1900976AFD /* IntroLayer.mm */; };
 		ACE3E4D616095B1900976AFD /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4D516095B1900976AFD /* GLES-Render.mm */; };
 		ACE3E4DB16095B1900976AFD /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = ACE3E4DA16095B1900976AFD /* blocks.png */; };
 		ACE3E50516095DEB00976AFD /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4F716095DEB00976AFD /* GameLayer.m */; };
 		ACE3E50616095DEB00976AFD /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4FA16095DEB00976AFD /* GameOverScene.m */; };
-		ACE3E50716095DEB00976AFD /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4FC16095DEB00976AFD /* IntroScene.m */; };
 		ACE3E50816095DEB00976AFD /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4FE16095DEB00976AFD /* MainScene.m */; };
 		ACE3E50916095DEB00976AFD /* MenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E50016095DEB00976AFD /* MenuLayer.m */; };
 		ACE3E50A16095DEB00976AFD /* TargetSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E50216095DEB00976AFD /* TargetSprite.m */; };
@@ -202,6 +206,15 @@
 /* Begin PBXFileReference section */
 		963CF6BC16116C91005C393A /* HelperScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperScene.h; sourceTree = "<group>"; };
 		963CF6BD16116C91005C393A /* HelperScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelperScene.m; sourceTree = "<group>"; };
+		963CF6BF16117225005C393A /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
+		963CF6C016117225005C393A /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
+		963CF6C2161172A7005C393A /* OptionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionScene.h; sourceTree = "<group>"; };
+		963CF6C3161172A7005C393A /* OptionScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionScene.m; sourceTree = "<group>"; };
+		963CF6C5161172C4005C393A /* ScoreLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreLayer.h; sourceTree = "<group>"; };
+		963CF6C6161172C4005C393A /* ScoreLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreLayer.m; sourceTree = "<group>"; };
+		963CF6C81611747A005C393A /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		96B7B3A51613722600CF20EB /* Viewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewer.h; sourceTree = "<group>"; };
+		96B7B3A61613722600CF20EB /* Viewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Viewer.m; sourceTree = "<group>"; };
 		AC6655FB1610FD6B004E4104 /* Bomb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bomb.h; sourceTree = "<group>"; };
 		AC6655FC1610FD6B004E4104 /* Bomb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bomb.m; sourceTree = "<group>"; };
 		AC6655FD1610FD6B004E4104 /* CoreEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreEventListener.h; sourceTree = "<group>"; };
@@ -578,7 +591,7 @@
 		ACE3E4CB16095B1900976AFD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		ACE3E4CC16095B1900976AFD /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		ACE3E4D116095B1900976AFD /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
-		ACE3E4D216095B1900976AFD /* IntroLayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IntroLayer.mm; sourceTree = "<group>"; };
+		ACE3E4D216095B1900976AFD /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		ACE3E4D416095B1900976AFD /* GLES-Render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		ACE3E4D516095B1900976AFD /* GLES-Render.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "GLES-Render.mm"; sourceTree = "<group>"; };
 		ACE3E4DA16095B1900976AFD /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
@@ -1222,24 +1235,33 @@
 		ACE3E4F616095DB700976AFD /* view */ = {
 			isa = PBXGroup;
 			children = (
-				963CF6BC16116C91005C393A /* HelperScene.h */,
-				963CF6BD16116C91005C393A /* HelperScene.m */,
-				ACE3E4F716095DEB00976AFD /* GameLayer.m */,
-				ACE3E4F816095DEB00976AFD /* GameLayer.h */,
-				ACE3E4F916095DEB00976AFD /* GameOverScene.h */,
-				ACE3E4FA16095DEB00976AFD /* GameOverScene.m */,
+				963CF6C81611747A005C393A /* Header.h */,
 				ACE3E4FB16095DEB00976AFD /* IntroScene.h */,
 				ACE3E4FC16095DEB00976AFD /* IntroScene.m */,
+				ACE3E4D116095B1900976AFD /* IntroLayer.h */,
+				ACE3E4D216095B1900976AFD /* IntroLayer.m */,
+				963CF6BF16117225005C393A /* MenuScene.h */,
+				963CF6C016117225005C393A /* MenuScene.m */,
+				ACE3E4FF16095DEB00976AFD /* MenuLayer.h */,
+				ACE3E50016095DEB00976AFD /* MenuLayer.m */,
+				963CF6C2161172A7005C393A /* OptionScene.h */,
+				963CF6C3161172A7005C393A /* OptionScene.m */,
+				963CF6BC16116C91005C393A /* HelperScene.h */,
+				963CF6BD16116C91005C393A /* HelperScene.m */,
 				ACE3E4FD16095DEB00976AFD /* MainScene.h */,
 				ACE3E4FE16095DEB00976AFD /* MainScene.m */,
-				ACE3E4FF16095DEB00976AFD /* MenuLayer.h */,
-				ACE3E4D116095B1900976AFD /* IntroLayer.h */,
-				ACE3E4D216095B1900976AFD /* IntroLayer.mm */,
-				ACE3E50016095DEB00976AFD /* MenuLayer.m */,
+				ACE3E4F816095DEB00976AFD /* GameLayer.h */,
+				ACE3E4F716095DEB00976AFD /* GameLayer.m */,
+				963CF6C5161172C4005C393A /* ScoreLayer.h */,
+				963CF6C6161172C4005C393A /* ScoreLayer.m */,
+				ACE3E4F916095DEB00976AFD /* GameOverScene.h */,
+				ACE3E4FA16095DEB00976AFD /* GameOverScene.m */,
 				ACE3E50116095DEB00976AFD /* TargetSprite.h */,
 				ACE3E50216095DEB00976AFD /* TargetSprite.m */,
 				ACE3E50316095DEB00976AFD /* WeaponSprite.h */,
 				ACE3E50416095DEB00976AFD /* WeaponSprite.m */,
+				96B7B3A51613722600CF20EB /* Viewer.h */,
+				96B7B3A61613722600CF20EB /* Viewer.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -1465,11 +1487,9 @@
 				ACE3E4C416095B1900976AFD /* b2Rope.cpp in Sources */,
 				ACE3E4CA16095B1900976AFD /* main.m in Sources */,
 				ACE3E4CD16095B1900976AFD /* AppDelegate.mm in Sources */,
-				ACE3E4D316095B1900976AFD /* IntroLayer.mm in Sources */,
 				ACE3E4D616095B1900976AFD /* GLES-Render.mm in Sources */,
 				ACE3E50516095DEB00976AFD /* GameLayer.m in Sources */,
 				ACE3E50616095DEB00976AFD /* GameOverScene.m in Sources */,
-				ACE3E50716095DEB00976AFD /* IntroScene.m in Sources */,
 				ACE3E50816095DEB00976AFD /* MainScene.m in Sources */,
 				ACE3E50916095DEB00976AFD /* MenuLayer.m in Sources */,
 				ACE3E50A16095DEB00976AFD /* TargetSprite.m in Sources */,
@@ -1485,6 +1505,12 @@
 				AC66561C1610FE86004E4104 /* Enemy.m in Sources */,
 				AC66561F16115BC8004E4104 /* Status.m in Sources */,
 				963CF6BE16116C91005C393A /* HelperScene.m in Sources */,
+				963CF6C116117225005C393A /* MenuScene.m in Sources */,
+				963CF6C4161172A7005C393A /* OptionScene.m in Sources */,
+				963CF6C7161172C4005C393A /* ScoreLayer.m in Sources */,
+				96B7B3A71613722600CF20EB /* Viewer.m in Sources */,
+				96B7B3A81613733700CF20EB /* IntroLayer.m in Sources */,
+				96B7B3A9161373D200CF20EB /* IntroScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

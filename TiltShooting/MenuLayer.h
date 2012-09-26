@@ -11,5 +11,7 @@
 #import "MainScene.h"
 @interface MenuLayer : CCLayer {
 }
+-(void) loadGame:(int)recoredNumber;
+-(void) startNewGame:(int)level;
 
 @end

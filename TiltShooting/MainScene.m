@@ -23,24 +23,21 @@
 	//return [self myScene];
 }
 
-// on "init" you need to initialize your instance
--(id) init
+-(id) initWithLevel:(int)level
 {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super" return value
-	if( (self=[super init] ))
-	{
-        
-	    self.myScene = [MainScene node];
-		GameLayer *glayer = [GameLayer node];
-		//ControlLayer *clayer = [ControlLayer node];
+	NSLog(@"init MainScene with level");
+    NSLog(@"Enter MainScene ");
+    //_myScene=[MainScene node];
+    GameLayer *gameLayer = [GameLayer node];
+    //HelloWorldLayer *gameLayer=[HelloWorldLayer node];
+    //ControlLayer *clayer = [ControlLayer node];
+    //[glayer setLevel:1];
+    
+    // add layer as a child to scene
+    [self addChild:gameLayer z:0 tag:1];
 
-		
-		// add layer as a child to scene
-		[self addChild: glayer z:0 tag:1];
-
-        
-       	}
 	return self;
 }
 
