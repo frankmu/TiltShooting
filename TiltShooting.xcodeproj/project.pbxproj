@@ -1530,18 +1530,15 @@
 				AC66561A1610FE86004E4104 /* Canvas.m in Sources */,
 				AC66561C1610FE86004E4104 /* Enemy.m in Sources */,
 				963CF6BE16116C91005C393A /* HelperScene.m in Sources */,
-<<<<<<< HEAD
 				AC6656291612881E004E4104 /* Shape.m in Sources */,
 				AC66562C1612A36F004E4104 /* Rectangle.m in Sources */,
 				AC66563B1612F064004E4104 /* MotionProcessor.m in Sources */,
-=======
 				963CF6C116117225005C393A /* MenuScene.m in Sources */,
 				963CF6C4161172A7005C393A /* OptionScene.m in Sources */,
 				963CF6C7161172C4005C393A /* ScoreLayer.m in Sources */,
 				96B7B3A71613722600CF20EB /* Viewer.m in Sources */,
 				96B7B3A81613733700CF20EB /* IntroLayer.m in Sources */,
 				96B7B3A9161373D200CF20EB /* IntroScene.m in Sources */,
->>>>>>> dd93030dd0278a4a3b9f794696b106d1a3d4aebb
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
