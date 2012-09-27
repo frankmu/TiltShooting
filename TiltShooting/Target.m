@@ -15,24 +15,20 @@
 
 @implementation Target
 
-@synthesize x = _x, y = _y, width = _width, height = _height;
 @synthesize aux = _aux;
+@synthesize x = _x, y = _y;
 
-- (id) initWithPositionX:(float)x Y:(float)y {
-    return [self initWithPositionX:x Y:y Aux:nil];
+- (id) init {
+    return [self initWithX:0.f Y:0.f];
 }
 
-- (id) initWithPositionX:(float)x Y:(float)y Aux:(id)aux {
+- (id) initWithX:(float)x Y:(float)y {
     if (self = [super init]) {
         self.x = x;
         self.y = y;
-        self.aux = aux;
+        self.aux = nil;
     }
     return self;
-}
-
-- (id) init {
-    return [self initWithPositionX:0.0 Y:0.0];
 }
 
 - (float) xInDevice {

@@ -10,7 +10,6 @@
 #import <Foundation/Foundation.h>
 #import "CoreEventListener.h"
 #import "Aim.h"
-#import "Status.h"
 
 @protocol ModelInterface <NSObject>
 

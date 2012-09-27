@@ -9,6 +9,7 @@
 #import "Model.h"
 #import "ModelDaemon.h"
 #import "GameBrain.h"
+#import "MotionProcessor.h"
 
 #define DEFAULT_START_LEVEL 1
 
@@ -16,6 +17,7 @@
 
 @property (strong) NSMutableArray *listenerList;
 @property (strong) ModelDaemon *daemon;
+@property (strong) MotionProcessor *motionProcessor;
 @property float canvasX, canvasY, canvasW, canvasH;
 @property float deviceW, deviceH;
 @property int hasRecord;
@@ -47,13 +49,14 @@
 - (id) init {
     if (self = [super init]) {
         self.daemon = [[ModelDaemon alloc] init];
+        self.motionProcessor = [[MotionProcessor alloc] init];
         self.enemyList = [[NSMutableArray alloc] init];
         self.listenerList = [[NSMutableArray alloc] init];
         self.bombList = [[NSMutableArray alloc] init];
-        self.aim = [[Aim alloc] initWithPositionX:0.0 Y:0.0];
+        self.aim = [[Aim alloc] initWithX:0.f Y:0.f];
         // default canvas and device setting
-        [self decideCanvasX:-200.0 canvasY:-200.0 canvasWidth:800
-               canvasHeight:800 deviceWidth:960 deviceHeight:460];
+        [self decideCanvasX:-200.0f canvasY:-200.0f canvasWidth:800.0f
+               canvasHeight:800.0f deviceWidth:960.0f deviceHeight:460.0f];
         // int conf
         self.hasRecord = 0;
     }
@@ -82,8 +85,8 @@
     self.canvasH = canvasH;
     self.deviceW = deviceW;
     self.deviceH = deviceH;
-    self.aim.x = canvasW / 2.0;
-    self.aim.y = canvasH / 2.0;
+    self.aim.x = canvasW / 2.0f;
+    self.aim.y = canvasH / 2.0f;
 }
 
 - (void) addToCoreEventListenerList:(id<CoreEventListener>)listener {
@@ -106,11 +109,14 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
                    ^{
                        [[GameBrain class] initGameWithLevel:1];
+                       [self.daemon start];
+                       [self.motionProcessor start];
                    });
 }
 
 - (void) pause {
-    [self.daemon pause];
+    [self.daemon stop];
+    [self.motionProcessor stop];
 }
 
 - (void) save {
@@ -118,14 +124,16 @@
 }
 
 - (void) resume {
-    [self.daemon resume];
+    [self.daemon start];
+    [self.motionProcessor start];
 }
 
 - (void) stop {
     [self.daemon stop];
+    [self.motionProcessor stop];
 }
 
-- (void) shoot:(Target *)target{
+- (void) shoot {
     
 }
 

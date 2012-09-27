@@ -20,7 +20,7 @@
         // gen random float between 0 and canvas board
         float x = ((float)arc4random()/RAND_MAX) * m.canvasW;
         float y = ((float)arc4random()/RAND_MAX) * m.canvasH;
-        Enemy *enemy = [[Enemy alloc] initWithPositionX: x Y: y];
+        Enemy *enemy = [[Enemy alloc] initWithX: x Y: y];
         [m.enemyList addObject:enemy];
     }
     
@@ -28,7 +28,7 @@
         // gen random float between 0 and canvas board
         float x = ((float)arc4random()/RAND_MAX) * m.canvasW;
         float y = ((float)arc4random()/RAND_MAX) * m.canvasH;
-        Bomb *bomb = [[Bomb alloc] initWithPositionX: x Y: y];
+        Bomb *bomb = [[Bomb alloc] initWithX: x Y: y];
         [m.bombList addObject:bomb];
     }
 }

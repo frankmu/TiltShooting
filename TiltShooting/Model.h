@@ -10,7 +10,6 @@
 #import "ModelInterface.h"
 #import "Enemy.h"
 #import "Aim.h"
-#import "Status.h"
 
 @interface Model : NSObject <ModelInterface>
 
