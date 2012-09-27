@@ -11,6 +11,12 @@
 #import "CoreEventListener.h"
 #import "Aim.h"
 
+typedef enum {
+    RUNNING,
+    PAUSING,
+    STOPPED
+} STATUS;
+
 @protocol ModelInterface <NSObject>
 
 @required
@@ -39,6 +45,7 @@
 - (void) resume;
 - (void) stop;
 - (void) save;
+- (STATUS) status;
 - (void) shoot;
 
 /* Data Access Interface */

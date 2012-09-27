@@ -21,6 +21,7 @@
 @property float canvasX, canvasY, canvasW, canvasH;
 @property float deviceW, deviceH;
 @property int hasRecord;
+@property STATUS status;
 
 @end
 
@@ -35,6 +36,7 @@
 @synthesize deviceW = _deviceW, deviceH = _deviceH;
 @synthesize flushInterval = _flushInterval;
 @synthesize hasRecord = _hasRecord;
+@synthesize status = _status;
 
 + (id<ModelInterface>) instance {
     static id<ModelInterface> shared = nil;
@@ -59,6 +61,7 @@
                canvasHeight:800.0f deviceWidth:960.0f deviceHeight:460.0f];
         // int conf
         self.hasRecord = 0;
+        self.status = STOPPED;
     }
     return self;
 }
@@ -112,11 +115,13 @@
                        [self.daemon start];
                        [self.motionProcessor start];
                    });
+    self.status = RUNNING;
 }
 
 - (void) pause {
     [self.daemon stop];
     [self.motionProcessor stop];
+    self.status = PAUSING;
 }
 
 - (void) save {
@@ -126,11 +131,17 @@
 - (void) resume {
     [self.daemon start];
     [self.motionProcessor start];
+    self.status = RUNNING;
 }
 
 - (void) stop {
     [self.daemon stop];
     [self.motionProcessor stop];
+    self.status = STOPPED;
+}
+
+- (STATUS) status {
+    return self.status;
 }
 
 - (void) shoot {

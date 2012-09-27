@@ -31,7 +31,8 @@
     }
     // detect if the device support motion
     if (![self.motionManager isDeviceMotionAvailable]) {
-        [NSException raise:@"Motion not supported" format:@"the device doesn't support motion"];
+        [NSException raise:@"Motion is not supported"
+                    format:@"The device doesn't support motion, must be iphone 4 or later."];
     }
     // start listening motion events
     [self.motionManager startDeviceMotionUpdates];
@@ -42,7 +43,7 @@
     // cancel a pre-existing timer.
     [self.timer invalidate];
     // init. new timer
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1/100.f
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3.f
                                                       target:self
                                                     selector:@selector(run:)
                                                     userInfo:nil
@@ -60,7 +61,9 @@
     if (motion == nil) {
         return;
     }
-    
+    CMAttitude *currentAttitude = motion.attitude;
+    [currentAttitude multiplyByInverseOfAttitude:self.referenceAttitude];
+    NSLog(@"%f %f %f", currentAttitude.roll, currentAttitude.pitch, currentAttitude.yaw);
 }
 
 

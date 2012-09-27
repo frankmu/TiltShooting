@@ -26,6 +26,7 @@
 		AC6656291612881E004E4104 /* Shape.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656281612881E004E4104 /* Shape.m */; };
 		AC66562C1612A36F004E4104 /* Rectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = AC66562B1612A36E004E4104 /* Rectangle.m */; };
 		AC66563B1612F064004E4104 /* MotionProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = AC66563A1612F063004E4104 /* MotionProcessor.m */; };
+		AC66564116144035004E4104 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC66564016144034004E4104 /* CoreMotion.framework */; };
 		ACE3E2AF16095B1600976AFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2AE16095B1600976AFD /* QuartzCore.framework */; };
 		ACE3E2B116095B1600976AFD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B016095B1600976AFD /* OpenGLES.framework */; };
 		ACE3E2B316095B1600976AFD /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B216095B1600976AFD /* OpenAL.framework */; };
@@ -244,6 +245,7 @@
 		AC66562B1612A36E004E4104 /* Rectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rectangle.m; sourceTree = "<group>"; };
 		AC6656391612F062004E4104 /* MotionProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionProcessor.h; sourceTree = "<group>"; };
 		AC66563A1612F063004E4104 /* MotionProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionProcessor.m; sourceTree = "<group>"; };
+		AC66564016144034004E4104 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		ACE3E2AA16095B1600976AFD /* TiltShooting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiltShooting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE3E2AE16095B1600976AFD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ACE3E2B016095B1600976AFD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -622,6 +624,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC66564116144035004E4104 /* CoreMotion.framework in Frameworks */,
 				ACE3E2AF16095B1600976AFD /* QuartzCore.framework in Frameworks */,
 				ACE3E2B116095B1600976AFD /* OpenGLES.framework in Frameworks */,
 				ACE3E2B316095B1600976AFD /* OpenAL.framework in Frameworks */,
@@ -707,6 +710,7 @@
 		ACE3E2AD16095B1600976AFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC66564016144034004E4104 /* CoreMotion.framework */,
 				ACE3E2AE16095B1600976AFD /* QuartzCore.framework */,
 				ACE3E2B016095B1600976AFD /* OpenGLES.framework */,
 				ACE3E2B216095B1600976AFD /* OpenAL.framework */,

@@ -171,6 +171,13 @@
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     NSLog(@"touch began once");
+    NSLog(@"for model test only");
+    id<ModelInterface> model = [[Model class] instance];
+    if (model.status == RUNNING) {
+        [model stop];
+    } else {
+        [model start];
+    }
     return YES;
 }
 -(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
