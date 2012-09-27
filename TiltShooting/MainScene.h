@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import <UIKit/UIKit.h>
-
+#import "GameLayer.h"
 
 @interface MainScene : CCScene <UIApplicationDelegate>{
     
 }
 @property (nonatomic, strong) MainScene *myScene;
+@property (nonatomic, strong) GameLayer *gameLayer;
 // Great the mainScene with gameLayer as its child
-+(id) ShowScene;
-
++(id) ShowScene:(int)level;
+-(id) initWithLevel:(int)level;
 @end

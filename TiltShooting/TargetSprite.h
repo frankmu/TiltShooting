@@ -12,7 +12,8 @@
 @interface TargetSprite : CCSprite {
     
 }
-
+//different types of targets
+@property int type;
 
 
 + (id) TargetWithinLayerBackground:(CCLayer *) layer imageFile:(NSString*) imgFile;

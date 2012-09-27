@@ -14,6 +14,6 @@
 }
 
 @property (nonatomic, strong) IntroScene *introScene;
-@property (nonatomic, strong) IntroLayer *introLayer;
+//@property (nonatomic, strong) IntroLayer *introLayer;
 +(id) ShowScene;
 @end
