@@ -9,17 +9,17 @@
 #import "Model.h"
 #import "ModelDaemon.h"
 #import "GameBrain.h"
+#import "MotionProcessor.h"
+#import "CoreEventListener.h"
 
 #define DEFAULT_START_LEVEL 1
+#define DEFAULT_INTERVAL (1/30.f)
 
 @interface Model()
 
 @property (strong) NSMutableArray *listenerList;
 @property (strong) ModelDaemon *daemon;
-@property float canvasX, canvasY, canvasW, canvasH;
-@property float deviceW, deviceH;
-@property int hasRecord;
-
+@property (strong) MotionProcessor *motionProcessor;
 @end
 
 @implementation Model
@@ -33,6 +33,8 @@
 @synthesize deviceW = _deviceW, deviceH = _deviceH;
 @synthesize flushInterval = _flushInterval;
 @synthesize hasRecord = _hasRecord;
+@synthesize status = _status;
+@synthesize debug = _debug;
 
 + (id<ModelInterface>) instance {
     static id<ModelInterface> shared = nil;
@@ -45,17 +47,22 @@
 }
 
 - (id) init {
+    NSLog(@"Model Init.");
     if (self = [super init]) {
         self.daemon = [[ModelDaemon alloc] init];
+        self.motionProcessor = [[MotionProcessor alloc] init];
         self.enemyList = [[NSMutableArray alloc] init];
         self.listenerList = [[NSMutableArray alloc] init];
         self.bombList = [[NSMutableArray alloc] init];
-        self.aim = [[Aim alloc] initWithPositionX:0.0 Y:0.0];
+        self.aim = [[Aim alloc] initWithX:0.f Y:0.f];
         // default canvas and device setting
-        [self decideCanvasX:-200.0 canvasY:-200.0 canvasWidth:800
-               canvasHeight:800 deviceWidth:960 deviceHeight:460];
+        [self decideCanvasX:240.0f canvasY:160.0f canvasWidth:960.f
+               canvasHeight:460.0f deviceWidth:480.0f deviceHeight:320.0f];
         // int conf
         self.hasRecord = 0;
+        self.status = STOPPED;
+        self.debug = YES;
+        self.flushInterval = DEFAULT_INTERVAL;
     }
     return self;
 }
@@ -82,8 +89,8 @@
     self.canvasH = canvasH;
     self.deviceW = deviceW;
     self.deviceH = deviceH;
-    self.aim.x = canvasW / 2.0;
-    self.aim.y = canvasH / 2.0;
+    self.aim.x = canvasW / 2.0f;
+    self.aim.y = canvasH / 2.0f;
 }
 
 - (void) addToCoreEventListenerList:(id<CoreEventListener>)listener {
@@ -103,14 +110,17 @@
 
 - (void) startWithLevel: (int) level {
     // for experiment
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
-                   ^{
-                       [[GameBrain class] initGameWithLevel:1];
-                   });
+    [[GameBrain class] initGameWithLevel:1];
+    [self.daemon start];
+    [self.motionProcessor start];
+    self.status = RUNNING;
+    NSLog(@"Model Start");
 }
 
 - (void) pause {
-    [self.daemon pause];
+    [self.daemon stop];
+    [self.motionProcessor stop];
+    self.status = PAUSING;
 }
 
 - (void) save {
@@ -118,15 +128,35 @@
 }
 
 - (void) resume {
-    [self.daemon resume];
+    [self.daemon start];
+    [self.motionProcessor start];
+    self.status = RUNNING;
 }
 
 - (void) stop {
     [self.daemon stop];
+    [self.motionProcessor stop];
+    self.status = STOPPED;
+    NSLog(@"Model Stop");
 }
 
-- (void) shoot:(Target *)target{
+- (void) shoot {
     
 }
 
+- (void) enableDebug {
+    self.debug = YES;
+}
+
+- (void) disableDebug {
+    self.debug = NO;
+}
+
+- (void) fireCanvasMove {
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        for (id<CoreEventListener> listener in self.listenerList) {
+            [listener canvasMovetoX:self.canvasX Y:self.canvasY];
+        }
+    });
+}
 @end

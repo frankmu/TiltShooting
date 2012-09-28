@@ -181,7 +181,6 @@
 -(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     NSLog(@"touch ended once");
-    id<ModelInterface> model = [[Model class] instance];
     [[SimpleAudioEngine sharedEngine] playEffect:@"gunShotOntarget.mp3"];
     
 }

@@ -10,12 +10,17 @@
 #import <Foundation/Foundation.h>
 #import "CoreEventListener.h"
 #import "Aim.h"
-#import "Status.h"
+
+typedef enum {
+    RUNNING,
+    PAUSING,
+    STOPPED
+} STATUS;
 
 @protocol ModelInterface <NSObject>
 
 @required
-+ (id<ModelInterface>) instance;
++ (id) instance;
 
 - (void) addToCoreEventListenerList: (id<CoreEventListener>) listener;
 - (void) addToCoreEventListenerlist: (id<CoreEventListener>) listener
@@ -40,6 +45,7 @@
 - (void) resume;
 - (void) stop;
 - (void) save;
+- (STATUS) status;
 - (void) shoot;
 
 /* Data Access Interface */
@@ -59,4 +65,8 @@
 /* Conf. */
 - (int) hasRecord;
 
+/* debug */
+- (void) enableDebug;
+- (void) disableDebug;
+- (BOOL) debug;
 @end

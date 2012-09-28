@@ -7,7 +7,10 @@
 //
 
 #import "MenuLayer.h"
-
+#import "Model.h"
+@interface MenuLayer()
+@property (weak) CCLabelTTF *label;
+@end
 
 @implementation MenuLayer
 
@@ -21,10 +24,12 @@
         CCLabelTTF *label = [CCLabelTTF labelWithString:@"Menu: Touch to play" fontName:@"Marker Felt" fontSize:48];
         // position the label on the center of the screen
         label.position =  ccp( size.width /2 , size.height/2 );
-        
+        self.label = label;
         // add the label as a child to this Layer
         [self addChild: label];    
-
+        // register to model event listener
+        id<ModelInterface>  model = [[Model class] instance];
+        [model addToCoreEventListenerList:self];
     }
     return self;
 }
@@ -87,6 +92,13 @@
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     NSLog(@"Menu Touch Began");
+    NSLog(@"for model test only");
+    id<ModelInterface> model = [[Model class] instance];
+    if (model.status == RUNNING) {
+        [model stop];
+    } else {
+        [model start];
+    }
     return YES;
 }
 -(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
@@ -98,9 +110,14 @@
 {
     //check which button
     //[self scheduleOnce:@selector(makeTransition:) delay:1];
-    CCScene *scene=[[MainScene node] initWithLevel:1];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
+    //CCScene *scene=[[MainScene node] initWithLevel:1];
+    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
     
+}
+
+- (BUBBLE_RULE) canvasMovetoX:(float)x Y:(float)y {
+    [self.label setPosition:ccp(x, y)];
+    return BUBBLE_CONTINUE;
 }
 
 @end

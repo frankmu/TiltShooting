@@ -7,16 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ModelInterface.h"
+#import "ModelFullInterface.h"
 #import "Enemy.h"
 #import "Aim.h"
-#import "Status.h"
 
-@interface Model : NSObject <ModelInterface>
+@interface Model : NSObject <ModelFullInterface>
+@property float canvasX, canvasY, canvasW, canvasH;
+@property float deviceW, deviceH;
 
 @property (strong) NSMutableArray *enemyList;
 @property (strong) NSMutableArray *bombList;
 @property (strong) Aim *aim;
-@property NSTimeInterval flushInterval;
 
+@property NSTimeInterval flushInterval;
+@property int hasRecord;
+@property STATUS status;
+@property BOOL debug;
 @end

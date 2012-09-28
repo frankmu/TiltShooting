@@ -8,19 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Shape.h"
 
 @interface Target : NSObject
 
-// by default, the x and y are the positions in canvas coordinate
-// please use *InDevice (* is "x" or "y") to get the position in device
 @property float x;
 @property float y;
-@property float width;
-@property float height;
 @property id aux;
 
-- (id) initWithPositionX: (float)x Y: (float)y;
-- (id) initWithPositionX: (float)x Y: (float)y Aux: aux;
+- (id) init;
+- (id) initWithX: (float)x Y: (float)y;
 - (float) xInDevice;
 - (float) yInDevice;
 @end

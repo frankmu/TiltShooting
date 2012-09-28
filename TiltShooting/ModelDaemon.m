@@ -7,18 +7,12 @@
 //
 
 #import "ModelDaemon.h"
-#define DEFAULT_FLUSH_INTERVAL (1/30)
-
-typedef enum {
-    STOP, RUNNING, PAUSE
-}STATUS;
+#define DEFAULT_FLUSH_INTERVAL (1/30.f)
 
 @interface ModelDaemon ()
 
 @property (weak) NSTimer *timer;
 @property NSUInteger runningTimes;
-@property STATUS status;
-
 @end
 
 @implementation ModelDaemon
@@ -26,47 +20,37 @@ typedef enum {
 - (id) init {
     if (self = [super init]) {
         self.runningTimes = 0;
-        self.status = STOP;
+        self.flushInterval = DEFAULT_FLUSH_INTERVAL;
     }
     return self;
 }
 
 - (void) start {
+    [self startWithInterval:DEFAULT_FLUSH_INTERVAL];
+}
+
+- (void) startWithInterval:(NSTimeInterval)interval {
+    self.flushInterval = interval;
     // cancel a pre-existing timer.
     [self.timer invalidate];
     // init. new timer
-    self.status = RUNNING;
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:DEFAULT_FLUSH_INTERVAL
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.flushInterval
                                                       target:self
                                                     selector:@selector(run:)
                                                     userInfo:nil
                                                      repeats:YES];
     self.timer = timer;
+    NSLog(@"Model Daemon Start");
 }
 
 - (void) stop {
-    self.status = STOP;
-}
-
-- (void) pause {
-    self.status = PAUSE;
-}
-
-- (void) resume {
-    self.status = RUNNING;
+    [self.timer invalidate];
+    NSLog(@"Model Daemon Stop");
 }
 
 - (void) run: (NSTimer *) timer {
-    if (self.status == STOP) {
-        [self.timer invalidate];
-        self.timer = nil;
-        return;
-    } else if (self.status == PAUSE) {
-        return;
-    }
     // work normally
     ++ self.runningTimes;
-    
     // currently no one can move, they all static
 }
 
