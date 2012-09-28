@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ModelInterface.h"
+#import "ModelFullInterface.h"
 #import "Enemy.h"
 #import "Aim.h"
 
-@interface Model : NSObject <ModelInterface>
+@interface Model : NSObject <ModelFullInterface>
 @property float canvasX, canvasY, canvasW, canvasH;
 @property float deviceW, deviceH;
 

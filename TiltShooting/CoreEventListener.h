@@ -10,18 +10,23 @@
 #import "Target.h"
 #import "Enemy.h"
 
+typedef enum {
+    BUBBLE_CONTINUE,
+    BUBBLE_STOP
+} BUBBLE_RULE;
+
 @protocol CoreEventListener <NSObject>
 
 @optional
 /* target */
-- (int) targetAppear: (Target *) target;
-- (int) targetDisAppear: (Target *) target;
-- (int) targetMove: (Target *) target;
+- (BUBBLE_RULE) targetAppear: (Target *) target;
+- (BUBBLE_RULE) targetDisAppear: (Target *) target;
+- (BUBBLE_RULE) targetMove: (Target *) target;
 
 /* other object */
-- (int) canvasMovetoX: (float) x Y: (float) y;
-- (int) impact: (Target *) target by: (Target *) target;
+- (BUBBLE_RULE) canvasMovetoX: (float) x Y: (float) y;
+- (BUBBLE_RULE) impact: (Target *) target by: (Target *) target;
 
 /* game control signals */
-- (int) gameInitFinished;
+- (BUBBLE_RULE) gameInitFinished;
 @end

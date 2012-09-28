@@ -10,6 +10,7 @@
 #import "ModelDaemon.h"
 #import "GameBrain.h"
 #import "MotionProcessor.h"
+#import "CoreEventListener.h"
 
 #define DEFAULT_START_LEVEL 1
 #define DEFAULT_INTERVAL (1/30.f)
@@ -55,8 +56,8 @@
         self.bombList = [[NSMutableArray alloc] init];
         self.aim = [[Aim alloc] initWithX:0.f Y:0.f];
         // default canvas and device setting
-        [self decideCanvasX:480.f canvasY:230.0f canvasWidth:960.f
-               canvasHeight:460.0f deviceWidth:960.0f deviceHeight:460.0f];
+        [self decideCanvasX:240.0f canvasY:160.0f canvasWidth:960.f
+               canvasHeight:460.0f deviceWidth:480.0f deviceHeight:320.0f];
         // int conf
         self.hasRecord = 0;
         self.status = STOPPED;
@@ -149,5 +150,13 @@
 
 - (void) disableDebug {
     self.debug = NO;
+}
+
+- (void) fireCanvasMove {
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        for (id<CoreEventListener> listener in self.listenerList) {
+            [listener canvasMovetoX:self.canvasX Y:self.canvasY];
+        }
+    });
 }
 @end

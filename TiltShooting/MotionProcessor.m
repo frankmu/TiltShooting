@@ -98,18 +98,16 @@
     // compute grivaty
     CMAcceleration grivaty = [self computeGrivaty:currentAttitude.rotationMatrix];
     NSTimeInterval interval = motion.timestamp - self.lastTime;
-    double x = grivaty.x * 9.8 * interval;
-    double y = grivaty.y * 9.8 * interval;
+    double x = grivaty.x * 9.8 * interval * 20;
+    double y = grivaty.y * 9.8 * interval * 20;
     Model *model = [[Model class] instance];
-    Aim *aim = model.aim;
-    aim.x += x;
-    aim.y += y;
-    
+    [model setCanvasX:model.canvasX + y Y:model.canvasY - x];
+    [model fireCanvasMove];
     // output per second if debug is enabled
     [[ModelUtilities class] debugWithDetect:self.runningTimes
                                    interval:self.flushInterval
-                                     format:@"processed grivaty [%f, %f, %f]",
-                                            grivaty.x, grivaty.y, grivaty.z];
+                                     format:@"processed grivaty [%f, %f, %f]\ncanvas [%f, %f]",
+                                            grivaty.x, grivaty.y, grivaty.z, model.canvasX, model.canvasY];
     // update last time timestamp
     self.lastTime = motion.timestamp;
 }

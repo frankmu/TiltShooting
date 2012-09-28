@@ -20,7 +20,7 @@ typedef enum {
 @protocol ModelInterface <NSObject>
 
 @required
-+ (id<ModelInterface>) instance;
++ (id) instance;
 
 - (void) addToCoreEventListenerList: (id<CoreEventListener>) listener;
 - (void) addToCoreEventListenerlist: (id<CoreEventListener>) listener
