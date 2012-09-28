@@ -65,4 +65,8 @@ typedef enum {
 /* Conf. */
 - (int) hasRecord;
 
+/* debug */
+- (void) enableDebug;
+- (void) disableDebug;
+- (BOOL) debug;
 @end

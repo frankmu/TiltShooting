@@ -12,17 +12,13 @@
 #import "MotionProcessor.h"
 
 #define DEFAULT_START_LEVEL 1
+#define DEFAULT_INTERVAL (1/30.f)
 
 @interface Model()
 
 @property (strong) NSMutableArray *listenerList;
 @property (strong) ModelDaemon *daemon;
 @property (strong) MotionProcessor *motionProcessor;
-@property float canvasX, canvasY, canvasW, canvasH;
-@property float deviceW, deviceH;
-@property int hasRecord;
-@property STATUS status;
-
 @end
 
 @implementation Model
@@ -37,6 +33,7 @@
 @synthesize flushInterval = _flushInterval;
 @synthesize hasRecord = _hasRecord;
 @synthesize status = _status;
+@synthesize debug = _debug;
 
 + (id<ModelInterface>) instance {
     static id<ModelInterface> shared = nil;
@@ -49,6 +46,7 @@
 }
 
 - (id) init {
+    NSLog(@"Model Init.");
     if (self = [super init]) {
         self.daemon = [[ModelDaemon alloc] init];
         self.motionProcessor = [[MotionProcessor alloc] init];
@@ -57,11 +55,13 @@
         self.bombList = [[NSMutableArray alloc] init];
         self.aim = [[Aim alloc] initWithX:0.f Y:0.f];
         // default canvas and device setting
-        [self decideCanvasX:-200.0f canvasY:-200.0f canvasWidth:800.0f
-               canvasHeight:800.0f deviceWidth:960.0f deviceHeight:460.0f];
+        [self decideCanvasX:480.f canvasY:230.0f canvasWidth:960.f
+               canvasHeight:460.0f deviceWidth:960.0f deviceHeight:460.0f];
         // int conf
         self.hasRecord = 0;
         self.status = STOPPED;
+        self.debug = YES;
+        self.flushInterval = DEFAULT_INTERVAL;
     }
     return self;
 }
@@ -109,13 +109,11 @@
 
 - (void) startWithLevel: (int) level {
     // for experiment
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
-                   ^{
-                       [[GameBrain class] initGameWithLevel:1];
-                       [self.daemon start];
-                       [self.motionProcessor start];
-                   });
+    [[GameBrain class] initGameWithLevel:1];
+    [self.daemon start];
+    [self.motionProcessor start];
     self.status = RUNNING;
+    NSLog(@"Model Start");
 }
 
 - (void) pause {
@@ -138,14 +136,18 @@
     [self.daemon stop];
     [self.motionProcessor stop];
     self.status = STOPPED;
-}
-
-- (STATUS) status {
-    return self.status;
+    NSLog(@"Model Stop");
 }
 
 - (void) shoot {
     
 }
 
+- (void) enableDebug {
+    self.debug = YES;
+}
+
+- (void) disableDebug {
+    self.debug = NO;
+}
 @end

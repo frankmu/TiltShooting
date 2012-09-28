@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MotionProcessor : NSObject
-
+@property NSTimeInterval flushInterval;
 - (void) start;
 - (void) stop;
 @end

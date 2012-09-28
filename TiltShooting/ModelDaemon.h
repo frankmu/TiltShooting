@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface ModelDaemon : NSObject
-
+@property NSTimeInterval flushInterval;
 - (void) start;
+- (void) startWithInterval: (NSTimeInterval) interval;
 - (void) stop;
 @end

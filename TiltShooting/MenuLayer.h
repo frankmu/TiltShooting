@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "MainScene.h"
-@interface MenuLayer : CCLayer {
-}
+@interface MenuLayer : CCLayer <CoreEventListener>
 -(void) loadGame:(int)recoredNumber;
 -(void) startNewGame:(int)level;
 
