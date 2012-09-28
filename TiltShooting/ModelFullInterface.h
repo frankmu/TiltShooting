@@ -11,5 +11,11 @@
 
 @protocol ModelFullInterface <ModelInterface>
 @required
-- (void) fireCanvasMove;
+- (void) fireCanvasMoveEvent;
+- (void) fireTargetMoveEvent: (Target *)target;
+- (void) fireTargetAppearEvent: (Target *)target;
+- (void) fireTargetDisappearEvent: (Target *)target;
+- (void) fireTargetHitEvent: (Target *)target;
+- (void) fireImpactEvent: (Target *)t1 by: (Target *)t2s;
+- (void) fireGameInitFinishedEvent;
 @end

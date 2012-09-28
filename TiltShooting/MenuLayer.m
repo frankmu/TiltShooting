@@ -95,9 +95,11 @@
     NSLog(@"for model test only");
     id<ModelInterface> model = [[Model class] instance];
     if (model.status == RUNNING) {
-        [model stop];
-    } else {
+        [model pause];
+    } else if (model.status == STOPPED) {
         [model start];
+    } else if (model.status == PAUSING) {
+        [model resume];
     }
     return YES;
 }

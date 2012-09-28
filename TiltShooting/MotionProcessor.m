@@ -36,25 +36,29 @@
         self.flushInterval = DEFAULT_INTERVAL;
         self.runningTimes = 0;
         self.lastTime = -1.0;
+        // start listening to motion events
+        if (self.motionManager == nil) {
+            self.motionManager = [[CMMotionManager alloc] init];
+        }
+        // detect if the device support motion
+        if (![self.motionManager isDeviceMotionAvailable]) {
+            [NSException raise:@"Motion is not supported"
+                        format:@"The device doesn't support motion, must be iphone 4 or later."];
+        }
+        // init motion interval
+        self.motionManager.accelerometerUpdateInterval = 0.01;
     }
     return self;
 }
 
 - (void) start {
-    // start listening to motion events
-    // lazy alloc
-    if (self.motionManager == nil) {
-        self.motionManager = [[CMMotionManager alloc] init];
-    }
-    // detect if the device support motion
-    if (![self.motionManager isDeviceMotionAvailable]) {
-        [NSException raise:@"Motion is not supported"
-                    format:@"The device doesn't support motion, must be iphone 4 or later."];
-    }
     // start listening motion events
     [self.motionManager startDeviceMotionUpdates];
-    // init motion interval
-    self.motionManager.accelerometerUpdateInterval = 0.01;
+    [self resume];
+    NSLog(@"Motion Processor Start");
+}
+
+- (void) resume {
     // cancel a pre-existing timer.
     [self.timer invalidate];
     // init. new timer
@@ -64,14 +68,19 @@
                                                     userInfo:nil
                                                      repeats:YES];
     self.timer = timer;
-    NSLog(@"Motion Processor Start");
+    NSLog(@"Motion Processor Resume");
+}
+
+- (void) pause {
+    [self.timer invalidate];
+    self.referenceAttitude = nil;
+    self.lastTime = -1.0;
+    NSLog(@"Motion Processor Pause");
 }
 
 - (void) stop {
-    [self.timer invalidate];
+    [self pause];
     [self.motionManager stopDeviceMotionUpdates];
-    self.referenceAttitude = nil;
-    self.lastTime = -1.0;
     NSLog(@"Motion Processor Stop");
 }
 
@@ -98,11 +107,11 @@
     // compute grivaty
     CMAcceleration grivaty = [self computeGrivaty:currentAttitude.rotationMatrix];
     NSTimeInterval interval = motion.timestamp - self.lastTime;
-    double x = grivaty.x * 9.8 * interval * 20;
-    double y = grivaty.y * 9.8 * interval * 20;
+    double x = grivaty.x * 9.8 * interval * pow(fabs(grivaty.x) * 9.8, 2);
+    double y = grivaty.y * 9.8 * interval * pow(fabs(grivaty.y) * 9.8, 2);
     Model *model = [[Model class] instance];
     [model setCanvasX:model.canvasX + y Y:model.canvasY - x];
-    [model fireCanvasMove];
+    [model fireCanvasMoveEvent];
     // output per second if debug is enabled
     [[ModelUtilities class] debugWithDetect:self.runningTimes
                                    interval:self.flushInterval
