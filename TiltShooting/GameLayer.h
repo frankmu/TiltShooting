@@ -17,7 +17,8 @@
 typedef enum {
     AIM,
     ENEMY,
-    BOMB
+    BOMB,
+    UNKNOWN
 } TARGET_TYPE;
 
 @interface GameLayer : CCLayer <CoreEventListener>{

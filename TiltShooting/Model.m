@@ -57,8 +57,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         self.bombList = [[NSMutableArray alloc] init];
         self.aim = [[Aim alloc] initWithX:0.f Y:0.f];
         // default canvas and device setting
-        [self decideCanvasX:240.0f canvasY:160.0f canvasWidth:960.f
-               canvasHeight:460.0f deviceWidth:480.0f deviceHeight:320.0f];
+        [self decideCanvasX:240.0f canvasY:160.0f canvasWidth:1440.0f
+               canvasHeight:960.0f deviceWidth:480.0f deviceHeight:320.0f];
         // int conf
         self.hasRecord = 0;
         self.status = STOPPED;
@@ -118,6 +118,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         [self.motionProcessor start];
         self.status = RUNNING;
         [self fireGameInitFinishedEvent];
+        [self fireTargetAppearEvent:self.aim];
         NSLog(@"Model Start");
     });
 }
@@ -164,26 +165,27 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) fireTargetAppearEvent:(Target *)target {
-    [self fireTargetEvent:@selector(targetAppear:) withTarget:target];
+    [self fireEvent:@selector(targetAppear:) with: ^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE)[listener targetAppear:target];
+    }];
 }
 
 - (void) fireTargetDisappearEvent:(Target *)target {
-    [self fireTargetEvent:@selector(targetDisAppear:) withTarget:target];
+    [self fireEvent:@selector(targetDisAppear:) with: ^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE)[listener targetDisAppear:target];
+    }];
 }
 
 - (void) fireTargetMoveEvent:(Target *)target {
-    [self fireTargetEvent:@selector(targetMove:) withTarget:target];
+    [self fireEvent:@selector(targetMove:) with: ^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE)[listener targetMove:target];
+    }];
 }
 
 - (void) fireTargetHitEvent:(Target *)target {
-    [self fireTargetEvent:@selector(targetHit:) withTarget:target];
-}
-
-- (void) fireTargetEvent:(SEL)handler withTarget:(Target *)target {
-    [self fireEvent:handler with: ^(id<CoreEventListener> listener) {
-        return (BUBBLE_RULE)[listener performSelector:@selector(handler) withObject:target];
-    }];
-}
+    [self fireEvent:@selector(targetHit:) with: ^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE)[listener targetHit:target];
+    }];}
 
 - (void) fireGameInitFinishedEvent {
     [self fireEvent:@selector(gameInitFinished) with:^(id<CoreEventListener> listener) {

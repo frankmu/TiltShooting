@@ -30,7 +30,6 @@
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super" return value
 	if( (self=[super init] )) {
-        
         [Viewer NSLogDebug:self.debug withMsg:@"init gameLayer"];
 
         //viewer draw background 
@@ -58,10 +57,10 @@
 		targetLeft.position = ccp(440, 305);
 		
         //creat the aim cross sprite
-        aimCross=[CCSprite spriteWithFile:@"aimcross.png"];
-        aimCross.position =  ccp( size.width /2 , size.height/2 );
-        [self addChild:aimCross z:1 tag:1];
-        [Viewer NSLogDebug:self.debug withMsg:@"init gameLayer aimcross"];
+        //aimCross=[CCSprite spriteWithFile:@"aimcross.png"];
+        //aimCross.position =  ccp( size.width /2 , size.height/2 );
+        //[self addChild:aimCross z:1 tag:1];
+        //[Viewer NSLogDebug:self.debug withMsg:@"init gameLayer aimcross"];
         //init back to menu button
         [CCMenuItemFont setFontSize:20];
 		CCMenuItem *backToMenu = [CCMenuItemFont itemFromString:@"Menu" target:self selector:@selector(onBackToMenu:)];
@@ -122,10 +121,8 @@
         id<ModelInterface>  model = [[Model class] instance];
         [model addToCoreEventListenerList:self];
        
-        
 		//debug
         [self setDebug:YES];
-       
 	}
 	return self;
 }
@@ -187,9 +184,10 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     NSLog(@"x=%f y=%f",location.x,location.y);
      */
-    [self schedule:@selector(fireWeapon) interval:0.1];
+    [self schedule:@selector(fireWeapon) interval:0.1 repeat:0 delay:0];
     return YES;
 }
+
 -(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
 	    
@@ -198,8 +196,10 @@
 -(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [Viewer NSLogDebug:self.debug withMsg:@"touch ended once"];
-    [self fireWeapon];//at least fire once
-    [self unschedule:@selector(fireWeapon)];
+    id<ModelInterface> m = [[Model class] instance];
+    [m shoot];
+    //[self fireWeapon];//at least fire once
+    //[self unschedule:@selector(fireWeapon)];
     //[[SimpleAudioEngine sharedEngine] playEffect:@"gunShotOntarget.mp3"];
     
 }
@@ -222,7 +222,7 @@
     switch (type) {
         case AIM:
             //model init aimCross position?? now, init in gameLayer above
-            //[Viewer showAim:target inLayer:self];
+            [Viewer showAim:target inLayer:self];
             break;
         case ENEMY:
             
@@ -253,7 +253,7 @@
     //for test
     if(target.aux!=nil){
         CCNode *tg=(CCNode*)target.aux;
-        [Viewer NSLogDebug:self.debug withMsg:[NSString stringWithFormat:@"move target from (%f,%f) to (%f,%f)",tg.position.x,tg.position.y,target.x,target.y]];
+        //[Viewer NSLogDebug:self.debug withMsg:[NSString stringWithFormat:@"move target from (%f,%f) to (%f,%f)",tg.position.x,tg.position.y,target.x,target.y]];
         tg.position=ccp(target.x,target.y);
     }
     else{
@@ -269,7 +269,7 @@
     [self.background setPosition:ccp(x, y)];
     return BUBBLE_CONTINUE;
 }
-- (BUBBLE_RULE) impact: (Target *) target by: (Target *) target{
+- (BUBBLE_RULE) impact: (Target *) t1 by: (Target *) t2{
     return BUBBLE_CONTINUE;
 
 }
@@ -293,6 +293,7 @@
     else if([target isMemberOfClass:[Bomb class]]){
         return BOMB;
     }
-    return nil;
+    return UNKNOWN;
 }
+
 @end

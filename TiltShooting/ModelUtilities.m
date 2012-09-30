@@ -11,14 +11,23 @@
 
 @implementation ModelUtilities
 
-+ (float) devXInCanvasByAim {
++ (WALLS) devWallsInCanvasByAim {
     Model *m = [[Model class] instance];
-    return m.aim.x - 0.5 * m.deviceW;
+    WALLS walls = {0.f, 0.f, 0.f, 0.f};
+    walls.left = m.aim.x - 0.5 * m.deviceW;
+    walls.right = m.aim.x + 0.5 * m.deviceW;
+    walls.top = m.aim.y + 0.5 * m.deviceH;
+    walls.bottom = m.aim.y - 0.5 * m.deviceH;
+    return walls;
 }
 
-+ (float) devYInCanvasByAim {
-    Model *m = [[Model class] instance];
-    return m.aim.y - 0.5 * m.deviceH;
++ (WALLS) canvasWallsInDev {
+    WALLS walls = {0.f, 0.f, 0.f, 0.f};
+    walls.left = [[ModelUtilities class] canvasLeftWall];
+    walls.right = [[ModelUtilities class] canvasRightWall];
+    walls.top = [[ModelUtilities class] canvasTopWall];
+    walls.bottom = [[ModelUtilities class] canvasBottomWall];
+    return walls;
 }
 
 + (float) canvasLeftWall {
@@ -48,9 +57,11 @@
 + (float) d2cY:(float)yInDevice {
     return yInDevice - [[ModelUtilities class] canvasBottomWall];
 }
+
 + (float) c2dX:(float)xInCanvas {
     return xInCanvas + [[ModelUtilities class] canvasLeftWall];
 }
+
 + (float) c2dY:(float)yInCanvas {
     return yInCanvas + [[ModelUtilities class] canvasBottomWall];
 }

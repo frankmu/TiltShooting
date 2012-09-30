@@ -11,7 +11,7 @@
 #import "Model.h"
 #import "Aim.h"
 #import <CoreMotion/CoreMotion.h>
-#define DEFAULT_INTERVAL (1/60.f)
+#define DEFAULT_INTERVAL (1/100.f)
 @interface MotionProcessor()
 @property (strong) CMMotionManager *motionManager;
 @property (strong) CMAttitude *referenceAttitude;
@@ -128,17 +128,18 @@
 
 - (void) tilt: (CMAcceleration)grivaty interval: (NSTimeInterval)interval {
     /* code that haven't been optimized, just for easy-reading */
+    /* Note that the background must be larger than the device frame */
+    // cache old values
+    Model *model = [[Model class] instance];
+    float oldAimX = model.aim.x, oldAimY = model.aim.y;
+    float oldCanvasX = model.canvasX, oldCanvasY = model.canvasY;
     // compute raw increasement
     // I want the rate of movement to be more when user tilted more
     // which means I need a factor which combines grivaty (the "pow" part)
     float x = (float)(grivaty.x * 9.8 * interval * pow(fabs(grivaty.x) * 9.8, 2));
     float y = (float)(grivaty.y * 9.8 * interval * pow(fabs(grivaty.y) * 9.8, 2));
-    Model *model = [[Model class] instance];
     // get aim increasement
     float aimIncX = y, aimIncY = -x;
-    // get the old device left bottom point in the canvas frame
-    float oldDevXInCanvas = [[ModelUtilities class] devXInCanvasByAim];
-    float oldDevYInCanvas = [[ModelUtilities class] devYInCanvasByAim];
     /* this step is to make sure that the aim won't go outside of the canvas */
     // need to move aim first, canvas move will need te movement of aim
     model.aim.x += aimIncX;
@@ -149,30 +150,32 @@
     model.aim.y = model.aim.y < 0.f ? 0.f : model.aim.y;
     model.aim.y = model.aim.y > model.canvasH ? model.canvasH : model.aim.y;
     /* this step is to make sure that the canvas won't go ouside of the device frame */
-    // get the new device left bottom point in the canvas frame
-    float newDevXInCanvas = model.aim.x - 0.5 * model.deviceW;
-    float newDevYInCanvas = model.aim.y - 0.5 * model.deviceH;
-    // adjust the new point to within the canvas
-    newDevXInCanvas = newDevXInCanvas < 0.f ? 0.f : newDevXInCanvas;
-    newDevXInCanvas = newDevXInCanvas > model.canvasW ? model.canvasW : newDevXInCanvas;
-    newDevYInCanvas = newDevYInCanvas < 0.f ? 0.f : newDevYInCanvas;
-    newDevYInCanvas = newDevYInCanvas > model.canvasH ? model.canvasH : newDevYInCanvas;
-    // compute the gap between old and new device
-    float gapX = newDevXInCanvas - oldDevXInCanvas;
-    float gapY = newDevYInCanvas - oldDevYInCanvas;
-    // note that the gap of the device postion in canvas is the inverse value
-    // of the gap of the canvas position in device
-    float canvasIncX = - gapX;
-    float canvasIncY = - gapY;
-    // move canvas, not in the if statement, just for clear
-    [model setCanvasX:(model.canvasX + canvasIncX) Y:(model.canvasY + canvasIncY)];
-    // fire canvas or aim move event if there's non-zero movement happen
-    if (canvasIncX || canvasIncY) {
-        [model fireCanvasMoveEvent];
+    // get the new device walls in the canvas frame
+    WALLS devWalls = [[ModelUtilities class] devWallsInCanvasByAim];
+    if (devWalls.left < 0.f) {
+        model.canvasX = 0.5 * model.canvasW;
+    } else if (devWalls.right > model.canvasW) {
+        model.canvasX = model.deviceW - 0.5 * model.canvasW;
+    } else {
+        model.canvasX -= aimIncX;
     }
     
-    if (aimIncX || aimIncY) {
+    if (devWalls.bottom < 0.f) {
+        model.canvasY = 0.5 * model.canvasH;
+    } else if (devWalls.top > model.canvasH) {
+        model.canvasY = model.deviceH - 0.5 * model.canvasH;
+    } else {
+        model.canvasY -= aimIncY;
+    }
+    
+    // fire canvas or aim move event
+    
+    if (model.aim.x != oldAimX || model.aim.y != oldAimY) {
         [model fireTargetMoveEvent:model.aim];
+    }
+    
+    if (model.canvasX != oldCanvasX || model.canvasY != oldCanvasY) {
+        [model fireCanvasMoveEvent];
     }
 }
 

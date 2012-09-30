@@ -7,7 +7,7 @@
 //
 
 #import "Viewer.h"
-
+#import "Header.h"
 
 @implementation Viewer
 
@@ -29,6 +29,8 @@
     //[glayer.background addChild:SheetBulletHolesBig];
     [glayer.background addChild:bulletHoleBig z:1];
     bulletHoleBig.position=[Viewer viewToCanvas:glayer at:location];
+    id<ModelInterface> m = [[Model class] instance];
+    bulletHoleBig.position = ccp (m.aim.x, m.aim.y);
 
 }
 //temp for test
@@ -65,11 +67,10 @@
 +(void) showAim:(Target*)target inLayer:(CCLayer*)layer{
     //show aim for test
     GameLayer *glayer=(GameLayer*)layer;
-    CCSprite *aimCross=[CCSprite spriteWithFile:@"aimcross.png"];
-    aimCross.position =  ccp(target.x,target.y);
-    [glayer addChild:aimCross z:1 tag:1];
+    TargetSprite *tg=[CCSprite spriteWithFile:@"aimcross.png"];
+    [glayer.background addChild:tg z:10];
+    tg.position=ccp(target.x,target.y);
     NSLog(@"add AimCross at x=%f y=%f",target.x,target.y);
-    target.aux=aimCross;
-
+    target.aux=tg;
 }
 @end

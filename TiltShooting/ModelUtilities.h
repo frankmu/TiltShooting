@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #define DEBUG_INTERVAL (1.0)
+typedef struct {
+    float left;
+    float right;
+    float top;
+    float bottom;
+} WALLS, WALL_GAP;
+
 @interface ModelUtilities : NSObject
-+ (float) devXInCanvasByAim;
-+ (float) devYInCanvasByAim;
-+ (float) canvasLeftWall;
-+ (float) canvasRightWall;
-+ (float) canvasTopWall;
-+ (float) canvasBottomWall;
++ (WALLS) devWallsInCanvasByAim;
++ (WALLS) canvasWallsInDev;
 + (float) d2cX: (float) xInDevice;
 + (float) d2cY: (float) yInDevice;
 + (float) c2dX: (float) xInCanvas;
