@@ -149,9 +149,6 @@
         canvasChange = YES;
     }
     // move aim only if aim won't go out of canvas
-    if (<#condition#>) {
-        <#statements#>
-    }
     // fire canvas or aim move event
     if (canvasChange) {
         [model fireCanvasMoveEvent];
