@@ -122,4 +122,8 @@
     return BUBBLE_CONTINUE;
 }
 
+- (BUBBLE_RULE) gameInitFinished {
+    NSLog(@"Game init. finished");
+    return BUBBLE_CONTINUE;
+}
 @end

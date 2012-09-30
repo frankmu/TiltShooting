@@ -62,11 +62,12 @@
     // cancel a pre-existing timer.
     [self.timer invalidate];
     // init. new timer
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.flushInterval
+    NSTimer *timer = [NSTimer timerWithTimeInterval:self.flushInterval
                                                       target:self
-                                                    selector:@selector(run:)
+                                                    selector:@selector(runAsync:)
                                                     userInfo:nil
                                                      repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     self.timer = timer;
     NSLog(@"Motion Processor Resume");
 }
@@ -82,6 +83,12 @@
     [self pause];
     [self.motionManager stopDeviceMotionUpdates];
     NSLog(@"Motion Processor Stop");
+}
+
+- (void) runAsync: (NSTimer *)timer {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [self run:timer];
+    });
 }
 
 - (void) run: (NSTimer *)timer {
@@ -106,19 +113,53 @@
     [currentAttitude multiplyByInverseOfAttitude:self.referenceAttitude];
     // compute grivaty
     CMAcceleration grivaty = [self computeGrivaty:currentAttitude.rotationMatrix];
-    NSTimeInterval interval = motion.timestamp - self.lastTime;
-    double x = grivaty.x * 9.8 * interval * pow(fabs(grivaty.x) * 9.8, 2);
-    double y = grivaty.y * 9.8 * interval * pow(fabs(grivaty.y) * 9.8, 2);
-    Model *model = [[Model class] instance];
-    [model setCanvasX:model.canvasX + y Y:model.canvasY - x];
-    [model fireCanvasMoveEvent];
+    // deal with tilt
+    [self tilt:grivaty interval:(motion.timestamp - self.lastTime)];
     // output per second if debug is enabled
     [[ModelUtilities class] debugWithDetect:self.runningTimes
                                    interval:self.flushInterval
-                                     format:@"processed grivaty [%f, %f, %f]\ncanvas [%f, %f]",
-                                            grivaty.x, grivaty.y, grivaty.z, model.canvasX, model.canvasY];
+                                     format:@"processed grivaty [%f, %f, %f]",
+                                            grivaty.x, grivaty.y, grivaty.z];
     // update last time timestamp
     self.lastTime = motion.timestamp;
+}
+
+- (void) tilt: (CMAcceleration)grivaty interval: (NSTimeInterval)interval {
+    float x = (float)(grivaty.x * 9.8 * interval * pow(fabs(grivaty.x) * 9.8, 2));
+    float y = (float)(grivaty.y * 9.8 * interval * pow(fabs(grivaty.y) * 9.8, 2));
+    Model *model = [[Model class] instance];
+    // get increasement in x && y
+    float canvasIncX = -y, canvasIncY = x;
+    BOOL canvasChange = NO, aimChange = NO;
+    float aimIncX = -canvasIncX, aimIncY = -canvasIncY;
+    // get walls
+    float leftWall = model.canvasX - 0.5f * model.canvasW;
+    float bottomWall = model.canvasY - 0.5f * model.canvasH;
+    float topWall = model.canvasY + 0.5f * model.canvasH;
+    float rightWall = model.canvasX + 0.5f * model.canvasW;
+    // move canvas only if device won't go out of canvas
+    if (canvasIncX != 0.0f &&
+        !(leftWall + canvasIncX >= 0) && !(rightWall + canvasIncX <= 0)) {
+        model.canvasX += canvasIncX;
+        canvasChange = YES;
+    }
+    if (canvasIncY != 0.0f &&
+        !(bottomWall + canvasIncY >= 0 && !(topWall + canvasIncY <= 0))) {
+        model.canvasY += canvasIncY;
+        canvasChange = YES;
+    }
+    // move aim only if aim won't go out of canvas
+    if (<#condition#>) {
+        <#statements#>
+    }
+    // fire canvas or aim move event
+    if (canvasChange) {
+        [model fireCanvasMoveEvent];
+    }
+    
+    if (aimChange) {
+        [model fireTargetMoveEvent:model.aim];
+    }
 }
 
 - (CMAcceleration) computeGrivaty: (CMRotationMatrix)rotationMatrix {

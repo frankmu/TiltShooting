@@ -100,6 +100,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 
 - (void) addToCoreEventListenerlist: (id<CoreEventListener>) listener
                            priority: (int) priority {
+    //priority = priority > [self.listenerList ];
     [self.listenerList insertObject:listener atIndex:priority];
 }
 
@@ -111,11 +112,14 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 
 - (void) startWithLevel: (int) level {
     // for experiment
-    [[GameBrain class] initGameWithLevel:1];
-    [self.daemon start];
-    [self.motionProcessor start];
-    self.status = RUNNING;
-    NSLog(@"Model Start");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [[GameBrain class] initGameWithLevel:1];
+        [self.daemon start];
+        [self.motionProcessor start];
+        self.status = RUNNING;
+        [self fireGameInitFinishedEvent];
+        NSLog(@"Model Start");
+    });
 }
 
 - (void) pause {
