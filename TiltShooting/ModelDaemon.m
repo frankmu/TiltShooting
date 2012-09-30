@@ -34,11 +34,12 @@
     // cancel a pre-existing timer.
     [self.timer invalidate];
     // init. new timer
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.flushInterval
+    NSTimer *timer = [NSTimer timerWithTimeInterval:self.flushInterval
                                                       target:self
-                                                    selector:@selector(run:)
+                                                    selector:@selector(runAsync:)
                                                     userInfo:nil
                                                      repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     self.timer = timer;
     NSLog(@"Model Daemon Start");
 }
@@ -46,6 +47,12 @@
 - (void) stop {
     [self.timer invalidate];
     NSLog(@"Model Daemon Stop");
+}
+
+- (void) runAsync: (NSTimer *)timer {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self run:timer];
+    });
 }
 
 - (void) run: (NSTimer *) timer {

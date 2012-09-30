@@ -19,13 +19,13 @@ typedef enum {
 
 @optional
 /* target */
-- (BUBBLE_RULE) targetAppear: (Target *) target;
-- (BUBBLE_RULE) targetDisAppear: (Target *) target;
-- (BUBBLE_RULE) targetMove: (Target *) target;
-
+- (BUBBLE_RULE) targetAppear: (Target *)target;
+- (BUBBLE_RULE) targetDisAppear: (Target *)target;
+- (BUBBLE_RULE) targetMove: (Target *)target;
+- (BUBBLE_RULE) targetHit: (Target *)target;
+- (BUBBLE_RULE) impact: (Target *)target by: (Target *)target;
 /* other object */
-- (BUBBLE_RULE) canvasMovetoX: (float) x Y: (float) y;
-- (BUBBLE_RULE) impact: (Target *) target by: (Target *) target;
+- (BUBBLE_RULE) canvasMovetoX: (float)x Y: (float)y;
 
 /* game control signals */
 - (BUBBLE_RULE) gameInitFinished;

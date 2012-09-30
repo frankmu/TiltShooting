@@ -14,6 +14,7 @@
 
 #define DEFAULT_START_LEVEL 1
 #define DEFAULT_INTERVAL (1/30.f)
+typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 
 @interface Model()
 
@@ -99,6 +100,7 @@
 
 - (void) addToCoreEventListenerlist: (id<CoreEventListener>) listener
                            priority: (int) priority {
+    //priority = priority > [self.listenerList ];
     [self.listenerList insertObject:listener atIndex:priority];
 }
 
@@ -110,16 +112,19 @@
 
 - (void) startWithLevel: (int) level {
     // for experiment
-    [[GameBrain class] initGameWithLevel:1];
-    [self.daemon start];
-    [self.motionProcessor start];
-    self.status = RUNNING;
-    NSLog(@"Model Start");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [[GameBrain class] initGameWithLevel:1];
+        [self.daemon start];
+        [self.motionProcessor start];
+        self.status = RUNNING;
+        [self fireGameInitFinishedEvent];
+        NSLog(@"Model Start");
+    });
 }
 
 - (void) pause {
     [self.daemon stop];
-    [self.motionProcessor stop];
+    [self.motionProcessor pause];
     self.status = PAUSING;
 }
 
@@ -129,7 +134,7 @@
 
 - (void) resume {
     [self.daemon start];
-    [self.motionProcessor start];
+    [self.motionProcessor resume];
     self.status = RUNNING;
 }
 
@@ -152,11 +157,57 @@
     self.debug = NO;
 }
 
-- (void) fireCanvasMove {
+- (void) fireCanvasMoveEvent {
+    [self fireEvent:@selector(canvasMovetoX:Y:) with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE) [listener canvasMovetoX:self.canvasX Y:self.canvasY];
+    }];
+}
+
+- (void) fireTargetAppearEvent:(Target *)target {
+    [self fireTargetEvent:@selector(targetAppear:) withTarget:target];
+}
+
+- (void) fireTargetDisappearEvent:(Target *)target {
+    [self fireTargetEvent:@selector(targetDisAppear:) withTarget:target];
+}
+
+- (void) fireTargetMoveEvent:(Target *)target {
+    [self fireTargetEvent:@selector(targetMove:) withTarget:target];
+}
+
+- (void) fireTargetHitEvent:(Target *)target {
+    [self fireTargetEvent:@selector(targetHit:) withTarget:target];
+}
+
+- (void) fireTargetEvent:(SEL)handler withTarget:(Target *)target {
+    [self fireEvent:handler with: ^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE)[listener performSelector:@selector(handler) withObject:target];
+    }];
+}
+
+- (void) fireGameInitFinishedEvent {
+    [self fireEvent:@selector(gameInitFinished) with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE)[listener gameInitFinished];
+    }];
+}
+
+- (void) fireImpactEvent:(Target *)t1 by:(Target *)t2 {
+    [self fireEvent:@selector(impact:by:) with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE) [listener impact:t1 by:t2];
+    }];
+}
+
+- (void) fireEvent: (SEL)handler with: (fireEventBlock) block {
     dispatch_async(dispatch_get_main_queue(), ^ {
+        BUBBLE_RULE rule;
         for (id<CoreEventListener> listener in self.listenerList) {
-            [listener canvasMovetoX:self.canvasX Y:self.canvasY];
-        }
+            if ([listener respondsToSelector:handler]) {
+                rule = block(listener);
+                if (rule == BUBBLE_STOP) {
+                    return;
+                }// bubble detect
+            }// selector detect
+        }// foreach in listener list
     });
 }
 @end

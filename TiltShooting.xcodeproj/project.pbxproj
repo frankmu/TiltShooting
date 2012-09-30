@@ -27,6 +27,7 @@
 		AC66562C1612A36F004E4104 /* Rectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = AC66562B1612A36E004E4104 /* Rectangle.m */; };
 		AC66563B1612F064004E4104 /* MotionProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = AC66563A1612F063004E4104 /* MotionProcessor.m */; };
 		AC66564116144035004E4104 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC66564016144034004E4104 /* CoreMotion.framework */; };
+		AC6658A61616640D004E4104 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6658A51616640C004E4104 /* Default-568h@2x.png */; };
 		ACE3E2AF16095B1600976AFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2AE16095B1600976AFD /* QuartzCore.framework */; };
 		ACE3E2B116095B1600976AFD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B016095B1600976AFD /* OpenGLES.framework */; };
 		ACE3E2B316095B1600976AFD /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B216095B1600976AFD /* OpenAL.framework */; };
@@ -247,6 +248,7 @@
 		AC66563A1612F063004E4104 /* MotionProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionProcessor.m; sourceTree = "<group>"; };
 		AC66564016144034004E4104 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		AC66588516156745004E4104 /* ModelFullInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelFullInterface.h; sourceTree = "<group>"; };
+		AC6658A51616640C004E4104 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		ACE3E2AA16095B1600976AFD /* TiltShooting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiltShooting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE3E2AE16095B1600976AFD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ACE3E2B016095B1600976AFD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -695,6 +697,7 @@
 		ACE3E29F16095B1600976AFD = {
 			isa = PBXGroup;
 			children = (
+				AC6658A51616640C004E4104 /* Default-568h@2x.png */,
 				ACE3E2C016095B1600976AFD /* TiltShooting */,
 				ACE3E2AD16095B1600976AFD /* Frameworks */,
 				ACE3E2AB16095B1600976AFD /* Products */,
@@ -1362,6 +1365,7 @@
 				ACE3E2DA16095B1600976AFD /* iTunesArtwork in Resources */,
 				ACE3E41816095B1800976AFD /* ChangeLog in Resources */,
 				ACE3E4DB16095B1900976AFD /* blocks.png in Resources */,
+				AC6658A61616640D004E4104 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
