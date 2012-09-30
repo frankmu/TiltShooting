@@ -10,13 +10,17 @@
 #import "cocos2d.h"
 #import "TargetSprite.h"
 #import "WeaponSprite.h"
+#import "GameLayer.h"
 @interface Viewer : NSObject {
     
 }
-
++(void)NSLogDebug:(BOOL)debug withMsg:(NSString*)message;
 +(void) showMenuBackground:(CCLayer*)layer;
-+(void) showTarget:(TargetSprite*)target;
-+(void) showWeapon:(WeaponSprite*)weapon;
-
- 
++(void) showTarget:(Target*)target inLayer:(CCLayer*)layer;
++(void) showBomb:(Target*)target inLayer:(CCLayer*)layer;
++(void) showAim:(Target*)target inLayer:(CCLayer*)layer;
++(void) showWeapon:(WeaponSprite*)weapon inLayer:(CCLayer*)layer;
+//show a bullet hole
++(void) showBulletHole:(CCLayer*)layer atLocation:(CGPoint)location;
++(CGPoint)viewToCanvas:(CGPoint)location;
 @end

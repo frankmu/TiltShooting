@@ -14,5 +14,5 @@
     
 }
 @property (nonatomic, strong) MenuScene *menuScene;
-@property (nonatomic, strong) MenuLayer *menuLayer;
+@property (nonatomic, strong) CCLayer *menuLayer;
 @end

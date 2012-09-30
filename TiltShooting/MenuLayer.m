@@ -14,6 +14,7 @@
 
 @implementation MenuLayer
 
+@synthesize background;
 
 -(id)init{
 
@@ -21,15 +22,45 @@
         NSLog(@"init MenuLayer");
         CGSize size = [[CCDirector sharedDirector] winSize];
         // create and initialize a Label
-        CCLabelTTF *label = [CCLabelTTF labelWithString:@"Menu: Touch to play" fontName:@"Marker Felt" fontSize:48];
+        //CCLabelTTF *label = [CCLabelTTF labelWithString:@"Menu: Touch to play" fontName:@"Marker Felt" fontSize:48];
         // position the label on the center of the screen
-        label.position =  ccp( size.width /2 , size.height/2 );
-        self.label = label;
+        //label.position =  ccp( size.width /2 , size.height/2 );
+        
         // add the label as a child to this Layer
-        [self addChild: label];    
-        // register to model event listener
+        //[self addChild: label z:0 tag:1];
+        
+		// Load background 480*320 this time
+		background = [CCSprite spriteWithFile:@"menu_background.png"];
+		[self addChild:background z:0 tag:9];
+        background.position=ccp( size.width /2 , size.height/2 );
+        
+        //add 4 buttons
+        CCMenuItemImage *newGame = [CCMenuItemImage itemFromNormalImage:@"menu_button1.png" selectedImage:@"menu_button1_sel.png" disabledImage:nil target:self selector:@selector(stratNewGame:)];
+        newGame.position=ccp(100,75);
+        
+        CCMenuItemImage *loadGame = [CCMenuItemImage itemFromNormalImage:@"menu_button2.png" selectedImage:@"menu_button2_sel.png" disabledImage:nil target:self selector:@selector(stratNewGame:)];
+        loadGame.position=ccp(100,20);
+        
+        CCMenuItemImage *settings = [CCMenuItemImage itemFromNormalImage:@"menu_button3.png" selectedImage:@"menu_button3_sel.png" disabledImage:nil target:self selector:@selector(setOptions:)];
+        settings.position=ccp(100,-35);
+        CCMenuItemImage *help = [CCMenuItemImage itemFromNormalImage:@"menu_button4.png" selectedImage:@"menu_button4_sel.png" disabledImage:nil target:self selector:@selector(showHelp:)];
+        help.position=ccp(100,-90);
+        
+        [CCMenuItemFont setFontSize:25];
+        
+        //disable 2 buttons
+        [loadGame setIsEnabled:NO];
+        [settings setIsEnabled:NO];
+        
+        //add the buttons to the layer
+        CCMenu *mn = [CCMenu menuWithItems:newGame, loadGame, settings, help, nil];
+        //[mn alignItemsVertically];
+        [self addChild:mn z:1 tag:2];
+        
+        /*// register to model event listener
         id<ModelInterface>  model = [[Model class] instance];
         [model addToCoreEventListenerList:self];
+         */
     }
     return self;
 }
@@ -62,7 +93,11 @@
     
 }
 //start new game at certain level//(int)stage
--(void) startNewGame:(int)level{
+-(void) stratNewGame:(id)sender{
+    CCScene *scene=[[MainScene node] initWithLevel:1];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
+}
+-(void) startNewGame:(id)sender withLevel:(int)level{
     
 }
 // Load Game //maybe multiple records
@@ -72,15 +107,16 @@
     
 }
 // adjust volumn, etc
--(void) setOptions{
+-(void) setOptions:(id)sender{
     //show optionScene
 }
 //help
 
--(void) showHelp{
+-(void) showHelp:(id)sender{
     
     //show helpScene
-    
+    CCScene *scene=[HelperScene node];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
 }
 
 // register to get touches input
@@ -92,15 +128,13 @@
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     NSLog(@"Menu Touch Began");
-    NSLog(@"for model test only");
+    /*NSLog(@"for model test only");
     id<ModelInterface> model = [[Model class] instance];
     if (model.status == RUNNING) {
-        [model pause];
-    } else if (model.status == STOPPED) {
+        [model stop];
+    } else {
         [model start];
-    } else if (model.status == PAUSING) {
-        [model resume];
-    }
+    }*/
     return YES;
 }
 -(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
@@ -122,8 +156,18 @@
     return BUBBLE_CONTINUE;
 }
 
-- (BUBBLE_RULE) gameInitFinished {
-    NSLog(@"Game init. finished");
-    return BUBBLE_CONTINUE;
+/*- (void) newGame:(id) sender {
+    //change to new game scene
+    //[[CCDirector sharedDirector] replaceScene: [CCSlideInRTransition transitionWithDuration:1.2f scene:sc]];
+    CCScene *scene=[[MainScene node] initWithLevel:1];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
 }
+ */
+/*- (void) help:(id) sender {
+    //change to help scene
+    //[[CCDirector sharedDirector] replaceScene: [CCSlideInRTransition transitionWithDuration:1.2f scene:sc]];
+    CCScene *scene=[HelperScene node];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
+ }
+ */
 @end

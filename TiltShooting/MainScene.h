@@ -15,7 +15,7 @@
     
 }
 @property (nonatomic, strong) MainScene *myScene;
-@property (nonatomic, strong) GameLayer *gameLayer;
+//@property (nonatomic, strong) GameLayer *gameLayer;
 // Great the mainScene with gameLayer as its child
 +(id) ShowScene:(int)level;
 -(id) initWithLevel:(int)level;
