@@ -156,18 +156,4 @@
     return BUBBLE_CONTINUE;
 }
 
-/*- (void) newGame:(id) sender {
-    //change to new game scene
-    //[[CCDirector sharedDirector] replaceScene: [CCSlideInRTransition transitionWithDuration:1.2f scene:sc]];
-    CCScene *scene=[[MainScene node] initWithLevel:1];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
-}
- */
-/*- (void) help:(id) sender {
-    //change to help scene
-    //[[CCDirector sharedDirector] replaceScene: [CCSlideInRTransition transitionWithDuration:1.2f scene:sc]];
-    CCScene *scene=[HelperScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
- }
- */
 @end

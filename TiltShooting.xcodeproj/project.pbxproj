@@ -39,6 +39,11 @@
 		AC66563B1612F064004E4104 /* MotionProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = AC66563A1612F063004E4104 /* MotionProcessor.m */; };
 		AC66564116144035004E4104 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC66564016144034004E4104 /* CoreMotion.framework */; };
 		AC6658A61616640D004E4104 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6658A51616640C004E4104 /* Default-568h@2x.png */; };
+		AC6658B01618412F004E4104 /* nightsky.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6658AF1618412F004E4104 /* nightsky.png */; };
+		AC6658B316184181004E4104 /* aimcross.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6658B216184181004E4104 /* aimcross.png */; };
+		ACD93CE516185D6500FB1FC7 /* bricktargetgreen.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD93CE216185D6500FB1FC7 /* bricktargetgreen.png */; };
+		ACD93CE616185D6500FB1FC7 /* bricktargetred.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD93CE316185D6500FB1FC7 /* bricktargetred.png */; };
+		ACD93CE716185D6500FB1FC7 /* bulletholesbig.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD93CE416185D6500FB1FC7 /* bulletholesbig.png */; };
 		ACE3E2AF16095B1600976AFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2AE16095B1600976AFD /* QuartzCore.framework */; };
 		ACE3E2B116095B1600976AFD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B016095B1600976AFD /* OpenGLES.framework */; };
 		ACE3E2B316095B1600976AFD /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B216095B1600976AFD /* OpenAL.framework */; };
@@ -271,6 +276,11 @@
 		AC66564016144034004E4104 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		AC66588516156745004E4104 /* ModelFullInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelFullInterface.h; sourceTree = "<group>"; };
 		AC6658A51616640C004E4104 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		AC6658AF1618412F004E4104 /* nightsky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nightsky.png; path = ../../../Downloads/nightsky.png; sourceTree = "<group>"; };
+		AC6658B216184181004E4104 /* aimcross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = aimcross.png; path = ../../../Downloads/aimcross.png; sourceTree = "<group>"; };
+		ACD93CE216185D6500FB1FC7 /* bricktargetgreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bricktargetgreen.png; path = "../../../Downloads/resource(1)/bricktargetgreen.png"; sourceTree = "<group>"; };
+		ACD93CE316185D6500FB1FC7 /* bricktargetred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bricktargetred.png; path = "../../../Downloads/resource(1)/bricktargetred.png"; sourceTree = "<group>"; };
+		ACD93CE416185D6500FB1FC7 /* bulletholesbig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bulletholesbig.png; path = "../../../Downloads/resource(1)/bulletholesbig.png"; sourceTree = "<group>"; };
 		ACE3E2AA16095B1600976AFD /* TiltShooting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiltShooting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE3E2AE16095B1600976AFD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ACE3E2B016095B1600976AFD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -770,6 +780,11 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ACD93CE216185D6500FB1FC7 /* bricktargetgreen.png */,
+				ACD93CE316185D6500FB1FC7 /* bricktargetred.png */,
+				ACD93CE416185D6500FB1FC7 /* bulletholesbig.png */,
+				AC6658B216184181004E4104 /* aimcross.png */,
+				AC6658AF1618412F004E4104 /* nightsky.png */,
 				96728D1E16183E9B008A21CE /* menu_background.png */,
 				96728CE716183D74008A21CE /* menu_button1_sel.png */,
 				96728D0E16183E40008A21CE /* menu_button1.png */,
@@ -1410,6 +1425,11 @@
 				96728D1C16183E40008A21CE /* menu_button4_sel.png in Resources */,
 				96728D1D16183E40008A21CE /* menu_button4.png in Resources */,
 				96728D1F16183E9B008A21CE /* menu_background.png in Resources */,
+				AC6658B01618412F004E4104 /* nightsky.png in Resources */,
+				AC6658B316184181004E4104 /* aimcross.png in Resources */,
+				ACD93CE516185D6500FB1FC7 /* bricktargetgreen.png in Resources */,
+				ACD93CE616185D6500FB1FC7 /* bricktargetred.png in Resources */,
+				ACD93CE716185D6500FB1FC7 /* bulletholesbig.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
