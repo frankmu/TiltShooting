@@ -10,26 +10,20 @@
 #import "cocos2d.h"
 #import "WeaponSprite.h"
 #import "CoreEventListener.h"
+#import "ModelInterface.h"
+#import "MenuScene.h"
+#import "Viewer.h"
+
+typedef enum {
+    AIM,
+    ENEMY,
+    BOMB
+} TARGET_TYPE;
 
 @interface GameLayer : CCLayer <CoreEventListener>{
-    CCSprite *spriteExplode;
-	CCSprite *spriteExplodeBig;
-	
-	
-	
-	
-	//TankSprite *tank;
-	
-	//CCTMXTiledMap *gameWorld;
-	
-	float viewOrgX, viewOrgY, viewOrgZ;
-	
-	float screenWidth, screenHeight, tileSize;
-	
-	float mapX, mapY;
-	
 
 }
+@property BOOL debug;
 @property int level;
 @property(nonatomic,strong) CCSprite *background;   //background pic of main scene
 @property(nonatomic,strong) CCSprite *aimCross;     //aim cross in the middle
@@ -39,9 +33,5 @@
 @property(nonatomic,strong) CCLabelTTF *targetLeft;    //count the left targets******* (CCLabelBMFont )
 
 @property(nonatomic,strong) WeaponSprite *weapon; // guns, no gun yet
-// change the position of bg , check bg edges
-- (void) setWorldPositionX:(float)x Y:(float)y;
 
-//get acceleration from mainscene, check
--(void) checkMove: (UIAcceleration *)acceleration;
 @end

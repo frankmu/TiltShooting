@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "MainScene.h"
-@interface MenuLayer : CCLayer <CoreEventListener>
--(void) loadGame:(int)recoredNumber;
--(void) startNewGame:(int)level;
+#import "OptionScene.h"
+#import "HelperScene.h"
+@interface MenuLayer : CCLayer <CoreEventListener>{
+
+}
+@property(nonatomic,strong) CCSprite *background;
+
 
 @end

@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-
+#import "MenuScene.h"
 @interface HelperScene : CCScene {
     
 }
-
+@property(nonatomic,strong) CCSprite *background;
 @end
+
