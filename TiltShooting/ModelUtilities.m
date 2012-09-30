@@ -11,26 +11,48 @@
 
 @implementation ModelUtilities
 
-+ (float) d2cX:(float)xInDevice {
++ (float) devXInCanvasByAim {
     Model *m = [[Model class] instance];
-    xInDevice -= m.canvasX;
-    return xInDevice;
+    return m.aim.x - 0.5 * m.deviceW;
+}
+
++ (float) devYInCanvasByAim {
+    Model *m = [[Model class] instance];
+    return m.aim.y - 0.5 * m.deviceH;
+}
+
++ (float) canvasLeftWall {
+    Model *m = [[Model class] instance];
+    return m.canvasX - 0.5f * m.canvasW;
+}
+
++ (float) canvasRightWall {
+    Model *m = [[Model class] instance];
+    return m.canvasX + 0.5f * m.canvasW;
+}
+
++ (float) canvasBottomWall {
+    Model *m = [[Model class] instance];
+    return m.canvasY - 0.5f * m.canvasH;
+}
+
++ (float) canvasTopWall {
+    Model *m = [[Model class] instance];
+    return m.canvasY + 0.5f * m.canvasH;
+}
+
++ (float) d2cX:(float)xInDevice {
+    return xInDevice - [[ModelUtilities class] canvasLeftWall];
 }
 
 + (float) d2cY:(float)yInDevice {
-    Model *m = [[Model class] instance];
-    yInDevice -= m.canvasY;
-    return yInDevice;
+    return yInDevice - [[ModelUtilities class] canvasBottomWall];
 }
 + (float) c2dX:(float)xInCanvas {
-    Model *m = [[Model class] instance];
-    xInCanvas += m.canvasX;
-    return xInCanvas;
+    return xInCanvas + [[ModelUtilities class] canvasLeftWall];
 }
 + (float) c2dY:(float)yInCanvas {
-    Model *m = [[Model class] instance];
-    yInCanvas += m.canvasY;
-    return yInCanvas;
+    return yInCanvas + [[ModelUtilities class] canvasBottomWall];
 }
 
 + (float) radian2degree:(float)radian {

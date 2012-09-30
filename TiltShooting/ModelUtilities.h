@@ -9,7 +9,12 @@
 #import <Foundation/Foundation.h>
 #define DEBUG_INTERVAL (1.0)
 @interface ModelUtilities : NSObject
-
++ (float) devXInCanvasByAim;
++ (float) devYInCanvasByAim;
++ (float) canvasLeftWall;
++ (float) canvasRightWall;
++ (float) canvasTopWall;
++ (float) canvasBottomWall;
 + (float) d2cX: (float) xInDevice;
 + (float) d2cY: (float) yInDevice;
 + (float) c2dX: (float) xInCanvas;

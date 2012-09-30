@@ -116,45 +116,62 @@
     // deal with tilt
     [self tilt:grivaty interval:(motion.timestamp - self.lastTime)];
     // output per second if debug is enabled
+    Model *m = [[Model class] instance];
     [[ModelUtilities class] debugWithDetect:self.runningTimes
                                    interval:self.flushInterval
-                                     format:@"processed grivaty [%f, %f, %f]",
-                                            grivaty.x, grivaty.y, grivaty.z];
+                                     format:@"processed grivaty [%f, %f, %f]\ncanvas [%f, %f]",
+                                            grivaty.x, grivaty.y, grivaty.z,
+                                            m.canvasX, m.canvasY];
     // update last time timestamp
     self.lastTime = motion.timestamp;
 }
 
 - (void) tilt: (CMAcceleration)grivaty interval: (NSTimeInterval)interval {
+    /* code that haven't been optimized, just for easy-reading */
+    // compute raw increasement
+    // I want the rate of movement to be more when user tilted more
+    // which means I need a factor which combines grivaty (the "pow" part)
     float x = (float)(grivaty.x * 9.8 * interval * pow(fabs(grivaty.x) * 9.8, 2));
     float y = (float)(grivaty.y * 9.8 * interval * pow(fabs(grivaty.y) * 9.8, 2));
     Model *model = [[Model class] instance];
-    // get increasement in x && y
-    float canvasIncX = -y, canvasIncY = x;
-    BOOL canvasChange = NO, aimChange = NO;
-    float aimIncX = -canvasIncX, aimIncY = -canvasIncY;
-    // get walls
-    float leftWall = model.canvasX - 0.5f * model.canvasW;
-    float bottomWall = model.canvasY - 0.5f * model.canvasH;
-    float topWall = model.canvasY + 0.5f * model.canvasH;
-    float rightWall = model.canvasX + 0.5f * model.canvasW;
-    // move canvas only if device won't go out of canvas
-    if (canvasIncX != 0.0f &&
-        !(leftWall + canvasIncX >= 0) && !(rightWall + canvasIncX <= 0)) {
-        model.canvasX += canvasIncX;
-        canvasChange = YES;
-    }
-    if (canvasIncY != 0.0f &&
-        !(bottomWall + canvasIncY >= 0 && !(topWall + canvasIncY <= 0))) {
-        model.canvasY += canvasIncY;
-        canvasChange = YES;
-    }
-    // move aim only if aim won't go out of canvas
-    // fire canvas or aim move event
-    if (canvasChange) {
+    // get aim increasement
+    float aimIncX = y, aimIncY = -x;
+    // get the old device left bottom point in the canvas frame
+    float oldDevXInCanvas = [[ModelUtilities class] devXInCanvasByAim];
+    float oldDevYInCanvas = [[ModelUtilities class] devYInCanvasByAim];
+    /* this step is to make sure that the aim won't go outside of the canvas */
+    // need to move aim first, canvas move will need te movement of aim
+    model.aim.x += aimIncX;
+    model.aim.y += aimIncY;
+    // check if aim out of canvas and adjust it to go within the canvas
+    model.aim.x = model.aim.x < 0.f ? 0.f : model.aim.x;
+    model.aim.x = model.aim.x > model.canvasW ? model.canvasW : model.aim.x;
+    model.aim.y = model.aim.y < 0.f ? 0.f : model.aim.y;
+    model.aim.y = model.aim.y > model.canvasH ? model.canvasH : model.aim.y;
+    /* this step is to make sure that the canvas won't go ouside of the device frame */
+    // get the new device left bottom point in the canvas frame
+    float newDevXInCanvas = model.aim.x - 0.5 * model.deviceW;
+    float newDevYInCanvas = model.aim.y - 0.5 * model.deviceH;
+    // adjust the new point to within the canvas
+    newDevXInCanvas = newDevXInCanvas < 0.f ? 0.f : newDevXInCanvas;
+    newDevXInCanvas = newDevXInCanvas > model.canvasW ? model.canvasW : newDevXInCanvas;
+    newDevYInCanvas = newDevYInCanvas < 0.f ? 0.f : newDevYInCanvas;
+    newDevYInCanvas = newDevYInCanvas > model.canvasH ? model.canvasH : newDevYInCanvas;
+    // compute the gap between old and new device
+    float gapX = newDevXInCanvas - oldDevXInCanvas;
+    float gapY = newDevYInCanvas - oldDevYInCanvas;
+    // note that the gap of the device postion in canvas is the inverse value
+    // of the gap of the canvas position in device
+    float canvasIncX = - gapX;
+    float canvasIncY = - gapY;
+    // move canvas, not in the if statement, just for clear
+    [model setCanvasX:(model.canvasX + canvasIncX) Y:(model.canvasY + canvasIncY)];
+    // fire canvas or aim move event if there's non-zero movement happen
+    if (canvasIncX || canvasIncY) {
         [model fireCanvasMoveEvent];
     }
     
-    if (aimChange) {
+    if (aimIncX || aimIncY) {
         [model fireTargetMoveEvent:model.aim];
     }
 }
