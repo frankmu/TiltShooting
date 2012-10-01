@@ -58,7 +58,7 @@
         
         //disable 2 buttons
         [loadGame setIsEnabled:NO];
-        [settings setIsEnabled:NO];
+        //[settings setIsEnabled:NO];
         
         //add the buttons to the layer
         CCMenu *mn = [CCMenu menuWithItems:newGame, loadGame, settings, help, nil];
@@ -132,7 +132,12 @@
 }
 // adjust volumn, etc
 -(void) setOptions:(id)sender{
+    for (int i=0; i<BULLETNUM; i++) {
+        [self showBulletHoleOnButton:sender];
+    }
     //show optionScene
+   // CCScene *scene=[OptionScene node];
+   // [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
 }
 //help
 
