@@ -95,7 +95,7 @@
 -(void) onExit{
     
     //stop bg music
-    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    //[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
     [super onExit];
 
 }
