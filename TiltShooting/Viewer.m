@@ -22,10 +22,22 @@
 
 
 }
+//show bullet hole at point on view window
++(void) showBulletHole:(CCLayer*)layer atPoint:(CGPoint)location{
+    int i= arc4random() % 12;
+    CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
+    //[glayer.background addChild:SheetBulletHolesBig];
+    [layer addChild:bulletHoleBig z:2];
+    bulletHoleBig.position = location;
+
+}
+//show bullet hole at location of aimcross
 +(void) showBulletHole:(CCLayer*)layer atLocation:(CGPoint)location{
     GameLayer *glayer=(GameLayer*)layer;
     //CCSpriteBatchNode *SheetBulletHolesBig = [CCSpriteBatchNode batchNodeWithFile:@"bulletholesbig.png" capacity:12];
-    CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(0,0,40,40)];
+    //random hole in 12 types
+    int i= arc4random() % 12;
+    CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
     //[glayer.background addChild:SheetBulletHolesBig];
     [glayer.background addChild:bulletHoleBig z:1];
     bulletHoleBig.position=[Viewer viewToCanvas:glayer at:location];

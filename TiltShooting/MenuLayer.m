@@ -8,8 +8,15 @@
 
 #import "MenuLayer.h"
 #import "Model.h"
+#import "SimpleAudioEngine.h"
+
+#define BULLETNUM 2
 @interface MenuLayer()
 @property (weak) CCLabelTTF *label;
+@property (weak) CCMenuItemImage *startNewGame;
+@property (weak) CCMenuItemImage *loadGame;
+@property (weak) CCMenuItemImage *settings;
+@property (weak) CCMenuItemImage *help;
 @end
 
 @implementation MenuLayer
@@ -37,15 +44,16 @@
         //add 4 buttons
         CCMenuItemImage *newGame = [CCMenuItemImage itemFromNormalImage:@"menu_button1.png" selectedImage:@"menu_button1_sel.png" disabledImage:nil target:self selector:@selector(stratNewGame:)];
         newGame.position=ccp(100,75);
-        
-        CCMenuItemImage *loadGame = [CCMenuItemImage itemFromNormalImage:@"menu_button2.png" selectedImage:@"menu_button2_sel.png" disabledImage:nil target:self selector:@selector(stratNewGame:)];
+        self.startNewGame=newGame;
+        CCMenuItemImage *loadGame= [CCMenuItemImage itemFromNormalImage:@"menu_button2.png" selectedImage:@"menu_button2_sel.png" disabledImage:nil target:self selector:@selector(stratNewGame:)];
         loadGame.position=ccp(100,20);
-        
+        self.loadGame=loadGame;
         CCMenuItemImage *settings = [CCMenuItemImage itemFromNormalImage:@"menu_button3.png" selectedImage:@"menu_button3_sel.png" disabledImage:nil target:self selector:@selector(setOptions:)];
         settings.position=ccp(100,-35);
+        self.settings=settings;
         CCMenuItemImage *help = [CCMenuItemImage itemFromNormalImage:@"menu_button4.png" selectedImage:@"menu_button4_sel.png" disabledImage:nil target:self selector:@selector(showHelp:)];
         help.position=ccp(100,-90);
-        
+        self.help=help;
         [CCMenuItemFont setFontSize:25];
         
         //disable 2 buttons
@@ -55,12 +63,16 @@
         //add the buttons to the layer
         CCMenu *mn = [CCMenu menuWithItems:newGame, loadGame, settings, help, nil];
         //[mn alignItemsVertically];
+        //mn.position=ccp(350,150);
         [self addChild:mn z:1 tag:2];
         
         /*// register to model event listener
         id<ModelInterface>  model = [[Model class] instance];
         [model addToCoreEventListenerList:self];
          */
+        //preload menubgmusic
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"Rifle_Gunshot.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"menumusic_10s.mp3"];
     }
     return self;
 }
@@ -75,11 +87,18 @@
     
     // Enable touch
     [self setIsTouchEnabled:YES];
-    
+    //play bg music
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"menumusic_10s.mp3" loop:YES];
 	// In one second transition to the new scene
 	//[self scheduleOnce:@selector(makeTransition:) delay:1];
 }
+-(void) onExit{
+    
+    //stop bg music
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    [super onExit];
 
+}
 //tell director transfer to mainScene
 -(void) makeTransition:(ccTime)dt
 {
@@ -94,8 +113,13 @@
 }
 //start new game at certain level//(int)stage
 -(void) stratNewGame:(id)sender{
+
+    for (int i=0; i<BULLETNUM; i++) {        
+        [self showBulletHoleOnButton:sender];
+    }
+    
     CCScene *scene=[[MainScene node] initWithLevel:1];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
 }
 -(void) startNewGame:(id)sender withLevel:(int)level{
     
@@ -113,12 +137,23 @@
 //help
 
 -(void) showHelp:(id)sender{
-    
+    for (int i=0; i<BULLETNUM; i++) {
+        [self showBulletHoleOnButton:sender];
+    }
     //show helpScene
     CCScene *scene=[HelperScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
 }
-
+//show bullet holes effect on a button
+-(void) showBulletHoleOnButton:(CCMenuItemImage*)button{
+    //randomly show a bullet hole
+    float w = (CCRANDOM_0_1()-0.5) * button.contentSize.width;
+    float h = (CCRANDOM_0_1()-0.5) * button.contentSize.height;
+    //? seems menu treat center as (0,0)
+    [Viewer showBulletHole:self atPoint:ccp(button.position.x+w+240,button.position.y+h+160)];
+    // NSLog(@"show bullethole at x=%f y=%f",button.position.x+w+240,button.position.y+h+160);
+    [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
+}
 // register to get touches input
 -(void) registerWithTouchDispatcher
 {

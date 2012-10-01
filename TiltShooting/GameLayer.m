@@ -114,7 +114,7 @@
 		
         //preload sound effetc
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"Rifle_GunShot.mp3"];
-		
+		[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"bgmusic1_15s.mp3"];
         //show weapon
         //[Viewer showWeapon:self];
         // register to model event listener
@@ -138,8 +138,9 @@
      id<ModelInterface> model = [[Model class] instance];
     [Viewer NSLogDebug:self.debug withMsg:@"start model"];
     [model start];
-     
-
+    //play bg music
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"bgmusic1_15s.mp3"];
+    
     // Enable touch
     [self setIsTouchEnabled:YES];
     [Viewer NSLogDebug:self.debug withMsg:@"enable gameLayer touch"];
