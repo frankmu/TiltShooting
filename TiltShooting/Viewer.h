@@ -25,4 +25,5 @@
 //show bullet hole at location of aimcross
 +(void) showBulletHole:(CCLayer*)layer atLocation:(CGPoint)location;
 +(CGPoint)viewToCanvas:(CGPoint)location;
+
 @end

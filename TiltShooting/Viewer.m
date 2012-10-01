@@ -43,8 +43,14 @@
     bulletHoleBig.position=[Viewer viewToCanvas:glayer at:location];
     id<ModelInterface> m = [[Model class] instance];
     bulletHoleBig.position = ccp (m.aim.x, m.aim.y);
-
+    //remove after 2s
+    CCSequence *sequence=[CCSequence actions:
+                          [CCDelayTime actionWithDuration:2],
+                           [CCCallFuncO actionWithTarget:glayer selector:@selector(removeChildFromParent:) object:bulletHoleBig],
+                           nil];
+    [bulletHoleBig runAction:sequence];
 }
+
 //temp for test
 +(CGPoint)viewToCanvas:(GameLayer*)layer at:(CGPoint)location{
 #define CANVASW 1440
@@ -53,6 +59,7 @@
     CGPoint p=ccp(location.x+CANVASW/2-layer.background.position.x,location.y+CANVASH/2-layer.background.position.y);
     return p;
 }
+
 +(void) showTarget:(Target*)target inLayer:(CCLayer*)layer{
     GameLayer *glayer=(GameLayer*)layer;
     

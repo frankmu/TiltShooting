@@ -167,7 +167,9 @@
     CCScene *sc = [MenuScene node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
 }
-
+-(void)removeChildFromParent:(CCNode*)child{
+    [child removeFromParentAndCleanup:YES];
+}
 //************ Handle GameLayer Touch *******************//
 // register to get touches input
 -(void) registerWithTouchDispatcher

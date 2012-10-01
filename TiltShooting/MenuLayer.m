@@ -152,8 +152,9 @@
 //show bullet holes effect on a button
 -(void) showBulletHoleOnButton:(CCMenuItemImage*)button{
     //randomly show a bullet hole
-    float w = (CCRANDOM_0_1()-0.5) * button.contentSize.width;
-    float h = (CCRANDOM_0_1()-0.5) * button.contentSize.height;
+    
+    float w = CCRANDOM_MINUS1_1() * button.contentSize.width/2;  //((float)arc4random()/RAND_MAX)-0.5)
+    float h = CCRANDOM_MINUS1_1() * button.contentSize.height/2;
     //? seems menu treat center as (0,0)
     [Viewer showBulletHole:self atPoint:ccp(button.position.x+w+240,button.position.y+h+160)];
     // NSLog(@"show bullethole at x=%f y=%f",button.position.x+w+240,button.position.y+h+160);
