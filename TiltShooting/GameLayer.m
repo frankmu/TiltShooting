@@ -22,7 +22,7 @@
 @synthesize SheetExplode;
 @synthesize SheetExplodeBig;
 @synthesize targetLeft;
-
+@synthesize shootMode;
 
 // on "init" you need to initialize your instance
 -(id) init
@@ -62,7 +62,7 @@
         //[self addChild:aimCross z:1 tag:1];
         //[Viewer NSLogDebug:self.debug withMsg:@"init gameLayer aimcross"];
         //init back to menu button
-        [CCMenuItemFont setFontSize:20];
+        [CCMenuItemFont setFontSize:30];
 		CCMenuItem *backToMenu = [CCMenuItemFont itemFromString:@"Menu" target:self selector:@selector(onBackToMenu:)];
 		CCMenu *mn = [CCMenu menuWithItems:backToMenu, nil];
 		[mn alignItemsVertically];
@@ -112,6 +112,16 @@
 		spriteExplodeBig.position = ccp(240, 160);
 		[spriteExplodeBig setVisible:NO];
 		
+        //select shoot mode button
+        CCMenuItem *shootModeButton = [CCMenuItemFont itemFromString:@"     " target:self selector:@selector(changeShootMode:)];
+		CCMenu *mn2= [CCMenu menuWithItems:shootModeButton, nil];
+        [self addChild:mn2 z:1];
+		mn2.position = ccp (150, 30);
+        
+        shootMode=[CCSprite spriteWithFile:@"bullet_single_multi.png"   rect:CGRectMake(0, 0,50,50)];
+        [self addChild:shootMode z:2];
+        shootMode.position=ccp(150,30);
+        
         //preload sound effetc
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"Rifle_GunShot.mp3"];
 		[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"bgmusic1_15s.mp3"];
@@ -141,6 +151,8 @@
     //play bg music
     [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"bgmusic1_15s.mp3"];
     
+    //set shoot mode: default single shoot
+    [self setMultiShoot:NO];
     // Enable touch
     [self setIsTouchEnabled:YES];
     [Viewer NSLogDebug:self.debug withMsg:@"enable gameLayer touch"];
@@ -170,6 +182,33 @@
 -(void)removeChildFromParent:(CCNode*)child{
     [child removeFromParentAndCleanup:YES];
 }
+//change shoot mode , show button animation
+-(void) changeShootMode:(id)sender{
+    CCSpriteBatchNode *shootModeSheet = [CCSpriteBatchNode batchNodeWithFile:@"bullet_single_multi.png" capacity:2];
+    [self addChild:shootModeSheet];
+    CCAnimation *ans = [CCAnimation animationWithFrames:nil  delay:0.2f];
+    if(self.multiShoot){ //change to single
+        NSLog(@"change to single shoot mode");
+        /*[ans addSpriteFrameWithTexture:shootModeSheet.texture rect:CGRectMake(50, 0, 50, 50)];
+        [ans addSpriteFrameWithTexture:shootModeSheet.texture rect:CGRectMake(0, 0, 50, 50)];
+        [self.shootMode runAction:[CCAnimate actionWithAnimation:ans restoreOriginalFrame:NO]];
+         */
+        [self setMultiShoot:NO];
+    [self.shootMode  setDisplayFrame:[CCSpriteFrame frameWithTextureFilename:@"bullet_single_multi.png" rect:CGRectMake(0, 0, 50, 50)]];
+    //self.shootMode=[CCSprite spriteWithFile:@"bullet_single_multi.png" rect:CGRectMake(50, 0, 50, 50)];
+    [self.shootMode runAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.5 scale:1.3],[CCScaleTo actionWithDuration:0.5 scale:1], nil]];
+        
+    }
+    else{ //change to multi
+        NSLog(@"change to single shoot mode");
+        [self setMultiShoot:YES];
+        [self.shootMode  setDisplayFrame:[CCSpriteFrame frameWithTextureFilename:@"bullet_single_multi.png" rect:CGRectMake(50, 0, 50, 50)]];
+        //self.shootMode=[CCSprite spriteWithFile:@"bullet_single_multi.png" rect:CGRectMake(50, 0, 50, 50)];
+        [self.shootMode runAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.5 scale:1.3],[CCScaleTo actionWithDuration:0.5 scale:1], nil]];
+    }
+    
+    
+}
 //************ Handle GameLayer Touch *******************//
 // register to get touches input
 -(void) registerWithTouchDispatcher
@@ -187,7 +226,13 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     NSLog(@"x=%f y=%f",location.x,location.y);
      */
-    [self schedule:@selector(fireWeapon) interval:0.1 repeat:0 delay:0];
+    if(self.multiShoot){
+        [self schedule:@selector(fireWeapon) interval:0.1];
+    }
+    else{//single shoot mode
+        
+        [self schedule:@selector(fireWeapon) interval:0.1 repeat:0 delay:0];
+    }
     return YES;
 }
 
@@ -199,19 +244,22 @@
 -(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [Viewer NSLogDebug:self.debug withMsg:@"touch ended once"];
-    id<ModelInterface> m = [[Model class] instance];
-    [m shoot];
-    //[self fireWeapon];//at least fire once
-    //[self unschedule:@selector(fireWeapon)];
+    if(self.multiShoot){
+        [self fireWeapon];//at least fire once
+        [self unschedule:@selector(fireWeapon)];
+    }
     //[[SimpleAudioEngine sharedEngine] playEffect:@"gunShotOntarget.mp3"];
     
 }
 -(void)fireWeapon{
+    //call model 
+    id<ModelInterface> m = [[Model class] instance];
+    [m shoot];
+
     [Viewer NSLogDebug:self.debug withMsg:@"fire gun once"];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
-    
-    //[model shoot];
-    //show a bullet hole for test
+    //shoot effect
+    [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];  
+    //show a bullet hole for test, not using location here
     [Viewer showBulletHole:self atLocation:self.aimCross.position];
     
 }
