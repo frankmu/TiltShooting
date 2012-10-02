@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9630C76F161B9BCF00A97364 /* OptionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9630C76E161B9BCF00A97364 /* OptionLayer.m */; };
+		9630C772161B9E6600A97364 /* back1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9630C770161B9E6600A97364 /* back1.png */; };
+		9630C773161B9E6600A97364 /* back2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9630C771161B9E6600A97364 /* back2.png */; };
+		9630C776161B9E6F00A97364 /* bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9630C774161B9E6F00A97364 /* bar.png */; };
+		9630C777161B9E6F00A97364 /* barItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 9630C775161B9E6F00A97364 /* barItem.png */; };
 		96334736161912D200717D83 /* aimcross.png in Resources */ = {isa = PBXBuildFile; fileRef = 96334733161912D200717D83 /* aimcross.png */; };
 		96334737161912D200717D83 /* bricktargetgreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 96334734161912D200717D83 /* bricktargetgreen.png */; };
 		96334738161912D200717D83 /* bricktargetred.png in Resources */ = {isa = PBXBuildFile; fileRef = 96334735161912D200717D83 /* bricktargetred.png */; };
@@ -228,6 +233,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9630C76D161B9BCF00A97364 /* OptionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionLayer.h; sourceTree = "<group>"; };
+		9630C76E161B9BCF00A97364 /* OptionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionLayer.m; sourceTree = "<group>"; };
+		9630C770161B9E6600A97364 /* back1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back1.png; sourceTree = "<group>"; };
+		9630C771161B9E6600A97364 /* back2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back2.png; sourceTree = "<group>"; };
+		9630C774161B9E6F00A97364 /* bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bar.png; sourceTree = "<group>"; };
+		9630C775161B9E6F00A97364 /* barItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barItem.png; sourceTree = "<group>"; };
 		96334733161912D200717D83 /* aimcross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aimcross.png; sourceTree = "<group>"; };
 		96334734161912D200717D83 /* bricktargetgreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bricktargetgreen.png; sourceTree = "<group>"; };
 		96334735161912D200717D83 /* bricktargetred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bricktargetred.png; sourceTree = "<group>"; };
@@ -788,6 +799,10 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9630C774161B9E6F00A97364 /* bar.png */,
+				9630C775161B9E6F00A97364 /* barItem.png */,
+				9630C770161B9E6600A97364 /* back1.png */,
+				9630C771161B9E6600A97364 /* back2.png */,
 				96334748161A779200717D83 /* bullet_single_multi.png */,
 				9633473F1619257500717D83 /* bgmusic1_15s.mp3 */,
 				963347411619258000717D83 /* bgmusic2_15s.mp3 */,
@@ -1341,6 +1356,8 @@
 				ACE3E50016095DEB00976AFD /* MenuLayer.m */,
 				963CF6C2161172A7005C393A /* OptionScene.h */,
 				963CF6C3161172A7005C393A /* OptionScene.m */,
+				9630C76D161B9BCF00A97364 /* OptionLayer.h */,
+				9630C76E161B9BCF00A97364 /* OptionLayer.m */,
 				963CF6BC16116C91005C393A /* HelperScene.h */,
 				963CF6BD16116C91005C393A /* HelperScene.m */,
 				ACE3E4FD16095DEB00976AFD /* MainScene.h */,
@@ -1446,6 +1463,10 @@
 				963347421619258000717D83 /* bgmusic2_15s.mp3 in Resources */,
 				963347441619259D00717D83 /* menumusic_10s.mp3 in Resources */,
 				96334749161A779200717D83 /* bullet_single_multi.png in Resources */,
+				9630C772161B9E6600A97364 /* back1.png in Resources */,
+				9630C773161B9E6600A97364 /* back2.png in Resources */,
+				9630C776161B9E6F00A97364 /* bar.png in Resources */,
+				9630C777161B9E6F00A97364 /* barItem.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1629,6 +1650,7 @@
 				96B7B3A71613722600CF20EB /* Viewer.m in Sources */,
 				96B7B3A81613733700CF20EB /* IntroLayer.m in Sources */,
 				96B7B3A9161373D200CF20EB /* IntroScene.m in Sources */,
+				9630C76F161B9BCF00A97364 /* OptionLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

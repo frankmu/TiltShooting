@@ -136,8 +136,8 @@
         [self showBulletHoleOnButton:sender];
     }
     //show optionScene
-   // CCScene *scene=[OptionScene node];
-   // [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
+   CCScene *scene=[OptionScene node];
+   [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
 }
 //help
 
