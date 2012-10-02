@@ -92,4 +92,14 @@
     NSLog(@"add AimCross at x=%f y=%f",target.x,target.y);
     target.aux=tg;
 }
+//show a big sign on view and disapear
++(void) showBigSign:(NSString*)sign inLayer:(CCLayer*)layer withDuration:(ccTime)d{
+    CCLabelTTF *msg=[CCLabelTTF labelWithString:sign fontName:@"Marker Felt" fontSize:48];
+    [layer addChild:msg];
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    msg.position =  ccp( size.width /2 , size.height/2 );
+    [msg runAction:[CCSequence actions:[CCScaleTo actionWithDuration:d/2.0 scale:1.3],
+                    [CCScaleTo actionWithDuration:d/2.0 scale:1],
+                    [CCCallFuncO actionWithTarget:layer selector:@selector(removeChildFromParent:) object:msg],nil]];
+}
 @end

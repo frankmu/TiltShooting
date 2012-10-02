@@ -189,22 +189,19 @@
     CCAnimation *ans = [CCAnimation animationWithFrames:nil  delay:0.2f];
     if(self.multiShoot){ //change to single
         NSLog(@"change to single shoot mode");
-        /*[ans addSpriteFrameWithTexture:shootModeSheet.texture rect:CGRectMake(50, 0, 50, 50)];
-        [ans addSpriteFrameWithTexture:shootModeSheet.texture rect:CGRectMake(0, 0, 50, 50)];
-        [self.shootMode runAction:[CCAnimate actionWithAnimation:ans restoreOriginalFrame:NO]];
-         */
         [self setMultiShoot:NO];
-    [self.shootMode  setDisplayFrame:[CCSpriteFrame frameWithTextureFilename:@"bullet_single_multi.png" rect:CGRectMake(0, 0, 50, 50)]];
-    //self.shootMode=[CCSprite spriteWithFile:@"bullet_single_multi.png" rect:CGRectMake(50, 0, 50, 50)];
-    [self.shootMode runAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.5 scale:1.3],[CCScaleTo actionWithDuration:0.5 scale:1], nil]];
+        [Viewer showBigSign:@"Single Shoot" inLayer:self withDuration:1];
+        [self.shootMode  setDisplayFrame:[CCSpriteFrame frameWithTextureFilename:@"bullet_single_multi.png" rect:CGRectMake(0, 0, 50, 50)]];
+        [self.shootMode runAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.3 scale:1.3],[CCScaleTo actionWithDuration:0.5 scale:1], nil]];
+        
         
     }
     else{ //change to multi
         NSLog(@"change to single shoot mode");
         [self setMultiShoot:YES];
+        [Viewer showBigSign:@"Multi Shoot" inLayer:self withDuration:1];
         [self.shootMode  setDisplayFrame:[CCSpriteFrame frameWithTextureFilename:@"bullet_single_multi.png" rect:CGRectMake(50, 0, 50, 50)]];
-        //self.shootMode=[CCSprite spriteWithFile:@"bullet_single_multi.png" rect:CGRectMake(50, 0, 50, 50)];
-        [self.shootMode runAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.5 scale:1.3],[CCScaleTo actionWithDuration:0.5 scale:1], nil]];
+        [self.shootMode runAction:[CCSequence actions:[CCScaleTo actionWithDuration:0.3 scale:1.3],[CCScaleTo actionWithDuration:0.5 scale:1], nil]];
     }
     
     
