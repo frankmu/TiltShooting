@@ -75,7 +75,7 @@
 		[mn3 alignItemsVertically];
 		mn3.position = ccp (480 - 50, 60);
         
-		[self addChild:mn z:1 tag:2];
+		[self addChild:mn3 z:1 tag:2];
         /*
 		// Check Game Stae
 		[self schedule:@selector(ShowState) interval: 0.5];

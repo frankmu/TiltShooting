@@ -12,14 +12,14 @@
 @implementation InGameMenuLayer
 
 -(id)initWithGameLayer:(CCLayer*)layer{
-    if([super init]){
+    
         self.glayer=layer;
         //menu button
         
         //bg
         
         
-    }
+    
     return self;
 }
 //Resume

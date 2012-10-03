@@ -39,7 +39,7 @@
     [self addChild:gameLayer z:0 tag:1];
     //add in game menu
     InGameMenuLayer *menuLayer=[InGameMenuLayer node];
-    [self addChild:menuLayer z:12 tag:13];
+    [self addChild:menuLayer z:12];
     [gameLayer setInGameMenuLayer:menuLayer];
 	return self;
 }
