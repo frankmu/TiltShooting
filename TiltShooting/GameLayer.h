@@ -13,6 +13,7 @@
 #import "ModelInterface.h"
 #import "MenuScene.h"
 #import "Viewer.h"
+#import "InGameMenuLayer.h"
 
 typedef enum {
     AIM,
@@ -35,5 +36,6 @@ typedef enum {
 @property(nonatomic,strong) CCLabelTTF *targetLeft;    //count the left targets******* (CCLabelBMFont )
 @property(nonatomic,strong) CCSprite *shootMode;
 @property(nonatomic,strong) WeaponSprite *weapon; // guns, no gun yet
+@property(nonatomic,weak)   InGameMenuLayer* inGameMenuLayer;
 
 @end

@@ -69,7 +69,13 @@
 		mn.position = ccp (480 - 50, 30);
         
 		[self addChild:mn z:1 tag:2];        // add the label as a child to this Layer
-
+        //add temp gameover scene button
+        CCMenuItem *gameOverButton = [CCMenuItemFont itemFromString:@"GameOver" target:self selector:@selector(showGameOverScene:)];
+		CCMenu *mn3 = [CCMenu menuWithItems:gameOverButton, nil];
+		[mn3 alignItemsVertically];
+		mn3.position = ccp (480 - 50, 60);
+        
+		[self addChild:mn z:1 tag:2];
         /*
 		// Check Game Stae
 		[self schedule:@selector(ShowState) interval: 0.5];
@@ -175,9 +181,28 @@
 
 //Back to menu
 -(void)onBackToMenu:(id)sender{
+    //pause
+    //id<ModelInterface>  model = [[Model class] instance];
+    //[model pause];
+    //[self setIsTouchEnabled:NO];
+    
+    //[self.inGameMenuLayer initWithGameLayer:self];
     
     CCScene *sc = [MenuScene node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
+}
+//temp show gameover scene
+-(void)showGameOverScene:(id)sender{
+    //will change this to model listen func
+    //check win or lose
+    //if win
+    // [Viewer showBigSign:@"WIN!" inLayer:self withDuration:1];
+    //if lose
+    //[Viewer showBigSign:@"LOSE!" inLayer:self withDuration:1];
+    //replace scene
+    //CCScene *sc = [GameOverScene node];
+    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
+
 }
 -(void)removeChildFromParent:(CCNode*)child{
     [child removeFromParentAndCleanup:YES];
