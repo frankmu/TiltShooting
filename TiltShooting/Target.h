@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "Shape.h"
 
-@interface Target : NSObject
+@interface Target : NSObject {
+    @public
+    void *box2dAux;
+}
 
 @property float x;
 @property float y;
-@property id aux;
+@property (weak) id aux;
+@property (weak) id intervalAux;
 
 - (id) init;
 - (id) initWithX: (float)x Y: (float)y;

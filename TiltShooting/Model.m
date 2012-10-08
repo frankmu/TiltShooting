@@ -11,6 +11,7 @@
 #import "GameBrain.h"
 #import "MotionProcessor.h"
 #import "CoreEventListener.h"
+#import "Map2Box2D.h"
 
 #define DEFAULT_START_LEVEL 1
 #define DEFAULT_INTERVAL (1/30.f)
@@ -21,12 +22,15 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @property (strong) NSMutableArray *listenerList;
 @property (strong) ModelDaemon *daemon;
 @property (strong) MotionProcessor *motionProcessor;
+@property (strong) NSMutableSet *targetSet;
 @end
 
 @implementation Model
 
 @synthesize enemyList = _enemyList;
 @synthesize listenerList = _listenerList;
+@synthesize targetSet = _targetSet;
+@synthesize map2Box2D = _map2Box2D;
 @synthesize daemon = _daemon;
 @synthesize aim = _aim;
 @synthesize canvasX = _canvasX, canvasY = _canvasY,
@@ -36,6 +40,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @synthesize hasRecord = _hasRecord;
 @synthesize status = _status;
 @synthesize debug = _debug;
+@synthesize shootHappen = _shootHappen;
+@synthesize shootPoint = _shootPoint;
 
 + (id<ModelInterface>) instance {
     static id<ModelInterface> shared = nil;
@@ -55,6 +61,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         self.enemyList = [[NSMutableArray alloc] init];
         self.listenerList = [[NSMutableArray alloc] init];
         self.bombList = [[NSMutableArray alloc] init];
+        self.targetSet = [[NSMutableSet alloc] init];
+        self.map2Box2D = [[Map2Box2D alloc] init];
         self.aim = [[Aim alloc] initWithX:0.f Y:0.f];
         // default canvas and device setting
         [self decideCanvasX:240.0f canvasY:160.0f canvasWidth:1440.0f
@@ -100,7 +108,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 
 - (void) addToCoreEventListenerlist: (id<CoreEventListener>) listener
                            priority: (int) priority {
-    //priority = priority > [self.listenerList ];
+    priority = priority < 0 ? 0 : priority;
+    priority = priority > self.listenerList.count ? self.listenerList.count : priority;
     [self.listenerList insertObject:listener atIndex:priority];
 }
 
@@ -112,11 +121,13 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 
 - (void) startWithLevel: (int) level {
     // for experiment
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        // the order to init. is important
+        self.status = RUNNING;
+        [self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
         [[GameBrain class] initGameWithLevel:1];
         [self.daemon start];
         [self.motionProcessor start];
-        self.status = RUNNING;
         [self fireGameInitFinishedEvent];
         [self fireTargetAppearEvent:self.aim];
         NSLog(@"Model Start");
@@ -124,9 +135,9 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) pause {
+    self.status = PAUSING;
     [self.daemon stop];
     [self.motionProcessor pause];
-    self.status = PAUSING;
 }
 
 - (void) save {
@@ -134,20 +145,28 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) resume {
+    self.status = RUNNING;
     [self.daemon start];
     [self.motionProcessor resume];
-    self.status = RUNNING;
 }
 
 - (void) stop {
-    [self.daemon stop];
-    [self.motionProcessor stop];
+    // order is important
     self.status = STOPPED;
+    [self.motionProcessor stop];
+    [self.daemon stop];
+    [self.targetSet removeAllObjects];
+    [self.enemyList removeAllObjects];
+    [self.bombList removeAllObjects];
+    [self.map2Box2D destoryWorld];
+    self.shootHappen = NO;
     NSLog(@"Model Stop");
 }
 
 - (void) shoot {
-    
+    _shootPoint.x = self.aim.x;
+    _shootPoint.y = self.aim.y;
+    self.shootHappen = YES;
 }
 
 - (void) enableDebug {
@@ -211,5 +230,43 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
             }// selector detect
         }// foreach in listener list
     });
+}
+
+- (void) createBomb:(Bomb *)bomb {
+    [self createTarget:bomb to:self.bombList];
+}
+
+- (void) createEnemy:(Enemy *)enemy {
+    [self createTarget:enemy to:self.enemyList];
+}
+
+- (void) createTarget:(Target *)target to:(NSMutableArray *)list {
+    if (![self.targetSet containsObject:target]) {
+        [list addObject:target];
+        [self.targetSet addObject:target];
+        [self.map2Box2D attachTarget:target];
+        [self fireTargetAppearEvent:target];
+    }
+}
+
+- (void) deleteBomb:(Bomb *)bomb {
+    [self deleteTarget:bomb from:self.bombList];
+}
+
+- (void) deleteEnemy:(Enemy *)enemy {
+    [self deleteTarget:enemy from:self.enemyList];
+}
+
+- (void) deleteTarget:(Target *)target from:(NSMutableArray *)list {
+    if ([self.targetSet containsObject:target]) {
+        [list addObject:target];
+        [self.targetSet removeObject:target];
+        [self.map2Box2D deleteTarget:target];
+        [self fireTargetDisappearEvent:target];
+    }
+}
+
+- (void) resetShootHappen {
+    self.shootHappen = NO;
 }
 @end

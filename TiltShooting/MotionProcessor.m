@@ -4,6 +4,8 @@
 //
 //  Created by yirui zhang on 9/26/12.
 //
+//  MotionProcessor only responsible for moving canvas and adjust aim
+//  Any other decision should be done in ModelDaemon
 //
 
 #import "MotionProcessor.h"
@@ -11,7 +13,7 @@
 #import "Model.h"
 #import "Aim.h"
 #import <CoreMotion/CoreMotion.h>
-#define DEFAULT_INTERVAL (1/100.f)
+#define DEFAULT_INTERVAL (1/80.f)
 @interface MotionProcessor()
 @property (strong) CMMotionManager *motionManager;
 @property (strong) CMAttitude *referenceAttitude;
@@ -19,8 +21,8 @@
 @property NSUInteger runningTimes;
 @property NSTimeInterval lastTime;
 
-- (void) run: (NSTimer *)timer;
-- (CMAcceleration) computeGrivaty: (CMRotationMatrix)rotationMatrix;
+//- (void) run: (NSTimer *)timer;
+//- (CMAcceleration) computeGrivaty: (CMRotationMatrix)rotationMatrix;
 @end
 
 @implementation MotionProcessor
@@ -116,7 +118,7 @@
     // deal with tilt
     [self tilt:grivaty interval:(motion.timestamp - self.lastTime)];
     // output per second if debug is enabled
-    Model *m = [[Model class] instance];
+    id<ModelFullInterface> m = [[Model class] instance];
     [[ModelUtilities class] debugWithDetect:self.runningTimes
                                    interval:self.flushInterval
                                      format:@"processed grivaty [%f, %f, %f]\ncanvas [%f, %f]",
@@ -130,14 +132,14 @@
     /* code that haven't been optimized, just for easy-reading */
     /* Note that the background must be larger than the device frame */
     // cache old values
-    Model *model = [[Model class] instance];
+    id<ModelFullInterface> model = [[Model class] instance];
     float oldAimX = model.aim.x, oldAimY = model.aim.y;
     float oldCanvasX = model.canvasX, oldCanvasY = model.canvasY;
     // compute raw increasement
     // I want the rate of movement to be more when user tilted more
     // which means I need a factor which combines grivaty (the "pow" part)
-    float x = (float)(grivaty.x * 9.8 * interval * pow(fabs(grivaty.x) * 9.8, 2));
-    float y = (float)(grivaty.y * 9.8 * interval * pow(fabs(grivaty.y) * 9.8, 2));
+    float x = (float)(grivaty.x * 9.8 * interval * sqrt(fabs(grivaty.x) * 9.8) * 30);
+    float y = (float)(grivaty.y * 9.8 * interval * sqrt(fabs(grivaty.y) * 9.8) * 30);
     // get aim increasement
     float aimIncX = y, aimIncY = -x;
     /* this step is to make sure that the aim won't go outside of the canvas */

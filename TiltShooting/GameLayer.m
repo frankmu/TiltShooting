@@ -296,4 +296,11 @@
     return UNKNOWN;
 }
 
+- (BUBBLE_RULE) targetHit:(Target *)target {
+    if(target.aux!=nil){
+        NSLog(@"HITTED");
+    }
+    return BUBBLE_CONTINUE;
+}
+
 @end

@@ -13,8 +13,7 @@
 @end
 
 @implementation MenuLayer
-
-@synthesize background;
+@synthesize background = _background;
 
 -(id)init{
 
@@ -30,9 +29,9 @@
         //[self addChild: label z:0 tag:1];
         
 		// Load background 480*320 this time
-		background = [CCSprite spriteWithFile:@"menu_background.png"];
-		[self addChild:background z:0 tag:9];
-        background.position=ccp( size.width /2 , size.height/2 );
+		self.background = [CCSprite spriteWithFile:@"menu_background.png"];
+		[self addChild:self.background z:0 tag:9];
+        self.background.position=ccp( size.width /2 , size.height/2 );
         
         //add 4 buttons
         CCMenuItemImage *newGame = [CCMenuItemImage itemFromNormalImage:@"menu_button1.png" selectedImage:@"menu_button1_sel.png" disabledImage:nil target:self selector:@selector(stratNewGame:)];

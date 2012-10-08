@@ -7,7 +7,8 @@
 //
 
 #import "ModelDaemon.h"
-#define DEFAULT_FLUSH_INTERVAL (1/30.f)
+#import "Model.h"
+#define DEFAULT_FLUSH_INTERVAL (1/60.f)
 
 @interface ModelDaemon ()
 
@@ -50,15 +51,51 @@
 }
 
 - (void) runAsync: (NSTimer *)timer {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         [self run:timer];
     });
 }
 
 - (void) run: (NSTimer *) timer {
+    id<ModelFullInterface> m = [[Model class] instance];
+    //Map2Box2D *map = [m map2Box2D];
     // work normally
     ++ self.runningTimes;
-    // currently no one can move, they all static
+    if ([m shootHappen]) {
+        POINT shootPos = [m shootPoint];
+        [m resetShootHappen];
+        Target *target = [self detectShoot:shootPos];
+        if (target != nil) {
+            [m fireTargetHitEvent:target];
+            [m fireTargetDisappearEvent:target];
+        }
+    }
+}
+
+- (Target *) detectShoot: (POINT)p {
+    // just for test
+    id<ModelFullInterface> m = [[Model class] instance];
+    Target *ret = nil;
+    for (Target *t in [m enemyList]) {
+        if (p.x < (t.x + 20.f) && p.x > (t.x - 20.0f) &&
+            p.y < (t.y + 20.0f) && p.y > (t.y - 20.0f)) {
+            ret = t;
+            break;
+        }
+    }
+    
+    if (ret != nil) {
+        return ret;
+    }
+    
+    for (Target *t in [m bombList]) {
+        if (p.x < (t.x + 20.f) && p.x > (t.x - 20.0f) &&
+            p.y < (t.y + 20.0f) && p.y > (t.y - 20.0f)) {
+            ret = t;
+            break;
+        }
+    }
+    return ret;
 }
 
 @end

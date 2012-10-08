@@ -18,6 +18,10 @@
 @property (strong) NSMutableArray *enemyList;
 @property (strong) NSMutableArray *bombList;
 @property (strong) Aim *aim;
+@property (strong) Map2Box2D *map2Box2D;
+@property POINT shootPoint;
+@property BOOL shootHappen;
+
 
 @property NSTimeInterval flushInterval;
 @property int hasRecord;

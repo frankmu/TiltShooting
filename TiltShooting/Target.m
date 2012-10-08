@@ -15,7 +15,7 @@
 
 @implementation Target
 
-@synthesize aux = _aux;
+@synthesize aux = _aux, intervalAux = _intervalAux;
 @synthesize x = _x, y = _y;
 
 - (id) init {
@@ -38,5 +38,4 @@
 - (float) yInDevice {
     return [[ModelUtilities class] c2dY:self.y];
 }
-
 @end
