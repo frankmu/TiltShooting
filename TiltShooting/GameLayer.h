@@ -13,6 +13,7 @@
 #import "ModelInterface.h"
 #import "MenuScene.h"
 #import "Viewer.h"
+#import "InGameMenuLayer.h"
 
 typedef enum {
     AIM,
@@ -24,6 +25,7 @@ typedef enum {
 @interface GameLayer : CCLayer <CoreEventListener>{
 
 }
+@property BOOL multiShoot;
 @property BOOL debug;
 @property int level;
 @property(nonatomic,strong) CCSprite *background;   //background pic of main scene
@@ -32,7 +34,8 @@ typedef enum {
 @property(nonatomic,strong) CCSpriteBatchNode *SheetExplodeBig; //spritesheet for target destroyed explosion
 @property(nonatomic,strong) NSMutableArray *targetList;   //array stores the targets**********
 @property(nonatomic,strong) CCLabelTTF *targetLeft;    //count the left targets******* (CCLabelBMFont )
-
+@property(nonatomic,strong) CCSprite *shootMode;
 @property(nonatomic,strong) WeaponSprite *weapon; // guns, no gun yet
+@property(nonatomic,weak)   InGameMenuLayer* inGameMenuLayer;
 
 @end

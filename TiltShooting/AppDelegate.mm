@@ -41,7 +41,7 @@
 	[director_ setDisplayStats:YES];
 	
 	// set FPS at 60
-	[director_ setAnimationInterval:1.0/60];
+	[director_ setAnimationInterval:1.0/50];
 	
 	// attach the openglView to the director
 	[director_ setView:glView];

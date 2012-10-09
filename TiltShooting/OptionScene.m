@@ -10,5 +10,19 @@
 
 
 @implementation OptionScene
+@synthesize optionLayer;
+@synthesize optionScene;
+
+-(id) init{
+    if( (self=[super init] ))
+	{
+        optionScene=self;//[CCScene node];
+        
+        optionLayer=[OptionLayer node];
+        
+        [optionScene addChild:optionLayer z:0 tag:0];
+    }
+    return self;
+}
 
 @end

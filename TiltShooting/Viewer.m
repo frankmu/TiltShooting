@@ -22,17 +22,35 @@
 
 
 }
+//show bullet hole at point on view window
++(void) showBulletHole:(CCLayer*)layer atPoint:(CGPoint)location{
+    int i= arc4random() % 12;
+    CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
+    //[glayer.background addChild:SheetBulletHolesBig];
+    [layer addChild:bulletHoleBig z:2];
+    bulletHoleBig.position = location;
+
+}
+//show bullet hole at location of aimcross
 +(void) showBulletHole:(CCLayer*)layer atLocation:(CGPoint)location{
     GameLayer *glayer=(GameLayer*)layer;
     //CCSpriteBatchNode *SheetBulletHolesBig = [CCSpriteBatchNode batchNodeWithFile:@"bulletholesbig.png" capacity:12];
-    CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(0,0,40,40)];
+    //random hole in 12 types
+    int i= arc4random() % 12;
+    CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
     //[glayer.background addChild:SheetBulletHolesBig];
     [glayer.background addChild:bulletHoleBig z:1];
     bulletHoleBig.position=[Viewer viewToCanvas:glayer at:location];
     id<ModelInterface> m = [[Model class] instance];
     bulletHoleBig.position = ccp (m.aim.x, m.aim.y);
-
+    //remove after 2s
+    CCSequence *sequence=[CCSequence actions:
+                          [CCDelayTime actionWithDuration:2],
+                           [CCCallFuncO actionWithTarget:glayer selector:@selector(removeChildFromParent:) object:bulletHoleBig],
+                           nil];
+    [bulletHoleBig runAction:sequence];
 }
+
 //temp for test
 +(CGPoint)viewToCanvas:(GameLayer*)layer at:(CGPoint)location{
 #define CANVASW 1440
@@ -41,6 +59,7 @@
     CGPoint p=ccp(location.x+CANVASW/2-layer.background.position.x,location.y+CANVASH/2-layer.background.position.y);
     return p;
 }
+
 +(void) showTarget:(Target*)target inLayer:(CCLayer*)layer{
     GameLayer *glayer=(GameLayer*)layer;
     
@@ -72,5 +91,15 @@
     tg.position=ccp(target.x,target.y);
     NSLog(@"add AimCross at x=%f y=%f",target.x,target.y);
     target.aux=tg;
+}
+//show a big sign on view and disapear
++(void) showBigSign:(NSString*)sign inLayer:(CCLayer*)layer withDuration:(ccTime)d{
+    CCLabelTTF *msg=[CCLabelTTF labelWithString:sign fontName:@"Marker Felt" fontSize:48];
+    [layer addChild:msg];
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    msg.position =  ccp( size.width /2 , size.height/2 );
+    [msg runAction:[CCSequence actions:[CCScaleTo actionWithDuration:d/2.0 scale:1.3],
+                    [CCScaleTo actionWithDuration:d/2.0 scale:1],
+                    [CCCallFuncO actionWithTarget:layer selector:@selector(removeChildFromParent:) object:msg],nil]];
 }
 @end

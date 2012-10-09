@@ -20,7 +20,11 @@
 +(void) showBomb:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showAim:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showWeapon:(WeaponSprite*)weapon inLayer:(CCLayer*)layer;
-//show a bullet hole
+//show bullet hole at point on view window
++(void) showBulletHole:(CCLayer*)layer atPoint:(CGPoint)location;
+//show bullet hole at location of aimcross
 +(void) showBulletHole:(CCLayer*)layer atLocation:(CGPoint)location;
 +(CGPoint)viewToCanvas:(CGPoint)location;
+//show a big sign on view and disapear
++(void) showBigSign:(NSString*)sign inLayer:(CCLayer*)layer withDuration:(ccTime)d;
 @end

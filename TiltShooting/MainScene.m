@@ -8,7 +8,7 @@
 
 #import "MainScene.h"
 #import "GameLayer.h"
-
+#import "InGameMenuLayer.h"
 @implementation MainScene
 @synthesize myScene = _myScene;
 
@@ -37,7 +37,10 @@
     
     // add layer as a child to scene
     [self addChild:gameLayer z:0 tag:1];
-
+    //add in game menu
+    InGameMenuLayer *menuLayer=[InGameMenuLayer node];
+    [self addChild:menuLayer z:12];
+    [gameLayer setInGameMenuLayer:menuLayer];
 	return self;
 }
 
