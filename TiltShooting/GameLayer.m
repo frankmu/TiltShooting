@@ -322,8 +322,28 @@
 - (BUBBLE_RULE) targetDisAppear: (Target *) target{
     //for test
     if(target.aux!=nil){
-        //[self removeChild:target.aux cleanup:YES];
-        [target.aux removeFromParentAndCleanup:YES];
+        //check type of target
+        TARGET_TYPE type=[self checkTargetType:target];
+        switch (type) {
+            case AIM:
+                
+                [Viewer removeAim:target inLayer:self];
+                break;
+            case ENEMY:
+                
+                [Viewer removeTarget:target inLayer:self];
+                break;
+            case BOMB:
+                
+                [Viewer removeBomb:target inLayer:self];
+                break;
+                
+            default:
+                break;
+        }
+
+        //remove using Viewer now
+        
     }
     else{
         NSLog(@"error:try to delete nil target");

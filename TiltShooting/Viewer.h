@@ -27,4 +27,8 @@
 +(CGPoint)viewToCanvas:(CGPoint)location;
 //show a big sign on view and disapear
 +(void) showBigSign:(NSString*)sign inLayer:(CCLayer*)layer withDuration:(ccTime)d;
+
++(void) removeTarget:(Target*)target inLayer:(CCLayer*)layer;
++(void) removeBomb:(Target*)target inLayer:(CCLayer*)layer;
++(void) removeAim:(Target*)target inLayer:(CCLayer*)layer;
 @end

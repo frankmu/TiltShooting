@@ -102,4 +102,17 @@
                     [CCScaleTo actionWithDuration:d/2.0 scale:1],
                     [CCCallFuncO actionWithTarget:layer selector:@selector(removeChildFromParent:) object:msg],nil]];
 }
+
+//remove
++(void) removeTarget:(Target*)target inLayer:(CCLayer*)layer{
+    [target.aux removeFromParentAndCleanup:YES];
+}
++(void) removeBomb:(Target*)target inLayer:(CCLayer*)layer{
+    [target.aux removeFromParentAndCleanup:YES];
+
+}
++(void) removeAim:(Target*)target inLayer:(CCLayer*)layer{
+    [target.aux removeFromParentAndCleanup:YES];
+
+}
 @end
