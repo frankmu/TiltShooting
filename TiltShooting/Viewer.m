@@ -27,7 +27,7 @@
     int i= arc4random() % 12;
     CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
     //[glayer.background addChild:SheetBulletHolesBig];
-    [layer addChild:bulletHoleBig z:2];
+    [layer addChild:bulletHoleBig z:15];
     bulletHoleBig.position = location;
 
 }
@@ -39,7 +39,7 @@
     int i= arc4random() % 12;
     CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
     //[glayer.background addChild:SheetBulletHolesBig];
-    [glayer.background addChild:bulletHoleBig z:1];
+    [glayer.background addChild:bulletHoleBig z:5];
     bulletHoleBig.position=[Viewer viewToCanvas:glayer at:location];
     id<ModelInterface> m = [[Model class] instance];
     bulletHoleBig.position = ccp (m.aim.x, m.aim.y);

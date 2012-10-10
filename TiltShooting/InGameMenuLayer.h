@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-
+#import "MainScene.h"
+#import "Model.h"
 @interface InGameMenuLayer : CCLayer {
     
 }
 @property (weak) CCLayer* glayer;
-
+@property(nonatomic,strong) CCSprite *background;
 -(id)initWithGameLayer:(CCLayer*)layer;
 @end

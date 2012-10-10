@@ -36,6 +36,6 @@ typedef enum {
 @property(nonatomic,strong) CCLabelTTF *targetLeft;    //count the left targets******* (CCLabelBMFont )
 @property(nonatomic,strong) CCSprite *shootMode;
 @property(nonatomic,strong) WeaponSprite *weapon; // guns, no gun yet
-@property(nonatomic,weak)   InGameMenuLayer* inGameMenuLayer;
+@property(nonatomic,weak)   CCLayer* inGameMenuLayer;
 
 @end

@@ -167,43 +167,51 @@
 }
 //on exit
 -(void) onExit{
-    [Viewer NSLogDebug:self.debug withMsg:@"Exit gameLayer"];
+    
     [super onExit];
     //remove from listenlist of model?
-    
+    /* not stop here
     //stop model
     id<ModelInterface> model = [[Model class] instance];
-    if (model.status == RUNNING) {
+    if (model.status == RUNNING || model.status==PAUSING) {
         [Viewer NSLogDebug:self.debug withMsg:@"gameLayer stops model"];
         [model stop];
     }
+    */
+    [Viewer NSLogDebug:self.debug withMsg:@"Exit gameLayer"];
 }
 
 //Back to menu
 -(void)onBackToMenu:(id)sender{
     //pause
-    //id<ModelInterface>  model = [[Model class] instance];
-    //[model pause];
-    //[self setIsTouchEnabled:NO];
+    id<ModelInterface>  model = [[Model class] instance];
+    NSLog(@"onbacktomenu pause the model for ingamememu display");
+    [model pause];
+    [self setIsTouchEnabled:NO];
     
-    //[self.inGameMenuLayer initWithGameLayer:self];
+    [(InGameMenuLayer*)self.inGameMenuLayer initWithGameLayer:self];
     
-    CCScene *sc = [MenuScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
+    //CCScene *sc = [MenuScene node];
+    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
 }
 //temp show gameover scene
 -(void)showGameOverScene:(id)sender{
     //will change this to model listen func
     //check win or lose
     //if win
-    // [Viewer showBigSign:@"WIN!" inLayer:self withDuration:1];
+     [Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
     //if lose
     //[Viewer showBigSign:@"LOSE!" inLayer:self withDuration:1];
+    
+    //stop model here
+    id<ModelInterface>  model = [[Model class] instance];
+    [model stop];
     //replace scene
-    //CCScene *sc = [GameOverScene node];
-    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
+    CCScene *sc = [GameOverScene node];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
 
 }
+
 -(void)removeChildFromParent:(CCNode*)child{
     [child removeFromParentAndCleanup:YES];
 }
@@ -314,7 +322,8 @@
 - (BUBBLE_RULE) targetDisAppear: (Target *) target{
     //for test
     if(target.aux!=nil){
-        [self removeChild:target.aux cleanup:YES];
+        //[self removeChild:target.aux cleanup:YES];
+        [target.aux removeFromParentAndCleanup:YES];
     }
     else{
         NSLog(@"error:try to delete nil target");

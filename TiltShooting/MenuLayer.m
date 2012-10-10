@@ -156,6 +156,7 @@
     float h = CCRANDOM_MINUS1_1() * button.contentSize.height/2;
     //? seems menu treat center as (0,0)
     [Viewer showBulletHole:self atPoint:ccp(button.position.x+w+240,button.position.y+h+160)];
+    //NSLog(@"show bullet at menulayer x=%f, y=%f",button.position.x+w+240,button.position.y+h+160);
     // NSLog(@"show bullethole at x=%f y=%f",button.position.x+w+240,button.position.y+h+160);
     [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
 }

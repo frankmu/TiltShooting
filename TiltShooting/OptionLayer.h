@@ -15,7 +15,10 @@
       
 }
 
-@property(nonatomic,strong) CCSprite *bar; 
-@property(nonatomic,strong) CCSprite *barItem; 
+@property(nonatomic,strong) CCSprite *bar1;
+@property(nonatomic,strong) CCSprite *barItem1;
+@property(nonatomic,strong) CCSprite *bar2;
+@property(nonatomic,strong) CCSprite *barItem2;
+
 
 @end
