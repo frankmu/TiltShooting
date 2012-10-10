@@ -33,7 +33,7 @@ typedef enum {
 @property(nonatomic,strong) CCSpriteBatchNode *SheetExplode;   //spritesheet for gun shot explosion
 @property(nonatomic,strong) CCSpriteBatchNode *SheetExplodeBig; //spritesheet for target destroyed explosion
 @property(nonatomic,strong) NSMutableArray *targetList;   //array stores the targets**********
-@property(nonatomic,strong) CCLabelTTF *targetLeft;    //count the left targets******* (CCLabelBMFont )
+@property(nonatomic,strong) CCLabelBMFont *targetLeft;    //count the left targets******* (CCLabelBMFont )
 @property(nonatomic,strong) CCSprite *shootMode;
 @property(nonatomic,strong) WeaponSprite *weapon; // guns, no gun yet
 @property(nonatomic,weak)   CCLayer* inGameMenuLayer;

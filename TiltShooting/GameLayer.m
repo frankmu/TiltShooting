@@ -50,7 +50,7 @@
 		*/
         
         //show how many targets left ??
-		targetLeft = [CCLabelTTF labelWithString:@"00" fontName:@"Marker Felt" fontSize:20];
+		targetLeft = [CCLabelBMFont labelWithString:@"00" fntFile:@"font09.fnt"];
 		targetLeft.anchorPoint = ccp(0.0, 1.0);
 		targetLeft.scale = 0.8;
 		[self addChild:targetLeft z:1 tag:6];
