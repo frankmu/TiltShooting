@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TiltShooting/Model.m"
-         timestampString = "370852646.022808"
+         timestampString = "371808325.781577"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "207"
-         endingLineNumber = "207"
+         startingLineNumber = "212"
+         endingLineNumber = "212"
          landmarkName = "-fireTargetHitEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -53,6 +53,19 @@
          startingLineNumber = "107"
          endingLineNumber = "107"
          landmarkName = "-attachTarget:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TiltShooting/MotionProcessor.m"
+         timestampString = "371809068.460543"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "141"
+         endingLineNumber = "141"
+         landmarkName = "-tilt:interval:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

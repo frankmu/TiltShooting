@@ -27,6 +27,9 @@ typedef struct {
 - (void) fireTargetHitEvent: (Target *)target;
 - (void) fireImpactEvent: (Target *)t1 by: (Target *)t2;
 - (void) fireGameInitFinishedEvent;
+- (void) fireWinEvent;
+- (void) fireLoseEvent;
+- (void) fireScoreEvent: (float)score;
 /* Date Access */
 - (void) createBomb: (Bomb *)bomb;
 - (void) createEnemy: (Enemy *)enemy;
@@ -34,8 +37,10 @@ typedef struct {
 - (void) deleteEnemy: (Enemy *)enemy;
 - (void) setCanvasX: (float)x;
 - (void) setCanvasY: (float)y;
+- (void) setScore: (float)score;
 - (Map2Box2D *) map2Box2D;
 - (BOOL) shootHappen;
 - (void) resetShootHappen;
 - (POINT) shootPoint;
+- (void) changeScore: (float)score;
 @end

@@ -15,6 +15,9 @@
 @property float canvasX, canvasY, canvasW, canvasH;
 @property float deviceW, deviceH;
 
+@property float volume;
+@property float score;
+
 @property (strong) NSMutableArray *enemyList;
 @property (strong) NSMutableArray *bombList;
 @property (strong) Aim *aim;

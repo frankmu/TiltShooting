@@ -405,4 +405,19 @@
     return BUBBLE_CONTINUE;
 }
 
+/* win, lose && score */
+- (BUBBLE_RULE) win {
+    NSLog(@"win");
+    return BUBBLE_CONTINUE;
+}
+
+- (BUBBLE_RULE) lose {
+    NSLog(@"Lose");
+    return BUBBLE_CONTINUE;
+}
+
+- (BUBBLE_RULE) score:(float)score {
+    NSLog(@"score change to: %f", score);
+    return BUBBLE_CONTINUE;
+}
 @end

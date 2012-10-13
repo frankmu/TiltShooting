@@ -58,6 +58,9 @@ typedef enum {
 - (float) canvasH;
 - (float) deviceW;
 - (float) deviceH;
+- (float) volume;
+- (float) score;
+- (void) setVolume: (float)volume;
 - (void) setCanvasX: (float) cx Y: (float) cy;
 - (void) setCanvasWidth: (float) cw height: (float) ch;
 - (void) setDeviceWidth: (float) dw height: (float)  dh;

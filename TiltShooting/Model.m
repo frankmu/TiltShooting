@@ -35,6 +35,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @synthesize aim = _aim;
 @synthesize canvasX = _canvasX, canvasY = _canvasY,
             canvasW = _canvasW, canvasH = _canvasH;
+@synthesize volume = _volume;
+@synthesize score = _score;
 @synthesize deviceW = _deviceW, deviceH = _deviceH;
 @synthesize flushInterval = _flushInterval;
 @synthesize hasRecord = _hasRecord;
@@ -67,11 +69,14 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         // default canvas and device setting
         [self decideCanvasX:240.0f canvasY:160.0f canvasWidth:1440.0f
                canvasHeight:960.0f deviceWidth:480.0f deviceHeight:320.0f];
-        // int conf
+        // init conf
         self.hasRecord = 0;
         self.status = STOPPED;
         self.debug = YES;
         self.flushInterval = DEFAULT_INTERVAL;
+        // init other params
+        self.volume = 100.0f;
+        self.score = 0.0f;
     }
     return self;
 }
@@ -218,6 +223,24 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     }];
 }
 
+- (void) fireWinEvent {
+    [self fireEvent:@selector(win) with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE) [listener win];
+    }];
+}
+
+- (void) fireLoseEvent {
+    [self fireEvent:@selector(lose) with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE) [listener lose];
+    }];
+}
+
+- (void) fireScoreEvent: (float)score {
+    [self fireEvent:@selector(score:) with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE) [listener score:score];
+    }];
+}
+
 - (void) fireEvent: (SEL)handler with: (fireEventBlock) block {
     dispatch_async(dispatch_get_main_queue(), ^ {
         BUBBLE_RULE rule;
@@ -268,5 +291,10 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 
 - (void) resetShootHappen {
     self.shootHappen = NO;
+}
+
+- (void) changeScore:(float)score {
+    self.score = score;
+    [self fireScoreEvent:self.score];
 }
 @end

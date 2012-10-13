@@ -29,4 +29,7 @@ typedef enum {
 
 /* game control signals */
 - (BUBBLE_RULE) gameInitFinished;
+- (BUBBLE_RULE) win;
+- (BUBBLE_RULE) lose;
+- (BUBBLE_RULE) score: (float)score;
 @end

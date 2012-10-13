@@ -68,6 +68,15 @@
         if (target != nil) {
             [m fireTargetHitEvent:target];
             [m fireTargetDisappearEvent:target];
+            if ([target isMemberOfClass:[Enemy class]]) {
+                [m changeScore:m.score + 10.0f];// temp setting
+                if ([[m enemyList] count] == 0) {
+                    [m fireWinEvent];
+                }
+            } else if ([target isMemberOfClass:[Bomb class]]) {
+                [m changeScore:0.0f];
+                [m fireLoseEvent];
+            }
         }
     }
 }
