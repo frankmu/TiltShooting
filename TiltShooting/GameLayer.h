@@ -28,6 +28,7 @@ typedef enum {
 @property BOOL multiShoot;
 @property BOOL debug;
 @property int level;
+@property float score;
 @property(nonatomic,strong) CCSprite *background;   //background pic of main scene
 @property(nonatomic,strong) CCSprite *aimCross;     //aim cross in the middle
 @property(nonatomic,strong) CCSpriteBatchNode *SheetExplode;   //spritesheet for gun shot explosion
