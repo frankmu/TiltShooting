@@ -13,7 +13,7 @@
 #import "Model.h"
 #import "Aim.h"
 #import <CoreMotion/CoreMotion.h>
-#define DEFAULT_INTERVAL (1/80.f)
+#define DEFAULT_INTERVAL (1/40.f)
 @interface MotionProcessor()
 @property (strong) CMMotionManager *motionManager;
 @property (strong) CMAttitude *referenceAttitude;

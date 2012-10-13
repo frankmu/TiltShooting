@@ -280,9 +280,17 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     [self deleteTarget:enemy from:self.enemyList];
 }
 
+- (void) deleteTarget: (Target *)target {
+    if ([target isMemberOfClass:[Bomb class]]) {
+        [self deleteBomb: (Bomb *)target];
+    } else if ([target isMemberOfClass:[Enemy class]]) {
+        [self deleteEnemy: (Enemy *)target];
+    }
+}
+
 - (void) deleteTarget:(Target *)target from:(NSMutableArray *)list {
     if ([self.targetSet containsObject:target]) {
-        [list addObject:target];
+        [list removeObject:target];
         [self.targetSet removeObject:target];
         [self.map2Box2D deleteTarget:target];
         [self fireTargetDisappearEvent:target];

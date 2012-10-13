@@ -35,6 +35,7 @@ typedef struct {
 - (void) createEnemy: (Enemy *)enemy;
 - (void) deleteBomb: (Bomb *)bomb;
 - (void) deleteEnemy: (Enemy *)enemy;
+- (void) deleteTarget: (Target *)target;
 - (void) setCanvasX: (float)x;
 - (void) setCanvasY: (float)y;
 - (void) setScore: (float)score;

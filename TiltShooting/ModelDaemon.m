@@ -67,7 +67,7 @@
         Target *target = [self detectShoot:shootPos];
         if (target != nil) {
             [m fireTargetHitEvent:target];
-            [m fireTargetDisappearEvent:target];
+            [m deleteTarget:target];
             if ([target isMemberOfClass:[Enemy class]]) {
                 [m changeScore:m.score + 10.0f];// temp setting
                 if ([[m enemyList] count] == 0) {
