@@ -55,10 +55,10 @@
         scoreLabel.scale = 0.8;
         [self addChild:scoreLabel];
 		scoreFont = [CCLabelBMFont labelWithString:@"0" fntFile:@"font09.fnt"];
-		//scoreFont.anchorPoint = ccp(0.0, 1.0);
+		scoreFont.anchorPoint = ccp(0, 0);
 		scoreFont.scale = 0.8;
 		[self addChild:scoreFont z:1 tag:6];
-		scoreFont.position = ccp(75, 305);
+		scoreFont.position = ccp(70, 290);
 		
         //creat the aim cross sprite
         //aimCross=[CCSprite spriteWithFile:@"aimcross.png"];
@@ -433,7 +433,8 @@
     //pass score to gameoverscene
     [sc setScore:self.score];
     [sc setWin:TRUE];
-    
+    [sc start];
+
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
 
     return BUBBLE_CONTINUE;
@@ -455,7 +456,7 @@
     //pass score to gameoverscene
     [sc setScore:self.score];
     [sc setWin:FALSE];
-    
+    [sc start];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
 
     return BUBBLE_CONTINUE;
