@@ -21,7 +21,7 @@
 @synthesize targetList;
 @synthesize SheetExplode;
 @synthesize SheetExplodeBig;
-@synthesize targetLeft;
+@synthesize scoreFont;
 @synthesize shootMode;
 
 // on "init" you need to initialize your instance
@@ -49,12 +49,16 @@
 		spriteInd.position = ccp(20, 300);
 		*/
         
-        //show how many targets left ??
-		targetLeft = [CCLabelBMFont labelWithString:@"00" fntFile:@"font09.fnt"];
-		targetLeft.anchorPoint = ccp(0.0, 1.0);
-		targetLeft.scale = 0.8;
-		[self addChild:targetLeft z:1 tag:6];
-		targetLeft.position = ccp(440, 305);
+        //show scoreFont
+        CCLabelBMFont *scoreLabel=[CCLabelBMFont labelWithString:@"Score:" fntFile:@"font09.fnt"];
+        scoreLabel.position=ccp(30,305);
+        scoreLabel.scale = 0.8;
+        [self addChild:scoreLabel];
+		scoreFont = [CCLabelBMFont labelWithString:@"0" fntFile:@"font09.fnt"];
+		//scoreFont.anchorPoint = ccp(0.0, 1.0);
+		scoreFont.scale = 0.8;
+		[self addChild:scoreFont z:1 tag:6];
+		scoreFont.position = ccp(75, 305);
 		
         //creat the aim cross sprite
         //aimCross=[CCSprite spriteWithFile:@"aimcross.png"];
@@ -69,13 +73,13 @@
 		mn.position = ccp (480 - 50, 30);
         
 		[self addChild:mn z:1 tag:2];        // add the label as a child to this Layer
-        //add temp gameover scene button
+        /*//add temp gameover scene button
         CCMenuItem *gameOverButton = [CCMenuItemFont itemFromString:@"GameOver" target:self selector:@selector(showGameOverScene:)];
 		CCMenu *mn3 = [CCMenu menuWithItems:gameOverButton, nil];
 		[mn3 alignItemsVertically];
 		mn3.position = ccp (480 - 50, 60);
         
-		[self addChild:mn3 z:1 tag:2];
+		[self addChild:mn3 z:1 tag:2];*/
         /*
 		// Check Game Stae
 		[self schedule:@selector(ShowState) interval: 0.5];
@@ -238,6 +242,12 @@
     }
     
     
+}
+//change score appear on the screen
+-(void) changeScore:(float)score{
+
+    [self.scoreFont setString:[NSString stringWithFormat:@"%d",(int)score]];
+
 }
 //************ Handle GameLayer Touch *******************//
 // register to get touches input
@@ -453,6 +463,10 @@
 
 - (BUBBLE_RULE) score:(float)score {
     NSLog(@"score change to: %f", score);
+    //update score
+    [self setScore:score];
+    //change score on screen
+    [self changeScore:score];
     return BUBBLE_CONTINUE;
 }
 @end
