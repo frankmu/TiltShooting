@@ -39,9 +39,9 @@
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<dict>
-		<key>gyroscope</key>
-		<true/>
 		<key>accelerometer</key>
+		<true/>
+		<key>gyroscope</key>
 		<true/>
 		<key>opengles-2</key>
 		<true/>

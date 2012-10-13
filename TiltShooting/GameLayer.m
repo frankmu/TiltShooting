@@ -408,11 +408,46 @@
 /* win, lose && score */
 - (BUBBLE_RULE) win {
     NSLog(@"win");
+    
+    //if win
+    [Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
+    //if lose
+    //[Viewer showBigSign:@"LOSE!" inLayer:self withDuration:1];
+    
+    //stop model here
+    id<ModelInterface>  model = [[Model class] instance];
+    [model stop];
+    
+    //replace scene
+    GameOverScene *sc = [GameOverScene node];
+    //pass score to gameoverscene
+    [sc setScore:self.score];
+    [sc setWin:TRUE];
+    
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
+
     return BUBBLE_CONTINUE;
 }
 
 - (BUBBLE_RULE) lose {
     NSLog(@"Lose");
+    //if win
+    //[Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
+    //if lose
+    [Viewer showBigSign:@"LOSE!" inLayer:self withDuration:1];
+    
+    //stop model here
+    id<ModelInterface>  model = [[Model class] instance];
+    [model stop];
+    
+    //replace scene
+    GameOverScene *sc = [GameOverScene node];
+    //pass score to gameoverscene
+    [sc setScore:self.score];
+    [sc setWin:FALSE];
+    
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
+
     return BUBBLE_CONTINUE;
 }
 
