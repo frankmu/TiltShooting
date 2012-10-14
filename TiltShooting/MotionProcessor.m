@@ -138,8 +138,8 @@
     // compute raw increasement
     // I want the rate of movement to be more when user tilted more
     // which means I need a factor which combines grivaty (the "pow" part)
-    float x = (float)(grivaty.x * 9.8 * interval * sqrt(fabs(grivaty.x)) * 150);
-    float y = (float)(grivaty.y * 9.8 * interval * sqrt(fabs(grivaty.y)) * 150);
+    float x = (float)(grivaty.x * 9.8 * interval * sqrt(fabs(grivaty.x) * 9.8 * 30));
+    float y = (float)(grivaty.y * 9.8 * interval * sqrt(fabs(grivaty.y) * 9.8 * 30));
     // get aim increasement
     float aimIncX = y, aimIncY = -x;
     /* this step is to make sure that the aim won't go outside of the canvas */

@@ -103,8 +103,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     self.canvasH = canvasH;
     self.deviceW = deviceW;
     self.deviceH = deviceH;
-    self.aim.x = canvasW / 2.0f;
-    self.aim.y = canvasH / 2.0f;
+    [self resetAim];
 }
 
 - (void) addToCoreEventListenerList:(id<CoreEventListener>)listener {
@@ -155,6 +154,11 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     [self.motionProcessor resume];
 }
 
+- (void) resetAim {
+    self.aim.x = self.canvasW / 2.0f;
+    self.aim.y = self.canvasH / 2.0f;
+}
+
 - (void) stop {
     // order is important
     self.status = STOPPED;
@@ -165,6 +169,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     [self.bombList removeAllObjects];
     [self.map2Box2D destoryWorld];
     self.shootHappen = NO;
+    self.score = 0.0f;
+    [self resetAim];
     NSLog(@"Model Stop");
 }
 
