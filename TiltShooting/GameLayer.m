@@ -267,7 +267,7 @@
     NSLog(@"x=%f y=%f",location.x,location.y);
      */
     if(self.multiShoot){
-        [self schedule:@selector(fireWeapon) interval:0.1];
+        [self schedule:@selector(fireWeapon) interval:0.15];
     }
     else{//single shoot mode
         
@@ -418,7 +418,7 @@
 /* win, lose && score */
 - (BUBBLE_RULE) win {
     NSLog(@"win");
-    
+    [self setIsTouchEnabled:NO];
     //if win
     [Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
     //if lose
@@ -445,6 +445,7 @@
     //if win
     //[Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
     //if lose
+    [self setIsTouchEnabled:NO];
     [Viewer showBigSign:@"LOSE!" inLayer:self withDuration:1];
     
     //stop model here
