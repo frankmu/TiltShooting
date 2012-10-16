@@ -31,4 +31,9 @@
 +(void) removeTarget:(Target*)target inLayer:(CCLayer*)layer;
 +(void) removeBomb:(Target*)target inLayer:(CCLayer*)layer;
 +(void) removeAim:(Target*)target inLayer:(CCLayer*)layer;
+//init viewer for cache animation
+-(id)initWithLayer:(CCLayer*)layer;
+-(void) showExplodeInLayer:(CCLayer*)layer at:(CGPoint)location;
+@property (nonatomic,strong) CCSpriteBatchNode *spriteSheet;
+@property (nonatomic,strong) CCAction *explodeAction;
 @end

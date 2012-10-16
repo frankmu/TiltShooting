@@ -8,9 +8,10 @@
 
 #import "Viewer.h"
 #import "Header.h"
-
+#import "SimpleAudioEngine.h"
 @implementation Viewer
-
+@synthesize spriteSheet;
+@synthesize explodeAction;
 //Debug Message
 +(void)NSLogDebug:(BOOL)debug withMsg:(NSString*)message{
     if(debug){
@@ -40,12 +41,12 @@
     CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
     //[glayer.background addChild:SheetBulletHolesBig];
     [glayer.background addChild:bulletHoleBig z:5];
-    bulletHoleBig.position=[Viewer viewToCanvas:glayer at:location];
+    //bulletHoleBig.position=[Viewer viewToCanvas:glayer at:location];
     id<ModelInterface> m = [[Model class] instance];
     bulletHoleBig.position = ccp (m.aim.x, m.aim.y);
     //remove after 2s
     CCSequence *sequence=[CCSequence actions:
-                          [CCDelayTime actionWithDuration:2],
+                          [CCDelayTime actionWithDuration:1],
                            [CCCallFuncO actionWithTarget:glayer selector:@selector(removeChildFromParent:) object:bulletHoleBig],
                            nil];
     [bulletHoleBig runAction:sequence];
@@ -105,6 +106,7 @@
 
 //remove
 +(void) removeTarget:(Target*)target inLayer:(CCLayer*)layer{
+    //[Viewer showExplodeInBackground:((GameLayer*)layer).background at:ccp(target.x,target.y)];
     [target.aux removeFromParentAndCleanup:YES];
 }
 +(void) removeBomb:(Target*)target inLayer:(CCLayer*)layer{
@@ -113,6 +115,43 @@
 }
 +(void) removeAim:(Target*)target inLayer:(CCLayer*)layer{
     [target.aux removeFromParentAndCleanup:YES];
+
+}
+-(void) showExplodeInLayer:(CCLayer*)layer at:(CGPoint)location {
+ 
+    //run
+   CCSprite *explode= [CCSprite spriteWithSpriteFrameName:@"explode1.png"];
+    explode.position = location;
+    [spriteSheet addChild:explode z:6];
+    NSLog(@"start to run animation on target");
+    [[SimpleAudioEngine sharedEngine] playEffect:@"explode.mp3"];
+    [explode runAction:[CCSequence actions:self.explodeAction,
+                        [CCCallFuncO actionWithTarget:layer selector:@selector(removeChildFromParent:) object:explode],nil]];
+    
+}
+-(id)initWithLayer:(CCLayer*)layer{
+    if (self = [super init]) {
+        NSLog(@"init viewer for animation cache");
+        //cache frames
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:
+         @"aniexplode.plist"];
+        //sprite batch node , child of bg
+        spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"aniexplode.png"];
+        [((GameLayer*)layer).background addChild:self.spriteSheet z:6];
+        //gather list of frames, explode1.phg -> explode13.png
+        NSMutableArray *explodeAnimFrames = [NSMutableArray array];
+        for(int i = 1; i <= 13; ++i) {
+            [explodeAnimFrames addObject:
+             [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
+              [NSString stringWithFormat:@"explode%d.png", i]]];
+        }
+        //animation
+        CCAnimation *explodeAnim = [CCAnimation animationWithFrames:explodeAnimFrames delay:0.1f];
+        explodeAction =[CCAnimate actionWithAnimation:explodeAnim];
+    
+    }
+    return self;
+
 
 }
 @end

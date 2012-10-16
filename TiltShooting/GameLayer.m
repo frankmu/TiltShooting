@@ -15,6 +15,7 @@
 #import "Bomb.h"
 @implementation GameLayer
 
+@synthesize viewer;
 @synthesize level;
 @synthesize background;
 @synthesize aimCross;
@@ -73,55 +74,10 @@
 		mn.position = ccp (480 - 50, 30);
         
 		[self addChild:mn z:1 tag:2];        // add the label as a child to this Layer
-        /*//add temp gameover scene button
-        CCMenuItem *gameOverButton = [CCMenuItemFont itemFromString:@"GameOver" target:self selector:@selector(showGameOverScene:)];
-		CCMenu *mn3 = [CCMenu menuWithItems:gameOverButton, nil];
-		[mn3 alignItemsVertically];
-		mn3.position = ccp (480 - 50, 60);
+       
+		//cache explode animation by init viewer
+        viewer=[[Viewer alloc] initWithLayer:self];
         
-		[self addChild:mn3 z:1 tag:2];*/
-        /*
-		// Check Game Stae
-		[self schedule:@selector(ShowState) interval: 0.5];
-		
-		// tank
-		tank = [TankSprite TankWithinLayer:self imageFile:@"Tank.PNG"];
-		[tank setPosition:ccp(20, 20)];
-		tank.bIsEnemy = NO;
-		*/
-        
-		// Stroe targets for collision detection?
-        // ****Add new target as child of background***
-		targetList = [[NSMutableArray alloc] initWithCapacity:8];
-		
-		/*int i;
-		TargetSprite *target;
-		
-		for (i = 0; i < 1; i++) {
-            //create and add a new target
-			target= [TargetSprite TargetWithinLayerBackground:self imageFile:@""]; //??
-            [targetList addObject:target];
-		}*/
-        
-		//Explosion effects
-		// explode1
-		SheetExplode = [CCSpriteBatchNode batchNodeWithFile:@"Explode1.png" capacity:10];
-		[background addChild:SheetExplode z:0];
-		
-		CCSprite *spriteExplode = [CCSprite spriteWithTexture:SheetExplode.texture rect:CGRectMake(0,0,23,23)];
-		[SheetExplode addChild:spriteExplode z:1 tag:5];
-		spriteExplode.position = ccp(240, 160);
-		[spriteExplode setVisible:NO];
-        
-		// explode2
-		SheetExplodeBig = [CCSpriteBatchNode batchNodeWithFile:@"exploBig.png" capacity:15];
-		[background addChild:SheetExplodeBig z:0];
-		
-		CCSprite *spriteExplodeBig = [CCSprite spriteWithTexture:SheetExplodeBig.texture rect:CGRectMake(0,0,40,40)];
-		[SheetExplodeBig addChild:spriteExplodeBig z:1 tag:5];
-		spriteExplodeBig.position = ccp(240, 160);
-		[spriteExplodeBig setVisible:NO];
-		
         //select shoot mode button
         CCMenuItem *shootModeButton = [CCMenuItemFont itemFromString:@"     " target:self selector:@selector(changeShootMode:)];
 		CCMenu *mn2= [CCMenu menuWithItems:shootModeButton, nil];
@@ -135,6 +91,7 @@
         //preload sound effetc
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"Rifle_GunShot.mp3"];
 		[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"bgmusic1_15s.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"explode.mp3"];
         //show weapon
         //[Viewer showWeapon:self];
         // register to model event listener
@@ -336,15 +293,17 @@
         TARGET_TYPE type=[self checkTargetType:target];
         switch (type) {
             case AIM:
-                
+               
                 [Viewer removeAim:target inLayer:self];
                 break;
             case ENEMY:
-                
+                NSLog(@"show explode on target");
+                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
                 [Viewer removeTarget:target inLayer:self];
                 break;
             case BOMB:
-                
+                NSLog(@"show explode on target");
+                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
                 [Viewer removeBomb:target inLayer:self];
                 break;
                 
@@ -420,7 +379,7 @@
     NSLog(@"win");
     [self setIsTouchEnabled:NO];
     //if win
-    [Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
+    [Viewer showBigSign:@"WIN!" inLayer:self withDuration:2];
     //if lose
     //[Viewer showBigSign:@"LOSE!" inLayer:self withDuration:1];
     
@@ -446,7 +405,7 @@
     //[Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
     //if lose
     [self setIsTouchEnabled:NO];
-    [Viewer showBigSign:@"LOSE!" inLayer:self withDuration:1];
+    [Viewer showBigSign:@"LOSE!" inLayer:self withDuration:2];
     
     //stop model here
     id<ModelInterface>  model = [[Model class] instance];

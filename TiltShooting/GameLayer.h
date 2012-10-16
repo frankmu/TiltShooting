@@ -12,7 +12,8 @@
 #import "CoreEventListener.h"
 #import "ModelInterface.h"
 #import "MenuScene.h"
-#import "Viewer.h"
+//#import "Viewer.h"
+@class Viewer;
 #import "InGameMenuLayer.h"
 
 typedef enum {
@@ -25,6 +26,7 @@ typedef enum {
 @interface GameLayer : CCLayer <CoreEventListener>{
 
 }
+@property (nonatomic,strong) Viewer* viewer;
 @property BOOL multiShoot;
 @property BOOL debug;
 @property int level;

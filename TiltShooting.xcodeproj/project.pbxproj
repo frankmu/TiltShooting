@@ -28,6 +28,9 @@
 		963CF6C7161172C4005C393A /* ScoreLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 963CF6C6161172C4005C393A /* ScoreLayer.m */; };
 		967F79ED161CB5C000377548 /* InGameMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 967F79EC161CB5C000377548 /* InGameMenuLayer.m */; };
 		967F79F0161CBE9D00377548 /* ModeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 967F79EF161CBE9D00377548 /* ModeScene.m */; };
+		9682FC02162CDD0B00D29259 /* aniexplode.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9682FC01162CDD0B00D29259 /* aniexplode.plist */; };
+		9682FC04162CDD1200D29259 /* aniexplode.png in Resources */ = {isa = PBXBuildFile; fileRef = 9682FC03162CDD1200D29259 /* aniexplode.png */; };
+		9682FC06162D06B000D29259 /* explode.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9682FC05162D06B000D29259 /* explode.mp3 */; };
 		96B7B3A71613722600CF20EB /* Viewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B7B3A61613722600CF20EB /* Viewer.m */; };
 		96B7B3A81613733700CF20EB /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4D216095B1900976AFD /* IntroLayer.m */; };
 		96B7B3A9161373D200CF20EB /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4FC16095DEB00976AFD /* IntroScene.m */; };
@@ -267,6 +270,9 @@
 		967F79EC161CB5C000377548 /* InGameMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InGameMenuLayer.m; sourceTree = "<group>"; };
 		967F79EE161CBE9C00377548 /* ModeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeScene.h; sourceTree = "<group>"; };
 		967F79EF161CBE9D00377548 /* ModeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeScene.m; sourceTree = "<group>"; };
+		9682FC01162CDD0B00D29259 /* aniexplode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = aniexplode.plist; sourceTree = "<group>"; };
+		9682FC03162CDD1200D29259 /* aniexplode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aniexplode.png; sourceTree = "<group>"; };
+		9682FC05162D06B000D29259 /* explode.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explode.mp3; sourceTree = "<group>"; };
 		96B7B3A51613722600CF20EB /* Viewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewer.h; sourceTree = "<group>"; };
 		96B7B3A61613722600CF20EB /* Viewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Viewer.m; sourceTree = "<group>"; };
 		AC6655FB1610FD6B004E4104 /* Bomb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bomb.h; sourceTree = "<group>"; };
@@ -804,6 +810,9 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9682FC05162D06B000D29259 /* explode.mp3 */,
+				9682FC03162CDD1200D29259 /* aniexplode.png */,
+				9682FC01162CDD0B00D29259 /* aniexplode.plist */,
 				ACD93CE916190FE500FB1FC7 /* aimcross.png */,
 				ACD93CEA16190FE500FB1FC7 /* blocks.png */,
 				ACD93CEB16190FE500FB1FC7 /* bricktargetgreen.png */,
@@ -1501,6 +1510,9 @@
 				9630C777161B9E6F00A97364 /* barItem.png in Resources */,
 				9631883A1625FC69005243AF /* font09.fnt in Resources */,
 				9631883B1625FC69005243AF /* font09.png in Resources */,
+				9682FC02162CDD0B00D29259 /* aniexplode.plist in Resources */,
+				9682FC04162CDD1200D29259 /* aniexplode.png in Resources */,
+				9682FC06162D06B000D29259 /* explode.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
