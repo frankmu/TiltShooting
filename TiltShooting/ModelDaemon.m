@@ -8,6 +8,7 @@
 
 #import "ModelDaemon.h"
 #import "Model.h"
+
 #define DEFAULT_FLUSH_INTERVAL (1/60.f)
 
 @interface ModelDaemon ()
@@ -34,6 +35,7 @@
     self.flushInterval = interval;
     // cancel a pre-existing timer.
     [self.timer invalidate];
+    // init. new last var
     // init. new timer
     NSTimer *timer = [NSTimer timerWithTimeInterval:self.flushInterval
                                              target:self
@@ -61,53 +63,32 @@
     if ([m status] != RUNNING) {
         return;
     }
-    //Map2Box2D *map = [m map2Box2D];
     // work normally
     ++ self.runningTimes;
+    
+    // flush the time
+    if (self.runningTimes % (int)(1/self.flushInterval) == 0) {
+        NSTimeInterval newTime = [m time] - self.runningTimes * self.timer.timeInterval;
+        newTime = newTime < 0.0 ? 0.0 : newTime;
+        [m changeTime:newTime];
+        if (newTime - 0.0 < 10e-5) {
+            [m fireGameFinishEvent];
+        }
+    }
+    
     if ([m shootHappen]) {
-        POINT shootPos = [m shootPoint];
+        NSMutableArray *points = [[m shootPoints] copy];
         [m resetShootHappen];
-        Target *target = [self detectShoot:shootPos];
-        if (target != nil) {
-            [m fireTargetHitEvent:target];
-            [m deleteTarget:target];
-            if ([target isMemberOfClass:[Enemy class]]) {
-                [m changeScore:m.score + 10.0f];// temp setting
-                if ([[m enemyList] count] == 0) {
-                    [m fireWinEvent];
-                }
-            } else if ([target isMemberOfClass:[Bomb class]]) {
-                [m changeScore:0.0f];
-                [m fireLoseEvent];
+        WeaponBase *currentWeapon = [m currentWeapon];
+        for (POINT *p in points) {
+            if (p.useSkill) {
+                [currentWeapon shootWithX:p.x y:p.y];
+            } else {
+                [currentWeapon specialSkillWithX:p.x y:p.y];
             }
         }
     }
 }
 
-- (Target *) detectShoot: (POINT)p {
-    // just for test
-    id<ModelFullInterface> m = [[Model class] instance];
-    Target *ret = nil;
-    for (Target *t in [m enemyList]) {
-        if (p.x < (t.x + 20.f) && p.x > (t.x - 20.0f) &&
-            p.y < (t.y + 20.0f) && p.y > (t.y - 20.0f)) {
-            ret = t;
-            break;
-        }
-    }
-    
-    if (ret != nil) {
-        return ret;
-    }
-    
-    for (Target *t in [m bombList]) {
-        if (p.x < (t.x + 20.f) && p.x > (t.x - 20.0f) &&
-            p.y < (t.y + 20.0f) && p.y > (t.y - 20.0f)) {
-            ret = t;
-            break;
-        }
-    }
-    return ret;
-}
 
 @end

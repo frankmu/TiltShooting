@@ -10,4 +10,8 @@
 
 @implementation Aim
 
+- (void)onShoot:(WeaponBase *)weapon {
+    // [important] do nothing, aim should not in the target list
+}
+
 @end

@@ -77,7 +77,7 @@
     self.scale = width / self.width;
     // create box2d world
     b2Vec2 gravity(0.0f, 0.0f);
-    world = new b2World(gravity);
+    b2World world(gravity);
     // init. static walls
     [self createWalls];
 }
@@ -133,11 +133,43 @@
 }
 
 - (Target *) locateTargetByX:(float)x y:(float)y {
-    b2Vec2 shootPos;
-    shootPos.Set([self c2b:x], [self c2b:y]);
-    b2Shape *s = NULL;
     Target *ret = nil;
-    NSLog(@"shooting [%f, %f]", shootPos.x, shootPos.y);
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(x, y);
+    b2Body *body = world->CreateBody(&bodyDef);
+    // now all bomb and enemy have the same size, which is 40 * 40
+    b2PolygonShape shape;
+    shape.SetAsBox(1.0f, 1.0f);
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &shape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.3f;
+    body->CreateFixture(&fixtureDef);
+
+    if(world->GetContactCount()<2)
+        return ret;
+    for(b2Contact *contactlist=world->GetContactList();contactlist;contactlist=contactlist->GetNext())
+    {
+        if(!contactlist->IsTouching())
+            continue;
+        b2Fixture *fixtureA=contactlist->GetFixtureA();
+        b2Fixture *fixtureB=contactlist->GetFixtureB();
+        if(fixtureA->GetBody()==body)
+        {
+            b2Body *targetBody=fixtureB->GetBody();
+            ret=(__bridge Target *)targetBody->GetUserData();
+            break;
+        }
+        if(fixtureB->GetBody()==body)
+        {
+            b2Body *targetBody=fixtureA->GetBody();
+            ret=(__bridge Target *)targetBody->GetUserData();
+            break;
+        }
+    }
+    //NSLog(@"shooting [%f, %f]", shootPos.x, shootPos.y);
+    /*
     b2Transform transform;
     transform.SetIdentity();
     for (b2Body *b = world->GetBodyList(); b; b = b->GetNext()) {
@@ -158,6 +190,7 @@
             break;
         }
     }// for each body
+     */
     return ret;
 }
 
