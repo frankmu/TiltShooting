@@ -69,6 +69,9 @@
 		96B99051163336870067583C /* TimeProcessBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B99050163336870067583C /* TimeProcessBar.m */; };
 		96BA79DC16385BDB00EA1D4B /* timebar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BA79DA16385BDB00EA1D4B /* timebar_background.png */; };
 		96BA79DD16385BDB00EA1D4B /* timebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BA79DB16385BDB00EA1D4B /* timebar.png */; };
+		96E5D41D1641E08600F9FDEC /* ProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E5D41C1641E08600F9FDEC /* ProgressBar.m */; };
+		96E5D4201641E0C800F9FDEC /* processbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E5D41E1641E0C800F9FDEC /* processbar.png */; };
+		96E5D4211641E0C800F9FDEC /* processblur.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E5D41F1641E0C800F9FDEC /* processblur.png */; };
 		AC6656091610FD6B004E4104 /* Bomb.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6655FC1610FD6B004E4104 /* Bomb.m */; };
 		AC66560E1610FD6B004E4104 /* Target.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656081610FD6B004E4104 /* Target.m */; };
 		AC6656191610FE86004E4104 /* Aim.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656111610FE85004E4104 /* Aim.m */; };
@@ -355,6 +358,10 @@
 		96B99050163336870067583C /* TimeProcessBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeProcessBar.m; sourceTree = "<group>"; };
 		96BA79DA16385BDB00EA1D4B /* timebar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timebar_background.png; sourceTree = "<group>"; };
 		96BA79DB16385BDB00EA1D4B /* timebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timebar.png; sourceTree = "<group>"; };
+		96E5D41B1641E08600F9FDEC /* ProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBar.h; sourceTree = "<group>"; };
+		96E5D41C1641E08600F9FDEC /* ProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBar.m; sourceTree = "<group>"; };
+		96E5D41E1641E0C800F9FDEC /* processbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = processbar.png; path = Resources/processbar.png; sourceTree = "<group>"; };
+		96E5D41F1641E0C800F9FDEC /* processblur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = processblur.png; path = Resources/processblur.png; sourceTree = "<group>"; };
 		AC6655FB1610FD6B004E4104 /* Bomb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bomb.h; sourceTree = "<group>"; };
 		AC6655FC1610FD6B004E4104 /* Bomb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bomb.m; sourceTree = "<group>"; };
 		AC6656071610FD6B004E4104 /* Target.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Target.h; sourceTree = "<group>"; };
@@ -871,6 +878,8 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96E5D41E1641E0C800F9FDEC /* processbar.png */,
+				96E5D41F1641E0C800F9FDEC /* processblur.png */,
 				ACD93CE916190FE500FB1FC7 /* aimcross.png */,
 				9682FC01162CDD0B00D29259 /* aniexplode.plist */,
 				96BA79DA16385BDB00EA1D4B /* timebar_background.png */,
@@ -1490,6 +1499,8 @@
 				96852E8F162D4F7300F43DF8 /* Viewer.m */,
 				96852E90162D4F7300F43DF8 /* WeaponSprite.h */,
 				96852E91162D4F7300F43DF8 /* WeaponSprite.m */,
+				96E5D41B1641E08600F9FDEC /* ProgressBar.h */,
+				96E5D41C1641E08600F9FDEC /* ProgressBar.m */,
 				96B9904C16332E770067583C /* Weapon.h */,
 				96B9904D16332E770067583C /* Weapon.m */,
 				96B9904F163336870067583C /* TimeProcessBar.h */,
@@ -1612,6 +1623,8 @@
 				963ABA371637D1A100ECA83B /* handgun-hd.png in Resources */,
 				96BA79DC16385BDB00EA1D4B /* timebar_background.png in Resources */,
 				96BA79DD16385BDB00EA1D4B /* timebar.png in Resources */,
+				96E5D4201641E0C800F9FDEC /* processbar.png in Resources */,
+				96E5D4211641E0C800F9FDEC /* processblur.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1801,6 +1814,7 @@
 				AC88B4611640D6B30081DC38 /* WeaponBase.m in Sources */,
 				AC88B4641640E7550081DC38 /* DesertEagle.m in Sources */,
 				AC88B470164125640081DC38 /* POINT.m in Sources */,
+				96E5D41D1641E08600F9FDEC /* ProgressBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

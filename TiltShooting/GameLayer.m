@@ -28,6 +28,8 @@
 @synthesize shootMode;
 @synthesize timeBar;
 @synthesize firstTouchLocation;
+@synthesize progressPercentage;
+@synthesize progressBar;
 // on "init" you need to initialize your instance
 -(id) init
 {
@@ -46,7 +48,7 @@
         /**  init time bar  */
         
         timeBar=[[TimeProcessBar node] showTimeBarInLayer:self];
-        
+        progressBar=[[ProgressBar node] showProgressBar:self];
         //NSLog(@"init gameLayer bg");
 		/*
          // indecator
@@ -227,13 +229,14 @@
 {
     [Viewer NSLogDebug:self.debug withMsg:@"touch began once"];
     
-     // get location of touch
-     firstTouchLocation = [touch locationInView:[touch view]];
-     firstTouchLocation = [[CCDirector sharedDirector] convertToGL:firstTouchLocation];
-     NSLog(@"first touch location x=%f y=%f",firstTouchLocation.x,firstTouchLocation.y);
-     
+    // get location of touch
+    firstTouchLocation = [touch locationInView:[touch view]];
+    firstTouchLocation = [[CCDirector sharedDirector] convertToGL:firstTouchLocation];
+    NSLog(@"first touch location x=%f y=%f",firstTouchLocation.x,firstTouchLocation.y);
+    
     
     [timeBar updateTimeBar:percentage];
+    [progressBar updateProgressBar:progressPercentage];
     if(self.multiShoot){
         [self fireWeapon];//at least fire once
         [self schedule:@selector(fireWeapon) interval:0.15];
@@ -257,7 +260,7 @@
         [self unschedule:@selector(fireWeapon)];
         
     }else{
-       
+        
         NSLog(@"error in touch move");
     }
 }

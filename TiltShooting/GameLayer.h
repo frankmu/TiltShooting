@@ -16,6 +16,7 @@
 //#import "Viewer.h"
 @class Viewer;
 #import "TimeProcessBar.h"
+#import "ProgressBar.h"
 #import "InGameMenuLayer.h"
 
 typedef enum {
@@ -26,7 +27,7 @@ typedef enum {
 } TARGET_TYPE;
 
 @interface GameLayer : CCLayer <CoreEventListener>{
-
+    
 }
 @property BOOL facebookEnable;
 @property (nonatomic,strong) Viewer* viewer;
@@ -44,6 +45,8 @@ typedef enum {
 @property(nonatomic,strong) WeaponSprite *weapon; // guns, no gun yet
 @property(nonatomic,weak)   CCLayer* inGameMenuLayer;
 @property(nonatomic,strong) TimeProcessBar* timeBar;
+@property(nonatomic,strong) ProgressBar* progressBar;
 @property float percentage;
+@property float progressPercentage;
 @property CGPoint firstTouchLocation;
 @end
