@@ -49,6 +49,7 @@
 }
 
 - (void) onShoot:(WeaponBase *)weapon {
+    NSLog(@"hit %f, %f", self.x, self.y);
 }
 
 @end

@@ -77,9 +77,11 @@
     self.scale = width / self.width;
     // create box2d world
     b2Vec2 gravity(0.0f, 0.0f);
-    b2World world(gravity);
+    world = new b2World(gravity);
+    //b2World world(gravity);
     // init. static walls
     [self createWalls];
+    NSLog(@"Box2D world init. complete.");
 }
 
 - (void) destoryWorld {
@@ -103,28 +105,13 @@
     fixtureDef.friction = 0.3f;
     body->CreateFixture(&fixtureDef);
     target->box2dAux = body;
-    NSLog(@"attach [%f, %f] to [%f, %f]", target.x, target.y, bodyDef.position.x, bodyDef.position.y);
+    NSLog(@"attach [%f, %f] to [%f, %f]", target.x, target.y,
+          bodyDef.position.x, bodyDef.position.y);
 }
 
 - (void) deleteTarget: (Target *)target {
     world->DestroyBody((b2Body *)target->box2dAux);
     target->box2dAux = NULL;
-}
-
-- (void) attachBomb:(Bomb *)bomb {
-    [self attachTarget:bomb];
-}
-
-- (void) attachEnemy:(Enemy *)enemy {
-    [self attachTarget:enemy];
-}
-
-- (void) deleteBomb:(Bomb *)bomb {
-    [self deleteTarget:bomb];
-}
-
-- (void) deleteEnemy:(Enemy *)enemy {
-    [self deleteTarget:enemy];
 }
 
 - (void) step {

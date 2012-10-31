@@ -770,6 +770,7 @@
 			isa = PBXGroup;
 			children = (
 				AC88B45D1640D6590081DC38 /* weapon */,
+				AC665624161265BD004E4104 /* targets */,
 				96852E5E162D4EB400F43DF8 /* CoreEventListener.h */,
 				96852E5F162D4EB400F43DF8 /* GameBrain.h */,
 				96852E60162D4EB400F43DF8 /* GameBrain.m */,
@@ -785,7 +786,6 @@
 				96852E6B162D4EB400F43DF8 /* ModelUtilities.m */,
 				96852E6C162D4EB400F43DF8 /* MotionProcessor.h */,
 				96852E6D162D4EB400F43DF8 /* MotionProcessor.m */,
-				AC665624161265BD004E4104 /* targets */,
 				AC88B46E164125630081DC38 /* POINT.h */,
 				AC88B46F164125630081DC38 /* POINT.m */,
 			);

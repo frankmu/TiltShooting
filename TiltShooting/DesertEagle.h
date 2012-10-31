@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ModelHeaders.h"
+#import "WeaponBase.h"
 @interface DesertEagle : WeaponBase
 
 @end

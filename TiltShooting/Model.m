@@ -130,12 +130,12 @@ canvasW = _canvasW, canvasH = _canvasH;
 - (void) startWithLevel: (int) level {
     // some work must be done first in order to init others
     [[GameBrain class] initGame];
+    [self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
     // for experiment
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         // the order to init. is important
         self.status = RUNNING;
-        [[GameBrain class] initGameSceneWithLevel:1];
-        [self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
+        [[GameBrain class] initGameSceneWithLevel:1];        
         [self.daemon start];
         [self.motionProcessor start];
         [self fireGameInitFinishedEvent];
