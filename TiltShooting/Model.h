@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ModelFullInterface.h"
-#import "Enemy.h"
-#import "Aim.h"
+#import "Map2Box2D.h"
 
 @interface Model : NSObject <ModelFullInterface>
 @property float canvasX, canvasY, canvasW, canvasH;
@@ -17,12 +16,15 @@
 
 @property float volume;
 @property float score;
+@property NSTimeInterval time;
+@property float bonus;
 
-@property (strong) NSMutableArray *enemyList;
-@property (strong) NSMutableArray *bombList;
-@property (strong) Aim *aim;
+@property (strong, atomic) NSMutableArray *targetList;
+@property (strong, atomic) NSMutableArray *weaponList;
+@property (strong, atomic) WeaponBase *currentWeapon;
+@property (strong, atomic) Aim *aim;
 @property (strong) Map2Box2D *map2Box2D;
-@property POINT shootPoint;
+@property (strong, atomic) NSMutableArray *shootPoints;
 @property BOOL shootHappen;
 
 

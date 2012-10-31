@@ -5,11 +5,11 @@
 //  Created by yirui zhang on 9/30/12.
 //
 //
-
+#import <Foundation/Foundation.h>
 #import "Target.h"
 #import "Bomb.h"
 #import "Enemy.h"
-#import <Foundation/Foundation.h>
+
 
 @interface Map2Box2D : NSObject
 

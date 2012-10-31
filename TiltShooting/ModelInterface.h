@@ -8,8 +8,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CoreEventListener.h"
+#import "Bomb.h"
+#import "Enemy.h"
 #import "Aim.h"
+#import "WeaponBase.h"
+#import "CoreEventListener.h"
 
 typedef enum {
     RUNNING,
@@ -47,10 +50,11 @@ typedef enum {
 - (void) save;
 - (STATUS) status;
 - (void) shoot;
+- (void) specialShoot;
 
 /* Data Access Interface */
-- (NSMutableArray *) enemyList;
-- (NSMutableArray *) bombList;
+- (NSMutableArray *) targetList;
+- (NSMutableArray *) weaponList;
 - (Aim *) aim;
 - (float) canvasX;
 - (float) canvasY;
@@ -60,10 +64,14 @@ typedef enum {
 - (float) deviceH;
 - (float) volume;
 - (float) score;
+- (float) bonus;
+- (NSTimeInterval) time;
+- (WeaponBase *) currentWeapon;
 - (void) setVolume: (float)volume;
 - (void) setCanvasX: (float) cx Y: (float) cy;
 - (void) setCanvasWidth: (float) cw height: (float) ch;
 - (void) setDeviceWidth: (float) dw height: (float)  dh;
+- (void) setCurrentWeapon: (WeaponBase *)weapon;
 
 /* Conf. */
 - (int) hasRecord;

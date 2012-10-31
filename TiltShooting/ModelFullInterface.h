@@ -6,16 +6,11 @@
 //
 //
 
+
+#import <Foundation/Foundation.h>
 #import "ModelInterface.h"
 #import "Map2Box2D.h"
-#import "Bomb.h"
-#import "Enemy.h"
-#import <Foundation/Foundation.h>
-
-typedef struct {
-    float x;
-    float y;
-}POINT;
+#import "POINT.h"
 
 @protocol ModelFullInterface <ModelInterface>
 @required
@@ -27,21 +22,26 @@ typedef struct {
 - (void) fireTargetHitEvent: (Target *)target;
 - (void) fireImpactEvent: (Target *)t1 by: (Target *)t2;
 - (void) fireGameInitFinishedEvent;
-- (void) fireWinEvent;
-- (void) fireLoseEvent;
+//- (void) fireWinEvent;
+//- (void) fireLoseEvent;
+- (void) fireGameFinishEvent;
 - (void) fireScoreEvent: (float)score;
-/* Date Access */
-- (void) createBomb: (Bomb *)bomb;
-- (void) createEnemy: (Enemy *)enemy;
-- (void) deleteBomb: (Bomb *)bomb;
-- (void) deleteEnemy: (Enemy *)enemy;
+- (void) fireTimeEvent: (NSTimeInterval)time;
+- (void) fireWeaponStatusChangeEvent: (WeaponBase *)currentWeapon;
+/* Data Access: notify */
+- (void) createTarget: (Target *)target;
 - (void) deleteTarget: (Target *)target;
+- (void) changeScore: (float)score;
+- (void) changeTime: (NSTimeInterval)time;
+/* Data Access: don't notify */
 - (void) setCanvasX: (float)x;
 - (void) setCanvasY: (float)y;
 - (void) setScore: (float)score;
+- (void) setBonus: (float)bonus;
+- (void) setTime: (NSTimeInterval)time;
 - (Map2Box2D *) map2Box2D;
 - (BOOL) shootHappen;
 - (void) resetShootHappen;
-- (POINT) shootPoint;
-- (void) changeScore: (float)score;
+- (NSMutableArray *) shootPoints;
+
 @end

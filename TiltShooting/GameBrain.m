@@ -11,16 +11,18 @@
 #import "Enemy.h"
 #import "Aim.h"
 #import "Bomb.h"
+#import "DesertEagle.h"
 static int Totalenemy;
 
 @implementation GameBrain
+
 + (void) setTotalenemy:(int)enemy{
     Totalenemy=enemy;
 }
 + (int) totalenemy{
     return Totalenemy;
 }
-+ (void) initGameWithLevel: (int) level {
++ (void) initGameSceneWithLevel: (int) level {
     // version 0
     id<ModelFullInterface> m = [[Model class] instance];
     [GameBrain setTotalenemy:level*10];
@@ -31,7 +33,7 @@ static int Totalenemy;
         float x = rand()%(int)m.canvasW;
         float y = rand()%(int)m.canvasH;
         Enemy *enemy = [[Enemy alloc] initWithX: x Y: y];
-        [m createEnemy:enemy];
+        [m createTarget:enemy];
         if(rand()%100<=level*20)
         {
             float xb=rand()%(interval/2)+pow(-1, rand()%2)*x;
@@ -45,7 +47,7 @@ static int Totalenemy;
             else if(yb>=m.canvasH)
                 yb=m.canvasW-10;
             Bomb *bomb = [[Bomb alloc] initWithX: xb Y: yb];
-            [m createBomb:bomb];
+            [m createTarget:bomb];
         }
     }
 }
@@ -53,7 +55,7 @@ static int Totalenemy;
 + (void) refreshGameWithLevel:(int)level{
     id<ModelFullInterface> m = [[Model class] instance];
     int totalnumber=[GameBrain totalenemy];
-    NSMutableArray * e=m.enemyList;
+    NSMutableArray * e=[m targetList];
     srand((unsigned int) time(NULL));
     int interval=100/level;
     if(totalnumber>=[e count])
@@ -67,7 +69,7 @@ static int Totalenemy;
                 float x = rand()%(int)m.canvasW;
                 float y = rand()%(int)m.canvasH;
                 Enemy *enemy = [[Enemy alloc] initWithX: x Y: y];
-                [m createEnemy:enemy];
+                [m createTarget:enemy];
                 if(rand()%100<=level*10)
                 {
                     float xb=rand()%interval+pow(-1, rand()%2)*x;
@@ -81,7 +83,7 @@ static int Totalenemy;
                     else if(yb>=m.canvasH)
                         yb=m.canvasW-10;
                     Bomb *bomb = [[Bomb alloc] initWithX: xb Y: yb];
-                    [m createBomb:bomb];
+                    [m createTarget:bomb];
                 }
             }
 
@@ -95,9 +97,22 @@ static int Totalenemy;
             float x = rand()%(int)m.canvasW;
             float y = rand()%(int)m.canvasH;
             Bomb *bomb = [[Bomb alloc] initWithX: x Y: y];
-            [m createBomb:bomb];
+            [m createTarget:bomb];
         }
     }
+}
+
++ (void) initGame {
+    id<ModelFullInterface> m = [[Model class] instance];
+    // init weapon list
+    NSMutableArray *weapons = [m weaponList];
+    [weapons addObject: [[DesertEagle alloc] init]];
+    // init current weapon
+    [m setCurrentWeapon: [weapons objectAtIndex:0]];
+    // init score system
+    [m setScore:0.0f];
+    [m setBonus:0.0f];
+    [m setTime: 30.0f];
 }
 
 @end
