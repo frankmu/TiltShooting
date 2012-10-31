@@ -23,19 +23,19 @@ static int Totalenemy;
 + (void) initGameWithLevel: (int) level {
     // version 0
     id<ModelFullInterface> m = [[Model class] instance];
-    [GameBrain setTotalenemy:level*30];
+    [GameBrain setTotalenemy:level*10];
     srand((unsigned int) time(NULL));
     int interval=100/level;
-    for (int i = 0; i < 20*level; ++i) {
+    for (int i = 0; i < 10*level; ++i) {
         // gen random float between 0 and canvas board
         float x = rand()%(int)m.canvasW;
         float y = rand()%(int)m.canvasH;
         Enemy *enemy = [[Enemy alloc] initWithX: x Y: y];
         [m createEnemy:enemy];
-        if(rand()%100<=level*10)
+        if(rand()%100<=level*20)
         {
-            float xb=rand()%interval+pow(-1, rand()%2)*x;
-            float yb=rand()%interval+pow(-1, rand()%2)*y;	
+            float xb=rand()%(interval/2)+pow(-1, rand()%2)*x;
+            float yb=rand()%(interval/2)+pow(-1, rand()%2)*y;
             if(xb<0)
                 xb=10;
             else if(xb>=m.canvasW)

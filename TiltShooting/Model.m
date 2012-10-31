@@ -34,7 +34,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @synthesize daemon = _daemon;
 @synthesize aim = _aim;
 @synthesize canvasX = _canvasX, canvasY = _canvasY,
-            canvasW = _canvasW, canvasH = _canvasH;
+canvasW = _canvasW, canvasH = _canvasH;
 @synthesize volume = _volume;
 @synthesize score = _score;
 @synthesize deviceW = _deviceW, deviceH = _deviceH;
@@ -128,7 +128,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         // the order to init. is important
         self.status = RUNNING;
-        [self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
+        //[self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
         [[GameBrain class] initGameWithLevel:1];
         [self.daemon start];
         [self.motionProcessor start];
@@ -159,6 +159,11 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     self.aim.y = self.canvasH / 2.0f;
 }
 
+- (void) resetCanvas {
+    self.canvasX = self.deviceW / 2.0f;
+    self.canvasY = self.deviceH / 2.0f;
+}
+
 - (void) stop {
     // order is important
     self.status = STOPPED;
@@ -167,10 +172,12 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     [self.targetSet removeAllObjects];
     [self.enemyList removeAllObjects];
     [self.bombList removeAllObjects];
-    [self.map2Box2D destoryWorld];
+    //[self.map2Box2D destoryWorld];
     self.shootHappen = NO;
     self.score = 0.0f;
+    [self resetCanvas];
     [self resetAim];
+    [self fireTargetMoveEvent:self.aim];
     NSLog(@"Model Stop");
 }
 
@@ -273,7 +280,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     if (![self.targetSet containsObject:target]) {
         [list addObject:target];
         [self.targetSet addObject:target];
-        [self.map2Box2D attachTarget:target];
+        //[self.map2Box2D attachTarget:target];
         [self fireTargetAppearEvent:target];
     }
 }
@@ -298,7 +305,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     if ([self.targetSet containsObject:target]) {
         [list removeObject:target];
         [self.targetSet removeObject:target];
-        [self.map2Box2D deleteTarget:target];
+        //[self.map2Box2D deleteTarget:target];
         [self fireTargetDisappearEvent:target];
     }
 }

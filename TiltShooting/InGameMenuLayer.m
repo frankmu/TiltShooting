@@ -93,7 +93,10 @@
     for (int i=0; i<BULLETNUM; i++) {
         [self showBulletHoleOnButton:sender];
     }
+    id<ModelInterface>  model = [[Model class] instance];
+    [model resume];
     
+    [model stop];
     CCScene *sc = [MenuScene node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
 }

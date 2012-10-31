@@ -13,7 +13,7 @@
 #import "Model.h"
 #import "Aim.h"
 #import <CoreMotion/CoreMotion.h>
-#define DEFAULT_INTERVAL (1/40.f)
+#define DEFAULT_INTERVAL (1/80.f)
 @interface MotionProcessor()
 @property (strong) CMMotionManager *motionManager;
 @property (strong) CMAttitude *referenceAttitude;
@@ -65,10 +65,10 @@
     [self.timer invalidate];
     // init. new timer
     NSTimer *timer = [NSTimer timerWithTimeInterval:self.flushInterval
-                                                      target:self
-                                                    selector:@selector(runAsync:)
-                                                    userInfo:nil
-                                                     repeats:YES];
+                                             target:self
+                                           selector:@selector(runAsync:)
+                                           userInfo:nil
+                                            repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     self.timer = timer;
     NSLog(@"Motion Processor Resume");
@@ -101,6 +101,11 @@
         NSLog(@"Motion not detected");
         return;
     }
+    id<ModelFullInterface> m = [[Model class] instance];
+    if ([m status] != RUNNING) {
+        return;
+    }
+    
     // detect if there is no reference attitude
     if (!self.referenceAttitude) {
         // get reference attitude
@@ -118,12 +123,11 @@
     // deal with tilt
     [self tilt:grivaty interval:(motion.timestamp - self.lastTime)];
     // output per second if debug is enabled
-    id<ModelFullInterface> m = [[Model class] instance];
     [[ModelUtilities class] debugWithDetect:self.runningTimes
                                    interval:self.flushInterval
                                      format:@"processed grivaty [%f, %f, %f]\ncanvas [%f, %f]",
-                                            grivaty.x, grivaty.y, grivaty.z,
-                                            m.canvasX, m.canvasY];
+     grivaty.x, grivaty.y, grivaty.z,
+     m.canvasX, m.canvasY];
     // update last time timestamp
     self.lastTime = motion.timestamp;
 }
@@ -138,8 +142,8 @@
     // compute raw increasement
     // I want the rate of movement to be more when user tilted more
     // which means I need a factor which combines grivaty (the "pow" part)
-    float x = (float)(grivaty.x * 9.8 * interval * sqrt(fabs(grivaty.x) * 9.8 * 30));
-    float y = (float)(grivaty.y * 9.8 * interval * sqrt(fabs(grivaty.y) * 9.8 * 30));
+    float x = (float)(grivaty.x * 9.8 * interval * sqrt(fabs(grivaty.x) * 9.8) * 35);
+    float y = (float)(grivaty.y * 9.8 * interval * sqrt(fabs(grivaty.y) * 9.8) * 35);
     // get aim increasement
     float aimIncX = y, aimIncY = -x;
     /* this step is to make sure that the aim won't go outside of the canvas */

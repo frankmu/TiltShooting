@@ -12,8 +12,10 @@
 #import "CoreEventListener.h"
 #import "ModelInterface.h"
 #import "MenuScene.h"
+
 //#import "Viewer.h"
 @class Viewer;
+#import "TimeProcessBar.h"
 #import "InGameMenuLayer.h"
 
 typedef enum {
@@ -26,6 +28,7 @@ typedef enum {
 @interface GameLayer : CCLayer <CoreEventListener>{
 
 }
+@property BOOL facebookEnable;
 @property (nonatomic,strong) Viewer* viewer;
 @property BOOL multiShoot;
 @property BOOL debug;
@@ -40,5 +43,7 @@ typedef enum {
 @property(nonatomic,strong) CCSprite *shootMode;
 @property(nonatomic,strong) WeaponSprite *weapon; // guns, no gun yet
 @property(nonatomic,weak)   CCLayer* inGameMenuLayer;
-
+@property(nonatomic,strong) TimeProcessBar* timeBar;
+@property float percentage;
+@property CGPoint firstTouchLocation;
 @end

@@ -36,10 +36,10 @@
     [self.timer invalidate];
     // init. new timer
     NSTimer *timer = [NSTimer timerWithTimeInterval:self.flushInterval
-                                                      target:self
-                                                    selector:@selector(runAsync:)
-                                                    userInfo:nil
-                                                     repeats:YES];
+                                             target:self
+                                           selector:@selector(runAsync:)
+                                           userInfo:nil
+                                            repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     self.timer = timer;
     NSLog(@"Model Daemon Start");
@@ -58,6 +58,9 @@
 
 - (void) run: (NSTimer *) timer {
     id<ModelFullInterface> m = [[Model class] instance];
+    if ([m status] != RUNNING) {
+        return;
+    }
     //Map2Box2D *map = [m map2Box2D];
     // work normally
     ++ self.runningTimes;

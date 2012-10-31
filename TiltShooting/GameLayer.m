@@ -15,6 +15,8 @@
 #import "Bomb.h"
 @implementation GameLayer
 
+@synthesize percentage;
+@synthesize facebookEnable;
 @synthesize viewer;
 @synthesize level;
 @synthesize background;
@@ -24,7 +26,8 @@
 @synthesize SheetExplodeBig;
 @synthesize scoreFont;
 @synthesize shootMode;
-
+@synthesize timeBar;
+@synthesize firstTouchLocation;
 // on "init" you need to initialize your instance
 -(id) init
 {
@@ -32,24 +35,28 @@
 	// Apple recommends to re-assign "self" with the "super" return value
 	if( (self=[super init] )) {
         [Viewer NSLogDebug:self.debug withMsg:@"init gameLayer"];
-
-        //viewer draw background 
+        
+        //viewer draw background
         //[Viewer showMenuBackground:self];
         CGSize size = [[CCDirector sharedDirector] winSize];
 		// Load background 1440*960 ??
 		background = [CCSprite spriteWithFile:@"nightsky.png"];
 		[self addChild:background z:0 tag:9];
         background.position=ccp( size.width /2 , size.height/2 );
+        /**  init time bar  */
+        
+        timeBar=[[TimeProcessBar node] showTimeBarInLayer:self];
+        
         //NSLog(@"init gameLayer bg");
 		/*
-		// indecator
-		CCSprite *spriteInd = [CCSprite spriteWithFile:@"enemy.png" rect:CGRectMake(0,0,40,40)];
-		[self addChild:spriteInd z:1 tag:5];
-		
-		spriteInd.scale = 0.8;
-		spriteInd.position = ccp(20, 300);
-		*/
-        
+         // indecator
+         CCSprite *spriteInd = [CCSprite spriteWithFile:@"enemy.png" rect:CGRectMake(0,0,40,40)];
+         [self addChild:spriteInd z:1 tag:5];
+         
+         spriteInd.scale = 0.8;
+         spriteInd.position = ccp(20, 300);
+         */
+        firstTouchLocation=ccp(0,0);
         //show scoreFont
         CCLabelBMFont *scoreLabel=[CCLabelBMFont labelWithString:@"Score:" fntFile:@"font09.fnt"];
         scoreLabel.position=ccp(30,305);
@@ -74,7 +81,7 @@
 		mn.position = ccp (480 - 50, 30);
         
 		[self addChild:mn z:1 tag:2];        // add the label as a child to this Layer
-       
+        
 		//cache explode animation by init viewer
         viewer=[[Viewer alloc] initWithLayer:self];
         
@@ -82,11 +89,11 @@
         CCMenuItem *shootModeButton = [CCMenuItemFont itemFromString:@"     " target:self selector:@selector(changeShootMode:)];
 		CCMenu *mn2= [CCMenu menuWithItems:shootModeButton, nil];
         [self addChild:mn2 z:1];
-		mn2.position = ccp (150, 30);
+		mn2.position = ccp (100, 30);
         
         shootMode=[CCSprite spriteWithFile:@"bullet_single_multi.png"   rect:CGRectMake(0, 0,50,50)];
         [self addChild:shootMode z:2];
-        shootMode.position=ccp(150,30);
+        shootMode.position=ccp(100,30);
         
         //preload sound effetc
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"Rifle_GunShot.mp3"];
@@ -97,7 +104,7 @@
         // register to model event listener
         id<ModelInterface>  model = [[Model class] instance];
         [model addToCoreEventListenerList:self];
-       
+        
 		//debug
         [self setDebug:YES];
 	}
@@ -109,10 +116,10 @@
 	[super onEnter];
     
 	[Viewer NSLogDebug:self.debug withMsg:@"Enter GameLayer"];
-
+    
     //start model
     [Viewer NSLogDebug:self.debug withMsg:@"start model for model test "];
-     id<ModelInterface> model = [[Model class] instance];
+    id<ModelInterface> model = [[Model class] instance];
     [Viewer NSLogDebug:self.debug withMsg:@"start model"];
     [model start];
     //play bg music
@@ -132,13 +139,13 @@
     [super onExit];
     //remove from listenlist of model?
     /* not stop here
-    //stop model
-    id<ModelInterface> model = [[Model class] instance];
-    if (model.status == RUNNING || model.status==PAUSING) {
-        [Viewer NSLogDebug:self.debug withMsg:@"gameLayer stops model"];
-        [model stop];
-    }
-    */
+     //stop model
+     id<ModelInterface> model = [[Model class] instance];
+     if (model.status == RUNNING || model.status==PAUSING) {
+     [Viewer NSLogDebug:self.debug withMsg:@"gameLayer stops model"];
+     [model stop];
+     }
+     */
     [Viewer NSLogDebug:self.debug withMsg:@"Exit gameLayer"];
 }
 
@@ -160,7 +167,7 @@
     //will change this to model listen func
     //check win or lose
     //if win
-     [Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
+    [Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
     //if lose
     //[Viewer showBigSign:@"LOSE!" inLayer:self withDuration:1];
     
@@ -170,7 +177,7 @@
     //replace scene
     CCScene *sc = [GameOverScene node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
-
+    
 }
 
 -(void)removeChildFromParent:(CCNode*)child{
@@ -202,10 +209,12 @@
 }
 //change score appear on the screen
 -(void) changeScore:(float)score{
-
+    
     [self.scoreFont setString:[NSString stringWithFormat:@"%d",(int)score]];
-
+    
 }
+
+
 //************ Handle GameLayer Touch *******************//
 // register to get touches input
 -(void) registerWithTouchDispatcher
@@ -217,13 +226,16 @@
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [Viewer NSLogDebug:self.debug withMsg:@"touch began once"];
-    /*
-     // get location of touch 
-    CGPoint location = [touch locationInView:[touch view]];
-    location = [[CCDirector sharedDirector] convertToGL:location];
-    NSLog(@"x=%f y=%f",location.x,location.y);
-     */
+    
+     // get location of touch
+     firstTouchLocation = [touch locationInView:[touch view]];
+     firstTouchLocation = [[CCDirector sharedDirector] convertToGL:firstTouchLocation];
+     NSLog(@"first touch location x=%f y=%f",firstTouchLocation.x,firstTouchLocation.y);
+     
+    
+    [timeBar updateTimeBar:percentage];
     if(self.multiShoot){
+        [self fireWeapon];//at least fire once
         [self schedule:@selector(fireWeapon) interval:0.15];
     }
     else{//single shoot mode
@@ -235,27 +247,57 @@
 
 -(void) ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-	    
+    //temp for debug
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    CGPoint prelocation = [touch previousLocationInView:[touch view]];
+    prelocation = [[CCDirector sharedDirector] convertToGL:prelocation];
+    if(location.x!=prelocation.x || location.y!=prelocation.y ){
+        //if swap, stop fire
+        [self unschedule:@selector(fireWeapon)];
+        
+    }else{
+       
+        NSLog(@"error in touch move");
+    }
 }
 
 -(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [Viewer NSLogDebug:self.debug withMsg:@"touch ended once"];
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    //caculate distance for swap
+    float distance=sqrt((location.x-firstTouchLocation.x)*(location.x-firstTouchLocation.x)+(location.y-firstTouchLocation.y)*(location.y-firstTouchLocation.y));
+    if(distance>50){
+        //valid swipe
+        if (location.x-firstTouchLocation.x<0) {
+            NSLog(@"swipe for previous weapon");
+            [Viewer showBigSign:@"Previous Weapon" inLayer:self withDuration:1];
+            [viewer showPreviousWeapon];
+        }
+        else if(location.x-firstTouchLocation.x>0){
+            NSLog(@"swipe for next weapon");
+            [Viewer showBigSign:@"Next Weapon" inLayer:self withDuration:1];
+            [viewer showNextWeapon];
+        }
+    }
+    firstTouchLocation=ccp(0,0);
     if(self.multiShoot){
-        [self fireWeapon];//at least fire once
+        //[self fireWeapon];//at least fire once
         [self unschedule:@selector(fireWeapon)];
     }
     //[[SimpleAudioEngine sharedEngine] playEffect:@"gunShotOntarget.mp3"];
     
 }
 -(void)fireWeapon{
-    //call model 
+    //call model
     id<ModelInterface> m = [[Model class] instance];
     [m shoot];
-
+    
     [Viewer NSLogDebug:self.debug withMsg:@"fire gun once"];
     //shoot effect
-    [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];  
+    [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
     //show a bullet hole for test, not using location here
     [Viewer showBulletHole:self atLocation:self.aimCross.position];
     
@@ -280,7 +322,7 @@
             
             [Viewer showBomb:target inLayer:self];
             break;
-
+            
         default:
             break;
     }
@@ -293,7 +335,7 @@
         TARGET_TYPE type=[self checkTargetType:target];
         switch (type) {
             case AIM:
-               
+                
                 [Viewer removeAim:target inLayer:self];
                 break;
             case ENEMY:
@@ -310,7 +352,7 @@
             default:
                 break;
         }
-
+        
         //remove using Viewer now
         
     }
@@ -318,7 +360,7 @@
         NSLog(@"error:try to delete nil target");
     }
     return BUBBLE_CONTINUE;
-
+    
 }
 - (BUBBLE_RULE) targetMove: (Target *) target{
     //for test
@@ -331,7 +373,7 @@
         NSLog(@"error:try to move nil target");
     }
     return BUBBLE_CONTINUE;
-
+    
 }
 
 
@@ -342,13 +384,13 @@
 }
 - (BUBBLE_RULE) impact: (Target *) t1 by: (Target *) t2{
     return BUBBLE_CONTINUE;
-
+    
 }
 
 /* game control signals */
 - (BUBBLE_RULE) gameInitFinished{
     return BUBBLE_CONTINUE;
-
+    
 }
 
 //check target type
@@ -378,6 +420,9 @@
 - (BUBBLE_RULE) win {
     NSLog(@"win");
     [self setIsTouchEnabled:NO];
+    if(self.multiShoot){//avoid redundant multi shoot
+        [self unschedule:@selector(fireWeapon)];
+    }
     //if win
     [Viewer showBigSign:@"WIN!" inLayer:self withDuration:2];
     //if lose
@@ -393,9 +438,9 @@
     [sc setScore:self.score];
     [sc setWin:TRUE];
     [sc start];
-
+    
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
-
+    
     return BUBBLE_CONTINUE;
 }
 
@@ -405,6 +450,9 @@
     //[Viewer showBigSign:@"WIN!" inLayer:self withDuration:1.5];
     //if lose
     [self setIsTouchEnabled:NO];
+    if(self.multiShoot){//avoid redundant multi shoot
+        [self unschedule:@selector(fireWeapon)];
+    }
     [Viewer showBigSign:@"LOSE!" inLayer:self withDuration:2];
     
     //stop model here
@@ -418,7 +466,7 @@
     [sc setWin:FALSE];
     [sc start];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
-
+    
     return BUBBLE_CONTINUE;
 }
 

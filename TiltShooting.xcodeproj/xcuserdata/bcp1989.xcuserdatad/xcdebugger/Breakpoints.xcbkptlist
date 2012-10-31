@@ -13,7 +13,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "212"
          endingLineNumber = "212"
-         landmarkName = "-fireTargetHitEvent:"
+         landmarkName = "-fireTargetDisappearEvent:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

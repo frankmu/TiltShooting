@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "TargetSprite.h"
-#import "WeaponSprite.h"
+#import "Weapon.h"
 #import "GameLayer.h"
 @interface Viewer : NSObject {
     
@@ -34,6 +34,13 @@
 //init viewer for cache animation
 -(id)initWithLayer:(CCLayer*)layer;
 -(void) showExplodeInLayer:(CCLayer*)layer at:(CGPoint)location;
+-(void)showPreviousWeapon;
+-(void)showNextWeapon;
 @property (nonatomic,strong) CCSpriteBatchNode *spriteSheet;
-@property (nonatomic,strong) CCAction *explodeAction;
+@property (nonatomic,strong)  CCAnimation *explodeAnim;
+@property  NSMutableArray *weaponList;
+@property  NSMutableArray *weaponSpriteList;
+@property int currentWeaponIndex;
+@property int nextWeaponIndex;
+@property (weak) CCLayer* glayer;
 @end
