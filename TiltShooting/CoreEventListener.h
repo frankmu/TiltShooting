@@ -26,7 +26,7 @@ typedef enum {
 - (BUBBLE_RULE) impact: (Target *)target by: (Target *)target;
 - (BUBBLE_RULE) prepareToDisappear: (Target *)target;
 /* weapon */
-- (BUBBLE_RULE) weaponStatusChanged;
+- (BUBBLE_RULE) weaponStatusChanged:(WeaponBase *)weapon;
 /* other object */
 - (BUBBLE_RULE) canvasMovetoX: (float)x Y: (float)y;
 
@@ -37,4 +37,5 @@ typedef enum {
 - (BUBBLE_RULE) gameFinish;
 - (BUBBLE_RULE) score: (float)score;
 - (BUBBLE_RULE) time: (float)time;
+//- (BUBBLE_RULE) bonus: (float)bonus;
 @end

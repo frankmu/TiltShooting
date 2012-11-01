@@ -19,10 +19,11 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 
 @interface Model()
 
-@property (strong) NSMutableArray *listenerList;
+@property (strong, atomic) NSMutableArray *listenerList;
 @property (strong) ModelDaemon *daemon;
 @property (strong) MotionProcessor *motionProcessor;
-@property (strong) NSMutableSet *targetSet;
+@property (strong, atomic) NSMutableSet *targetSet;
+//@property (strong, atomic) NSMutableArray *eventList;
 @end
 
 @implementation Model
@@ -44,6 +45,7 @@ canvasW = _canvasW, canvasH = _canvasH;
 @synthesize status = _status;
 @synthesize debug = _debug;
 @synthesize shootHappen = _shootHappen;
+@synthesize reloadHappen = _reloadHappen;
 @synthesize shootPoints = _shootPoints;
 
 + (id<ModelInterface>) instance {
@@ -270,7 +272,7 @@ canvasW = _canvasW, canvasH = _canvasH;
 - (void) fireWeaponStatusChangeEvent:(WeaponBase *)currentWeapon {
     [self fireEvent:@selector(weaponStatusChanged:)
                with:^(id<CoreEventListener> listener) {
-                   return (BUBBLE_RULE) [listener weaponStatusChanged];
+                   return (BUBBLE_RULE) [listener weaponStatusChanged:currentWeapon];
     }];
 }
 
@@ -335,4 +337,5 @@ canvasW = _canvasW, canvasH = _canvasH;
 - (void) specialShoot {
     [self _shootWithUseSkill:YES];
 }
+
 @end

@@ -25,7 +25,8 @@
 @property (strong, atomic) Aim *aim;
 @property (strong) Map2Box2D *map2Box2D;
 @property (strong, atomic) NSMutableArray *shootPoints;
-@property BOOL shootHappen;
+@property (atomic) BOOL shootHappen;
+@property (atomic) BOOL reloadHappen;
 
 
 @property NSTimeInterval flushInterval;

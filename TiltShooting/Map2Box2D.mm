@@ -156,28 +156,6 @@
         }
     }
     //NSLog(@"shooting [%f, %f]", shootPos.x, shootPos.y);
-    /*
-    b2Transform transform;
-    transform.SetIdentity();
-    for (b2Body *b = world->GetBodyList(); b; b = b->GetNext()) {
-        if (b->GetType() != b2_dynamicBody) {
-            continue;
-        }
-        
-        Target *t = (__bridge Target *)b->GetUserData();
-        NSLog(@"testing target [%f, %f]", t.x, t.y);
-        for (b2Fixture *f = b->GetFixtureList(); f; f = f->GetNext()) {
-            s = f->GetShape();
-            if (s->TestPoint(transform, shootPos)) {
-                ret = (__bridge Target *)f->GetUserData();
-                break;
-            }// test point
-        }// for each fixture
-        if (ret != nil) {
-            break;
-        }
-    }// for each body
-     */
     return ret;
 }
 

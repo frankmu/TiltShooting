@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MotionProcessor : NSObject
+@interface MotionProcessor : UIResponder
 @property NSTimeInterval flushInterval;
 - (void) start;
 - (void) pause;

@@ -73,6 +73,8 @@ typedef enum {
 - (void) setDeviceWidth: (float) dw height: (float)  dh;
 - (void) setCurrentWeapon: (WeaponBase *)weapon;
 
+/* Game Control */
+
 /* Conf. */
 - (int) hasRecord;
 

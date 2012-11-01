@@ -76,11 +76,19 @@
         }
     }
     
+    if ([m reloadHappen]) {
+        [m setReloadHappen:NO];
+        [[m currentWeapon] reload];
+    }
+    
     if ([m shootHappen]) {
-        NSMutableArray *points = [[m shootPoints] copy];
+        NSMutableArray *orgPoints = [m shootPoints];
+        NSMutableArray *points = [orgPoints copy];
+        [orgPoints removeAllObjects];
         [m resetShootHappen];
         WeaponBase *currentWeapon = [m currentWeapon];
         for (POINT *p in points) {
+            NSLog(@"shoot test at %f %f", p.x, p.y);
             if (p.useSkill) {
                 [currentWeapon shootWithX:p.x y:p.y];
             } else {

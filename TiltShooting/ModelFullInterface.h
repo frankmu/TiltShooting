@@ -41,6 +41,8 @@
 - (void) setTime: (NSTimeInterval)time;
 - (Map2Box2D *) map2Box2D;
 - (BOOL) shootHappen;
+- (BOOL) reloadHappen;
+- (void) setReloadHappen: (BOOL)reload;
 - (void) resetShootHappen;
 - (NSMutableArray *) shootPoints;
 

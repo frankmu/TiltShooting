@@ -49,6 +49,8 @@
         }
         // init motion interval
         self.motionManager.accelerometerUpdateInterval = 0.01;
+        // init shakeing event
+        [self becomeFirstResponder];
     }
     return self;
 }
@@ -194,5 +196,25 @@
     return g;
 }
 
+/* Deal with shaking event */
+
+- (BOOL) canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    // deal with shaking
+    id<ModelFullInterface> m = [[Model class] instance];
+    [m setReloadHappen:YES];
+}
+
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+}
 
 @end
