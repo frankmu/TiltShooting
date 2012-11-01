@@ -13,6 +13,10 @@
 #import "Model.h"
 #import "Aim.h"
 #import "Bomb.h"
+
+#define MAX_TIME_BAR 300;  //300s
+#define MAX_BONUS_BAR 20;  
+
 @implementation GameLayer
 
 @synthesize percentage;
@@ -235,8 +239,8 @@
     NSLog(@"first touch location x=%f y=%f",firstTouchLocation.x,firstTouchLocation.y);
     
     
-    [timeBar updateTimeBar:percentage];
-    [progressBar updateProgressBar:progressPercentage];
+    //[timeBar updateTimeBar:percentage];
+    //[progressBar updateProgressBar:progressPercentage];
     if(self.multiShoot){
         [self fireWeapon];//at least fire once
         [self schedule:@selector(fireWeapon) interval:0.15];
@@ -392,6 +396,14 @@
 
 /* game control signals */
 - (BUBBLE_RULE) gameInitFinished{
+    id<ModelInterface> m = [[Model class] instance];
+    //init time bar
+    percentage=[m time]/MAX_TIME_BAR;
+    [timeBar updateTimeBar:percentage];
+    //init bonus bar
+    progressPercentage=[m bonus]/MAX_BONUS_BAR;
+    [progressBar updateProgressBar:progressPercentage];
+    
     return BUBBLE_CONTINUE;
     
 }
@@ -481,4 +493,19 @@
     [self changeScore:score];
     return BUBBLE_CONTINUE;
 }
+
+- (BUBBLE_RULE) gameFinish{
+    
+    return BUBBLE_CONTINUE;
+
+}
+
+- (BUBBLE_RULE) time: (float)time{
+    
+    percentage=time/MAX_TIME_BAR;
+    [timeBar updateTimeBar:percentage];
+    return BUBBLE_CONTINUE;
+
+}
+
 @end
