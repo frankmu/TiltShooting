@@ -10,5 +10,6 @@
 #import "Target.h"
 
 @interface Enemy : Target
-    
+
+- (id) initWithX:(float)x Y:(float)y hp: (float)hp;
 @end

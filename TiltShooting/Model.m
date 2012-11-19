@@ -38,7 +38,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @synthesize canvasX = _canvasX, canvasY = _canvasY,
 canvasW = _canvasW, canvasH = _canvasH;
 @synthesize volume = _volume;
-@synthesize score = _score, time = _time, bonus = _bonus;
+@synthesize score = _score, bonus = _bonus;
+@synthesize remainTime = _remainTime, maxTime = _maxTime;
 @synthesize deviceW = _deviceW, deviceH = _deviceH;
 @synthesize flushInterval = _flushInterval;
 @synthesize hasRecord = _hasRecord;
@@ -82,7 +83,8 @@ canvasW = _canvasW, canvasH = _canvasH;
         self.volume = 100.0f;
         self.score = 0.0f;
         self.bonus = 0.0f;
-        self.time = 30.0f;
+        self.remainTime = 30.0;
+        self.maxTime = 30.;
     }
     return self;
 }
@@ -131,7 +133,7 @@ canvasW = _canvasW, canvasH = _canvasH;
 
 - (void) startWithLevel: (int) level {
     // some work must be done first in order to init others
-    [[GameBrain class] initGame];
+    //[[GameBrain class] initGame];
     [self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
     // for experiment
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -141,6 +143,7 @@ canvasW = _canvasW, canvasH = _canvasH;
         [self.daemon start];
         [self.motionProcessor start];
         [self fireGameInitFinishedEvent];
+        [self resetAim];
         [self fireTargetAppearEvent:self.aim];
         NSLog(@"Model Start");
     });
@@ -150,6 +153,7 @@ canvasW = _canvasW, canvasH = _canvasH;
     self.status = PAUSING;
     [self.daemon stop];
     [self.motionProcessor pause];
+    NSLog(@"Model Paused");
 }
 
 - (void) save {
@@ -172,6 +176,10 @@ canvasW = _canvasW, canvasH = _canvasH;
     self.canvasY = self.deviceH / 2.0f;
 }
 
+- (void) resetTime {
+    self.remainTime = self.maxTime;
+}
+
 - (void) stop {
     // order is important
     self.status = STOPPED;
@@ -185,6 +193,7 @@ canvasW = _canvasW, canvasH = _canvasH;
     self.shootHappen = NO;
     [self resetCanvas];
     [self resetAim];
+    [self resetTime];
     [self fireTargetMoveEvent:self.aim];
     NSLog(@"Model Stop");
 }
@@ -233,11 +242,17 @@ canvasW = _canvasW, canvasH = _canvasH;
     }];
 }
 
-- (void) fireImpactEvent:(Target *)t1 by:(Target *)t2 {
-    [self fireEvent:@selector(impact:by:) with:^(id<CoreEventListener> listener) {
-        return (BUBBLE_RULE) [listener impact:t1 by:t2];
+- (void) fireNeedReloadEvent{
+    [self fireEvent:@selector(needReload) with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE)[listener needReload];
     }];
 }
+
+//- (void) fireImpactEvent:(Target *)t1 by:(Target *)t2 {
+//    [self fireEvent:@selector(impact:by:) with:^(id<CoreEventListener> listener) {
+//        return (BUBBLE_RULE) [listener impact:t1 by:t2];
+//    }];
+//}
 
 //- (void) fireWinEvent {
 //    [self fireEvent:@selector(win) with:^(id<CoreEventListener> listener) {
@@ -301,6 +316,7 @@ canvasW = _canvasW, canvasH = _canvasH;
 
 - (void) deleteTarget:(Target *)target{
     if ([self.targetSet containsObject:target]) {
+        NSLog(@"delete target %@", target);
         [self.targetList removeObject:target];
         [self.targetSet removeObject:target];
         [self.map2Box2D deleteTarget:target];
@@ -319,8 +335,8 @@ canvasW = _canvasW, canvasH = _canvasH;
 }
 
 - (void) changeTime:(NSTimeInterval)time {
-    self.time = time;
-    [self fireTimeEvent:self.time];
+    self.remainTime = time;
+    [self fireTimeEvent:self.remainTime];
 }
 
 - (void) _shootWithUseSkill: (BOOL)useSkill {
@@ -336,6 +352,24 @@ canvasW = _canvasW, canvasH = _canvasH;
 
 - (void) specialShoot {
     [self _shootWithUseSkill:YES];
+}
+
+- (void) setTime:(NSTimeInterval)time {
+    self.maxTime = time;
+    self.remainTime = time; 
+}
+
+- (void) switchToNextWeapon {
+    NSUInteger index = [self.weaponList indexOfObject:self.currentWeapon];
+    index = (index + 1) % [self.weaponList count];
+    self.currentWeapon = [self.weaponList objectAtIndex:index];
+}
+
+- (void) switchToPreviousWeapon {
+    NSUInteger index = [self.weaponList indexOfObject:self.currentWeapon];
+    NSUInteger count = [self.weaponList count];
+    index = (index - 1 + count) % [self.weaponList count];
+    self.currentWeapon = [self.weaponList objectAtIndex:index];
 }
 
 @end

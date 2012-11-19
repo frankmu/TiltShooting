@@ -18,10 +18,11 @@
     return self;
 }
 
-- (void) onShoot:(WeaponBase *)weapon {
+- (BOOL) onShoot:(float)damage {
     id<ModelFullInterface> m = [[Model class] instance];
     [m changeTime:[m time] - 10.0f];
     [m deleteTarget:self];
+    return YES;
 }
 
 @end

@@ -67,13 +67,12 @@
     ++ self.runningTimes;
     
     // flush the time
-    if (self.runningTimes % (int)(1/self.flushInterval) == 0) {
-        NSTimeInterval newTime = [m time] - self.runningTimes * self.timer.timeInterval;
-        newTime = newTime < 0.0 ? 0.0 : newTime;
-        [m changeTime:newTime];
-        if (newTime - 0.0 < 10e-5) {
-            [m fireGameFinishEvent];
-        }
+    NSTimeInterval newTime = [m remainTime] - self.timer.timeInterval;
+    newTime = newTime < 0.0 ? 0.0 : newTime;
+    [m changeTime:newTime];
+    if (newTime - 0.0 < 10e-5) {
+        [m fireGameFinishEvent];
+        [m stop];
     }
     
     if ([m reloadHappen]) {
@@ -83,18 +82,25 @@
     
     if ([m shootHappen]) {
         NSMutableArray *orgPoints = [m shootPoints];
-        NSMutableArray *points = [orgPoints copy];
-        [orgPoints removeAllObjects];
+        //NSMutableArray *points = [orgPoints copy];
+        //[orgPoints removeAllObjects];
         [m resetShootHappen];
         WeaponBase *currentWeapon = [m currentWeapon];
-        for (POINT *p in points) {
-            NSLog(@"shoot test at %f %f", p.x, p.y);
-            if (p.useSkill) {
-                [currentWeapon shootWithX:p.x y:p.y];
-            } else {
-                [currentWeapon specialSkillWithX:p.x y:p.y];
+        
+        if (![currentWeapon canShoot]) {
+            [m fireNeedReloadEvent];
+        } else {
+        
+            for (POINT *p in orgPoints) {
+                NSLog(@"shoot test at %f %f", p.x, p.y);
+                if (p.useSkill) {
+                    [currentWeapon specialSkillWithX:p.x y:p.y];
+                } else {
+                    [currentWeapon shootWithX:p.x y:p.y];
+                }
             }
         }
+        [orgPoints removeAllObjects];
     }
 }
 

@@ -11,6 +11,8 @@
 
 @interface Aim : Target
 
+- (id) initWithX:(float)x Y:(float)y;
+
 @end
 
 

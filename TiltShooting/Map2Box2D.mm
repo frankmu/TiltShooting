@@ -8,6 +8,7 @@
 
 #import "Map2Box2D.h"
 #import "Box2D.h"
+#import "Model.h"
 
 #define BOX2D_WORLD_MAX_SIZE (100.0f)
 #define DEFAULT_FLUSH_INTERVAL (1/60.0f)
@@ -78,15 +79,14 @@
     // create box2d world
     b2Vec2 gravity(0.0f, 0.0f);
     world = new b2World(gravity);
-    //b2World world(gravity);
     // init. static walls
     [self createWalls];
-    NSLog(@"Box2D world init. complete.");
 }
 
 - (void) destoryWorld {
     if (world != NULL) {
         delete world;
+        world = NULL;
     }
 }
 
@@ -105,8 +105,7 @@
     fixtureDef.friction = 0.3f;
     body->CreateFixture(&fixtureDef);
     target->box2dAux = body;
-    NSLog(@"attach [%f, %f] to [%f, %f]", target.x, target.y,
-          bodyDef.position.x, bodyDef.position.y);
+    NSLog(@"attach [%f, %f] to [%f, %f]", target.x, target.y, bodyDef.position.x, bodyDef.position.y);
 }
 
 - (void) deleteTarget: (Target *)target {
@@ -119,45 +118,76 @@
     world->ClearForces();
 }
 
-- (Target *) locateTargetByX:(float)x y:(float)y {
-    Target *ret = nil;
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(x, y);
-    b2Body *body = world->CreateBody(&bodyDef);
-    // now all bomb and enemy have the same size, which is 40 * 40
-    b2PolygonShape shape;
-    shape.SetAsBox(1.0f, 1.0f);
-    b2FixtureDef fixtureDef;
-    fixtureDef.shape = &shape;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
-    body->CreateFixture(&fixtureDef);
-
-    if(world->GetContactCount()<2)
-        return ret;
-    for(b2Contact *contactlist=world->GetContactList();contactlist;contactlist=contactlist->GetNext())
-    {
-        if(!contactlist->IsTouching())
-            continue;
-        b2Fixture *fixtureA=contactlist->GetFixtureA();
-        b2Fixture *fixtureB=contactlist->GetFixtureB();
-        if(fixtureA->GetBody()==body)
-        {
-            b2Body *targetBody=fixtureB->GetBody();
-            ret=(__bridge Target *)targetBody->GetUserData();
-            break;
-        }
-        if(fixtureB->GetBody()==body)
-        {
-            b2Body *targetBody=fixtureA->GetBody();
-            ret=(__bridge Target *)targetBody->GetUserData();
-            break;
-        }
-    }
-    //NSLog(@"shooting [%f, %f]", shootPos.x, shootPos.y);
-    return ret;
+- (void) setMove:(Target *)target :(float)x :(float)y{
+    b2Body *body=(b2Body *)target->box2dAux;
+    b2Vec2 direction;
+	direction.Set(x,y);
+	body->SetLinearVelocity(direction);
+    target->box2dAux=body;
 }
+
+-(void)separateTarget:(Target *)target{
+    float x=target.x;
+    float y=target.y;
+    b2Body *body=(b2Body *)target->box2dAux;
+    world->DestroyBody(body);
+    id<ModelFullInterface> m = [[Model class] instance];
+    Enemy *enemy=(Enemy *)target;
+    [m deleteTarget:enemy];
+    int num=rand()%3+4	;
+    for(int i=0;i<num;i++)
+    {
+        double temp=tan((i*(360/num)+180.0/num)/180*3.141);
+        Enemy *enemy = [[Enemy alloc] initWithX: x Y: y hp:10];
+        [self attachTarget:enemy];
+        [self setMove:enemy :5.0 :(5.0*temp)];
+        [m deleteTarget:enemy];
+    }
+    
+}
+
+
+- (Target *) locateTargetByX:(float)x y:(float)y {
+    x = [self c2b:x];
+    y = [self c2b:y];
+    class MyQueryCallback : public b2QueryCallback
+    
+    {
+        
+    public:
+        MyQueryCallback(){retBody = NULL;}
+        b2Body* retBody;
+        bool ReportFixture(b2Fixture* fixture)
+        
+        {
+            
+            b2Body* body = fixture->GetBody();
+            retBody = body;
+            // Return true to continue the query.
+            return true;
+            
+        }
+        
+    };
+    MyQueryCallback callback;
+    
+    b2AABB aabb;
+    
+    aabb.lowerBound.Set(x, y);
+    
+    aabb.upperBound.Set(x+1, y+1);
+    
+    world->QueryAABB(&callback, aabb);
+    
+    Target* t = NULL;
+    if (callback.retBody != NULL) {
+         t = (__bridge Target*)(callback.retBody->GetUserData());
+    }
+    
+    NSLog(@"[%f, %f] %@", x, y, t);
+    return t;
+}
+
 
 - (float) c2b: (float)fval {
     return fval / self.scale;

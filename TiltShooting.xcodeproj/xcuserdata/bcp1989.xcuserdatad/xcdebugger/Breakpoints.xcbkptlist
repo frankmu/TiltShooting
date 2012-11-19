@@ -13,20 +13,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "212"
          endingLineNumber = "212"
-         landmarkName = "-fireTargetDisappearEvent:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "TiltShooting/MenuLayer.m"
-         timestampString = "370760073.417869"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "15"
-         endingLineNumber = "15"
-         landmarkName = "@implementation MenuLayer"
+         landmarkName = "@implementation Model"
          landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
@@ -52,7 +39,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "110"
          endingLineNumber = "110"
-         landmarkName = "-attachTarget:"
+         landmarkName = "-attach::"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -60,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TiltShooting/MotionProcessor.m"
-         timestampString = "371809068.460543"
+         timestampString = "374789492.271682"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "141"
-         endingLineNumber = "141"
+         startingLineNumber = "142"
+         endingLineNumber = "142"
          landmarkName = "-tilt:interval:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -78,8 +65,32 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "271"
          endingLineNumber = "271"
-         landmarkName = "-fireWeaponStatusChangeEvent:"
-         landmarkType = "5">
+         landmarkName = "@implementation Model"
+         landmarkType = "3">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TiltShooting/DesertEagle.m"
+         timestampString = "374561822.69743"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "11"
+         endingLineNumber = "11">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "TiltShooting/DesertEagle.m"
+         timestampString = "374561825.40351"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "12"
+         endingLineNumber = "12"
+         landmarkName = "@implementation DesertEagle"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

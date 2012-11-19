@@ -23,19 +23,19 @@ typedef enum {
 - (BUBBLE_RULE) targetDisAppear: (Target *)target;
 - (BUBBLE_RULE) targetMove: (Target *)target;
 - (BUBBLE_RULE) targetHit: (Target *)target;
-- (BUBBLE_RULE) impact: (Target *)target by: (Target *)target;
-- (BUBBLE_RULE) prepareToDisappear: (Target *)target;
+- (BUBBLE_RULE) prepareToDisappear: (Target *)target time:(NSTimeInterval)time;
+- (BUBBLE_RULE) prepareToAppear: (Target *)target time:(NSTimeInterval)time;
 /* weapon */
 - (BUBBLE_RULE) weaponStatusChanged:(WeaponBase *)weapon;
+- (BUBBLE_RULE) needReload;
 /* other object */
 - (BUBBLE_RULE) canvasMovetoX: (float)x Y: (float)y;
 
 /* game control signals */
 - (BUBBLE_RULE) gameInitFinished;
-//- (BUBBLE_RULE) win;
-//- (BUBBLE_RULE) lose;
 - (BUBBLE_RULE) gameFinish;
 - (BUBBLE_RULE) score: (float)score;
 - (BUBBLE_RULE) time: (float)time;
+- (BUBBLE_RULE) bonus: (float)bonus;
 //- (BUBBLE_RULE) bonus: (float)bonus;
 @end

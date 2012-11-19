@@ -15,25 +15,30 @@ typedef enum {
     TARGET_FREEZE
 }TARGET_STATUS;
 
+@class Target;
+typedef void (^bulletBlock)(WeaponBase*, Target*);
 
 @interface Target : NSObject {
     @public
     void *box2dAux;
 }
 
-@property float x;
-@property float y;
+@property (atomic)float x;
+@property (atomic)float y;
+@property (atomic)float width;
+@property (atomic)float height;
 
-@property float hp;
-@property float bonus;
-@property TARGET_STATUS status;
-@property (weak) id aux;
-@property (weak) id intervalAux;
+@property (atomic)float hp;
+@property (atomic)float maxHp;
+@property (atomic)float bonus;
+@property (atomic)TARGET_STATUS status;
+@property (atomic, strong) id aux;
+@property (atomic, weak) id intervalAux;
 
 - (id) init;
-- (id) initWithX: (float)x Y: (float)y;
-- (id) initWithX:(float)x Y:(float)y hp: (float)hp bonus:(float)bonus;
+- (id) initWithX:(float)x Y:(float)y width: (float)width height: (float)height
+              hp: (float)hp bonus:(float)bonus;
 - (float) xInDevice;
 - (float) yInDevice;
-- (void) onShoot: (WeaponBase *)weapon;
+- (BOOL) onShootBy: (WeaponBase *)weapon with: (bulletBlock) bullet;
 @end

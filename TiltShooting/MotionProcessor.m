@@ -12,6 +12,7 @@
 #import "ModelUtilities.h"
 #import "Model.h"
 #import "Aim.h"
+#import "ShakeDispatcher.h"
 #import <CoreMotion/CoreMotion.h>
 #define DEFAULT_INTERVAL (1/80.f)
 @interface MotionProcessor()
@@ -50,7 +51,8 @@
         // init motion interval
         self.motionManager.accelerometerUpdateInterval = 0.01;
         // init shakeing event
-        [self becomeFirstResponder];
+        ShakeDispatcher* shakeDispatcher = [ShakeDispatcher sharedInstance];
+        [shakeDispatcher addShakeListener: self];
     }
     return self;
 }
@@ -127,9 +129,10 @@
     // output per second if debug is enabled
     [[ModelUtilities class] debugWithDetect:self.runningTimes
                                    interval:self.flushInterval
-                                     format:@"processed grivaty [%f, %f, %f]\ncanvas [%f, %f]",
+                                     format:@"processed grivaty [%f, %f, %f]\ncanvas [%f, %f]\naim [%f, %f]",
      grivaty.x, grivaty.y, grivaty.z,
-     m.canvasX, m.canvasY];
+     m.canvasX, m.canvasY,
+     m.aim.x, m.aim.y];
     // update last time timestamp
     self.lastTime = motion.timestamp;
 }
@@ -198,23 +201,18 @@
 
 /* Deal with shaking event */
 
-- (BOOL) canBecomeFirstResponder {
-    return YES;
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    // do nothing
 }
-
-- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    // do nothing
 }
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    // deal with shaking
-    id<ModelFullInterface> m = [[Model class] instance];
-    [m setReloadHappen:YES];
-}
-
-- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    NSLog(@"motion happen");
+    if ( event.subtype == UIEventSubtypeMotionShake ) {
+        NSLog(@"shaking");
+        [[Model instance] setReloadHappen:YES];
+    }
 }
 
 @end

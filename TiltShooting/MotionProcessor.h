@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface MotionProcessor : UIResponder
+#import "ShakeEventListenerProtocol.h"
+@interface MotionProcessor: NSObject<ShakeEventListenerProtocol>
 @property NSTimeInterval flushInterval;
 - (void) start;
 - (void) pause;

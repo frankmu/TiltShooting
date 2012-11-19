@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface M4A1 : NSObject
+#import "WeaponBase.h"
+@interface M4A1 : WeaponBase
 
 @end

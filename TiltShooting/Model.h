@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "ModelFullInterface.h"
-#import "Map2Box2D.h"
 
 @interface Model : NSObject <ModelFullInterface>
 @property float canvasX, canvasY, canvasW, canvasH;
@@ -16,7 +15,8 @@
 
 @property float volume;
 @property float score;
-@property NSTimeInterval time;
+@property NSTimeInterval remainTime;
+@property NSTimeInterval maxTime;
 @property float bonus;
 
 @property (strong, atomic) NSMutableArray *targetList;

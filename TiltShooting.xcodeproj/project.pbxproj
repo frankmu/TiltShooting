@@ -263,6 +263,7 @@
 		ACE3E4C416095B1900976AFD /* b2Rope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4C316095B1900976AFD /* b2Rope.cpp */; };
 		ACE3E4CA16095B1900976AFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE3E4C916095B1900976AFD /* main.m */; };
 		ACE3E4DB16095B1900976AFD /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = ACE3E4DA16095B1900976AFD /* blocks.png */; };
+		ACE5862716535BEA006135F0 /* M4A1.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE5862616535BE9006135F0 /* M4A1.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -750,6 +751,8 @@
 		ACE3E4C816095B1900976AFD /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		ACE3E4C916095B1900976AFD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ACE3E4DA16095B1900976AFD /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
+		ACE5862516535BE9006135F0 /* M4A1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M4A1.h; sourceTree = "<group>"; };
+		ACE5862616535BE9006135F0 /* M4A1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M4A1.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -781,8 +784,8 @@
 				96852E5E162D4EB400F43DF8 /* CoreEventListener.h */,
 				96852E5F162D4EB400F43DF8 /* GameBrain.h */,
 				96852E60162D4EB400F43DF8 /* GameBrain.m */,
-				96852E61162D4EB400F43DF8 /* Map2Box2D.h */,
 				96852E62162D4EB400F43DF8 /* Map2Box2D.mm */,
+				96852E61162D4EB400F43DF8 /* Map2Box2D.h */,
 				96852E63162D4EB400F43DF8 /* Model.h */,
 				96852E64162D4EB400F43DF8 /* Model.m */,
 				96852E65162D4EB400F43DF8 /* ModelDaemon.h */,
@@ -821,6 +824,8 @@
 				AC88B4601640D6B30081DC38 /* WeaponBase.m */,
 				AC88B4621640E7550081DC38 /* DesertEagle.h */,
 				AC88B4631640E7550081DC38 /* DesertEagle.m */,
+				ACE5862516535BE9006135F0 /* M4A1.h */,
+				ACE5862616535BE9006135F0 /* M4A1.m */,
 			);
 			name = weapon;
 			sourceTree = "<group>";
@@ -1815,6 +1820,7 @@
 				AC88B4641640E7550081DC38 /* DesertEagle.m in Sources */,
 				AC88B470164125640081DC38 /* POINT.m in Sources */,
 				96E5D41D1641E08600F9FDEC /* ProgressBar.m in Sources */,
+				ACE5862716535BEA006135F0 /* M4A1.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

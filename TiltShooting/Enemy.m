@@ -15,24 +15,36 @@
 
 @implementation Enemy
 
-- (id) initWithX:(float)x Y:(float)y {
-    if (self = [super initWithX:x Y:y hp:10.0f bonus:1.0f]) {
+- (id) initWithX:(float)x Y:(float)y hp:(float)hp{
+    float bonus = sqrtf(hp) + hp / 5;
+    float size = sqrtf(hp) * 5;
+    size = size <= 10 ? 10 : size;
+    if (self = [super initWithX:x Y:y width:size height:size hp:hp bonus:bonus]) {
         // nothing
     }    
     return self;
 }
 
-- (void) onShoot:(WeaponBase *)weapon {
-    self.hp -= weapon.damage;
-    if (self.hp < 0) {
-        id<ModelFullInterface> m = [[Model class] instance];
+- (BOOL) onShootBy:(WeaponBase *)weapon with:(bulletBlock)bullet {
+    bullet(weapon, self);
+    id<ModelFullInterface> m = [[Model class] instance];
+    if (self.hp < 0) {        
         [m changeScore:[m score] + self.bonus * 10];
         [m deleteTarget:self];
+        return YES;
+    } else {
+        [m fireTargetHitEvent: self];
     }
+    return NO;
+}
+
+- (BOOL) onShoot:(float)damage {
+
+    return NO;
 }
 
 - (NSString *) description {
-    return @"Enemy";
+    return [NSString stringWithFormat:@"Enemy%@", [super description]];
 }
 
 @end

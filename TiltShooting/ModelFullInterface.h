@@ -20,7 +20,7 @@
 - (void) fireTargetAppearEvent: (Target *)target;
 - (void) fireTargetDisappearEvent: (Target *)target;
 - (void) fireTargetHitEvent: (Target *)target;
-- (void) fireImpactEvent: (Target *)t1 by: (Target *)t2;
+//- (void) fireImpactEvent: (Target *)t1 by: (Target *)t2;
 - (void) fireGameInitFinishedEvent;
 //- (void) fireWinEvent;
 //- (void) fireLoseEvent;
@@ -28,6 +28,7 @@
 - (void) fireScoreEvent: (float)score;
 - (void) fireTimeEvent: (NSTimeInterval)time;
 - (void) fireWeaponStatusChangeEvent: (WeaponBase *)currentWeapon;
+- (void) fireNeedReloadEvent;
 /* Data Access: notify */
 - (void) createTarget: (Target *)target;
 - (void) deleteTarget: (Target *)target;
@@ -39,6 +40,7 @@
 - (void) setScore: (float)score;
 - (void) setBonus: (float)bonus;
 - (void) setTime: (NSTimeInterval)time;
+- (void) setRemainTime: (NSTimeInterval)remainTime;
 - (Map2Box2D *) map2Box2D;
 - (BOOL) shootHappen;
 - (BOOL) reloadHappen;

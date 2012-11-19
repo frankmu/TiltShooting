@@ -8,7 +8,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Bomb.h"
 #import "Enemy.h"
 #import "Aim.h"
 #import "WeaponBase.h"
@@ -65,13 +64,16 @@ typedef enum {
 - (float) volume;
 - (float) score;
 - (float) bonus;
-- (NSTimeInterval) time;
+- (NSTimeInterval) remainTime;
+- (NSTimeInterval) maxTime;
 - (WeaponBase *) currentWeapon;
 - (void) setVolume: (float)volume;
 - (void) setCanvasX: (float) cx Y: (float) cy;
 - (void) setCanvasWidth: (float) cw height: (float) ch;
 - (void) setDeviceWidth: (float) dw height: (float)  dh;
 - (void) setCurrentWeapon: (WeaponBase *)weapon;
+- (void) switchToNextWeapon;
+- (void) switchToPreviousWeapon;
 
 /* Game Control */
 
