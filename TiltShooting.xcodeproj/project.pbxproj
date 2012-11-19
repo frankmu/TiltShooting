@@ -80,6 +80,10 @@
 		AC88B4611640D6B30081DC38 /* WeaponBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AC88B4601640D6B30081DC38 /* WeaponBase.m */; };
 		AC88B4641640E7550081DC38 /* DesertEagle.m in Sources */ = {isa = PBXBuildFile; fileRef = AC88B4631640E7550081DC38 /* DesertEagle.m */; };
 		AC88B470164125640081DC38 /* POINT.m in Sources */ = {isa = PBXBuildFile; fileRef = AC88B46F164125630081DC38 /* POINT.m */; };
+		ACADEF841659B90B004F8479 /* TimeMinus.m in Sources */ = {isa = PBXBuildFile; fileRef = ACADEF811659B90A004F8479 /* TimeMinus.m */; };
+		ACADEF851659B90B004F8479 /* TimePlus.m in Sources */ = {isa = PBXBuildFile; fileRef = ACADEF831659B90A004F8479 /* TimePlus.m */; };
+		ACADEF8C1659B918004F8479 /* ShakeDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = ACADEF881659B917004F8479 /* ShakeDispatcher.m */; };
+		ACADEF8D1659B918004F8479 /* ShakeEnabledUIWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ACADEF8A1659B918004F8479 /* ShakeEnabledUIWindow.m */; };
 		ACD93D0716190FE600FB1FC7 /* aimcross.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD93CE916190FE500FB1FC7 /* aimcross.png */; };
 		ACD93D0A16190FE600FB1FC7 /* bricktargetred.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD93CEC16190FE500FB1FC7 /* bricktargetred.png */; };
 		ACD93D1116190FE600FB1FC7 /* help_background.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD93CF316190FE500FB1FC7 /* help_background.png */; };
@@ -378,6 +382,15 @@
 		AC88B4631640E7550081DC38 /* DesertEagle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesertEagle.m; sourceTree = "<group>"; };
 		AC88B46E164125630081DC38 /* POINT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POINT.h; sourceTree = "<group>"; };
 		AC88B46F164125630081DC38 /* POINT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POINT.m; sourceTree = "<group>"; };
+		ACADEF801659B90A004F8479 /* TimeMinus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeMinus.h; sourceTree = "<group>"; };
+		ACADEF811659B90A004F8479 /* TimeMinus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeMinus.m; sourceTree = "<group>"; };
+		ACADEF821659B90A004F8479 /* TimePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePlus.h; sourceTree = "<group>"; };
+		ACADEF831659B90A004F8479 /* TimePlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimePlus.m; sourceTree = "<group>"; };
+		ACADEF871659B917004F8479 /* ShakeDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShakeDispatcher.h; sourceTree = "<group>"; };
+		ACADEF881659B917004F8479 /* ShakeDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShakeDispatcher.m; sourceTree = "<group>"; };
+		ACADEF891659B918004F8479 /* ShakeEnabledUIWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShakeEnabledUIWindow.h; sourceTree = "<group>"; };
+		ACADEF8A1659B918004F8479 /* ShakeEnabledUIWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShakeEnabledUIWindow.m; sourceTree = "<group>"; };
+		ACADEF8B1659B918004F8479 /* ShakeEventListenerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShakeEventListenerProtocol.h; sourceTree = "<group>"; };
 		ACD93CE916190FE500FB1FC7 /* aimcross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = aimcross.png; path = Resources/aimcross.png; sourceTree = "<group>"; };
 		ACD93CEA16190FE500FB1FC7 /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
 		ACD93CEC16190FE500FB1FC7 /* bricktargetred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bricktargetred.png; path = Resources/bricktargetred.png; sourceTree = "<group>"; };
@@ -779,6 +792,11 @@
 		AC66560F1610FD75004E4104 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				ACADEF871659B917004F8479 /* ShakeDispatcher.h */,
+				ACADEF881659B917004F8479 /* ShakeDispatcher.m */,
+				ACADEF891659B918004F8479 /* ShakeEnabledUIWindow.h */,
+				ACADEF8A1659B918004F8479 /* ShakeEnabledUIWindow.m */,
+				ACADEF8B1659B918004F8479 /* ShakeEventListenerProtocol.h */,
 				AC88B45D1640D6590081DC38 /* weapon */,
 				AC665624161265BD004E4104 /* targets */,
 				96852E5E162D4EB400F43DF8 /* CoreEventListener.h */,
@@ -805,6 +823,10 @@
 		AC665624161265BD004E4104 /* targets */ = {
 			isa = PBXGroup;
 			children = (
+				ACADEF801659B90A004F8479 /* TimeMinus.h */,
+				ACADEF811659B90A004F8479 /* TimeMinus.m */,
+				ACADEF821659B90A004F8479 /* TimePlus.h */,
+				ACADEF831659B90A004F8479 /* TimePlus.m */,
 				AC6656101610FE85004E4104 /* Aim.h */,
 				AC6656111610FE85004E4104 /* Aim.m */,
 				AC6656161610FE86004E4104 /* Enemy.h */,
@@ -1821,6 +1843,10 @@
 				AC88B470164125640081DC38 /* POINT.m in Sources */,
 				96E5D41D1641E08600F9FDEC /* ProgressBar.m in Sources */,
 				ACE5862716535BEA006135F0 /* M4A1.m in Sources */,
+				ACADEF841659B90B004F8479 /* TimeMinus.m in Sources */,
+				ACADEF851659B90B004F8479 /* TimePlus.m in Sources */,
+				ACADEF8C1659B918004F8479 /* ShakeDispatcher.m in Sources */,
+				ACADEF8D1659B918004F8479 /* ShakeEnabledUIWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
