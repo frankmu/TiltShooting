@@ -10,6 +10,8 @@
 #import "Header.h"
 #import "SimpleAudioEngine.h"
 #import "Weapon.h"
+#import "TimePlusNode.h"
+#import "TargetNode.h"
 @implementation Viewer
 @synthesize spriteSheet;
 @synthesize explodeAnim;
@@ -80,6 +82,9 @@
 
 +(void) showBomb:(Target*)target inLayer:(CCLayer*)layer{
     //show a red brick as bomb for test
+    //#################
+    //use ccb bomb
+    //################
     GameLayer *glayer=(GameLayer*)layer;
     
     TargetSprite *tg=[CCSprite spriteWithFile:@"bricktargetred.png"];
@@ -89,7 +94,18 @@
     target.aux=tg;
     
 }
++(void) showTimePlus:(Target*)target inLayer:(CCLayer*)layer{
+    GameLayer *glayer=(GameLayer*)layer;
+    TargetNode* tg=[[TimePlusNode alloc] initWithTarget:target];
+    //TargetSprite *tg=[CCSprite spriteWithFile:@"bricktargetred.png"];
+    [glayer.background addChild:tg z:1];
+    //tg.position=ccp(target.x,target.y);
+    NSLog(@"add Bomb at x=%f y=%f",target.x,target.y);
+    target.aux=tg;
 
+
+
+}
 +(void) showAim:(Target*)target inLayer:(CCLayer*)layer{
     //show aim for test
     GameLayer *glayer=(GameLayer*)layer;
@@ -117,6 +133,9 @@
 +(void) removeBomb:(Target*)target inLayer:(CCLayer*)layer{
     [target.aux removeFromParentAndCleanup:YES];
     
+}
++(void) removeTimePlus:(Target*)target inLayer:(CCLayer*)layer{
+    [target.aux removeFromParentAndCleanup:YES];
 }
 +(void) removeAim:(Target*)target inLayer:(CCLayer*)layer{
     [target.aux removeFromParentAndCleanup:YES];

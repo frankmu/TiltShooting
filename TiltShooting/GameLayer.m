@@ -356,7 +356,7 @@
         case TIMEPLUS:
             NSLog(@"show explode on target");
             //[viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
-            //[Viewer removeBomb:target inLayer:self];
+            [Viewer showTimePlus:target inLayer:self];
             break;
    
         default:
@@ -391,8 +391,8 @@
                 break;
             case TIMEPLUS:
                 NSLog(@"show explode on target");
-                //[viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
-                //[Viewer removeBomb:target inLayer:self];
+                
+                [Viewer removeTimePlus:target inLayer:self];
                 break;
             default:
                 break;

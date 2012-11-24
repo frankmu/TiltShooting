@@ -18,6 +18,7 @@
 +(void) showMenuBackground:(CCLayer*)layer;
 +(void) showTarget:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showBomb:(Target*)target inLayer:(CCLayer*)layer;
++(void) showTimePlus:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showAim:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showWeapon:(WeaponSprite*)weapon inLayer:(CCLayer*)layer;
 //show bullet hole at point on view window
@@ -27,7 +28,7 @@
 +(CGPoint)viewToCanvas:(CGPoint)location;
 //show a big sign on view and disapear
 +(void) showBigSign:(NSString*)sign inLayer:(CCLayer*)layer withDuration:(ccTime)d;
-
++(void) removeTimePlus:(Target*)target inLayer:(CCLayer*)layer;
 +(void) removeTarget:(Target*)target inLayer:(CCLayer*)layer;
 +(void) removeBomb:(Target*)target inLayer:(CCLayer*)layer;
 +(void) removeAim:(Target*)target inLayer:(CCLayer*)layer;
