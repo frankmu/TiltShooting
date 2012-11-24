@@ -38,9 +38,9 @@
 -(void)updateProgressBar:(float)percentage{
     
     //temp
-    if(ct.percentage==0)
-        ct.percentage=100;
-    ct.percentage-=1;
+    //if(ct.percentage==0)
+    //    ct.percentage=100;
+    ct.percentage=percentage*100;
     
 }
 @end

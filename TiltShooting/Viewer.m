@@ -212,6 +212,9 @@
         //get weapon info from model
         //now hardcode weapon status , support 3 types
         NSLog(@"init weapons");
+        //#################
+        //init weapon based on model weapon list
+        //################
         NSArray *weapons=[NSArray arrayWithObjects:[NSNumber numberWithBool:YES],[NSNumber numberWithBool:YES],[NSNumber numberWithBool:NO],nil];
         //init weaponList
         weaponList=[[NSMutableArray alloc] initWithCapacity: 3];

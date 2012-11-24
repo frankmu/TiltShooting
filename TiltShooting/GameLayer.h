@@ -23,6 +23,8 @@ typedef enum {
     AIM,
     ENEMY,
     BOMB,
+    TIMEPLUS,
+    TIMEMINUS,
     UNKNOWN
 } TARGET_TYPE;
 

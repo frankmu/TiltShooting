@@ -35,8 +35,8 @@
 -(void)updateTimeBar:(float)percentage{
     
     //temp
-    ct.percentage-=1;
-    if(ct.percentage==0)
-        ct.percentage=50;
+    ct.percentage=percentage*100;
+    //if(ct.percentage==0)
+    //    ct.percentage=50;
 }
 @end

@@ -12,10 +12,12 @@
 #import "ModelInterface.h"
 #import "Model.h"
 #import "Aim.h"
-#import "Bomb.h"
+//#import "Bomb.h"
+#import "TimeMinus.h"
+#import "TimePlus.h"
 
-#define MAX_TIME_BAR 300;  //300s
-#define MAX_BONUS_BAR 20;  
+#define MAX_TIME_BAR 300.0;  //300s
+#define MAX_BONUS_BAR 20.0;  
 
 @implementation GameLayer
 
@@ -239,10 +241,14 @@
     NSLog(@"first touch location x=%f y=%f",firstTouchLocation.x,firstTouchLocation.y);
     
     
-    //[timeBar updateTimeBar:percentage];
-    //[progressBar updateProgressBar:progressPercentage];
+    //#################
+    //need check remain ammo
+    //#################
     if(self.multiShoot){
         [self fireWeapon];//at least fire once
+        //#################
+        //set multshoot frequency based on weapon type
+        //#################
         [self schedule:@selector(fireWeapon) interval:0.15];
     }
     else{//single shoot mode
@@ -281,11 +287,17 @@
         if (location.x-firstTouchLocation.x<0) {
             NSLog(@"swipe for previous weapon");
             [Viewer showBigSign:@"Previous Weapon" inLayer:self withDuration:1];
+            //#################
+            //change model weapon
+            //#################
             [viewer showPreviousWeapon];
         }
         else if(location.x-firstTouchLocation.x>0){
             NSLog(@"swipe for next weapon");
             [Viewer showBigSign:@"Next Weapon" inLayer:self withDuration:1];
+            //#################
+            //change model weapon
+            //#################
             [viewer showNextWeapon];
         }
     }
@@ -303,8 +315,12 @@
     [m shoot];
     
     [Viewer NSLogDebug:self.debug withMsg:@"fire gun once"];
-    //shoot effect
-    [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
+    
+    
+    //#################
+    //shoot effect is shown after TargetHit or TargetMiss
+    //#################
+    //[[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
     //show a bullet hole for test, not using location here
     [Viewer showBulletHole:self atLocation:self.aimCross.position];
     
@@ -314,6 +330,9 @@
 //************Listen to model*******************//
 /* target */
 - (BUBBLE_RULE) targetAppear: (Target *) target{
+    //#################
+    //handle target scale
+    //#################
     //check type of target
     TARGET_TYPE type=[self checkTargetType:target];
     switch (type) {
@@ -329,7 +348,17 @@
             
             [Viewer showBomb:target inLayer:self];
             break;
-            
+        case TIMEMINUS:
+            //test using bomb
+            [Viewer showBomb:target inLayer:self];
+
+            break;
+        case TIMEPLUS:
+            NSLog(@"show explode on target");
+            //[viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
+            //[Viewer removeBomb:target inLayer:self];
+            break;
+   
         default:
             break;
     }
@@ -355,7 +384,16 @@
                 [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
                 [Viewer removeBomb:target inLayer:self];
                 break;
-                
+            case TIMEMINUS:
+                NSLog(@"show explode on target");
+                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
+                [Viewer removeBomb:target inLayer:self];
+                break;
+            case TIMEPLUS:
+                NSLog(@"show explode on target");
+                //[viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
+                //[Viewer removeBomb:target inLayer:self];
+                break;
             default:
                 break;
         }
@@ -389,16 +427,19 @@
     [self.background setPosition:ccp(x, y)];
     return BUBBLE_CONTINUE;
 }
-- (BUBBLE_RULE) impact: (Target *) t1 by: (Target *) t2{
-    return BUBBLE_CONTINUE;
+//- (BUBBLE_RULE) impact: (Target *) t1 by: (Target *) t2{
+//    return BUBBLE_CONTINUE;
     
-}
+//}
 
 /* game control signals */
 - (BUBBLE_RULE) gameInitFinished{
     id<ModelInterface> m = [[Model class] instance];
     //init time bar
-    percentage=[m time]/MAX_TIME_BAR;
+    //#################
+    //handle time or bonus overflow
+    //#################
+    percentage=[m remainTime]/MAX_TIME_BAR;
     [timeBar updateTimeBar:percentage];
     //init bonus bar
     progressPercentage=[m bonus]/MAX_BONUS_BAR;
@@ -418,18 +459,70 @@
         //NSLog(@"got an enemy target");
         return ENEMY;
     }
-    else if([target isMemberOfClass:[Bomb class]]){
-        return BOMB;
+    else if ([target isMemberOfClass:[TimePlus class]]) {
+        return TIMEPLUS;
+    } else if ([target isMemberOfClass:[TimeMinus class]]){
+        return TIMEMINUS;
     }
     return UNKNOWN;
 }
 
 - (BUBBLE_RULE) targetHit:(Target *)target {
+    //#################
+    //handle target blood, shoot effect, sound
+    //#################
     if(target.aux!=nil){
-        NSLog(@"HITTED");
+        NSLog(@"Target is HITTED");
     }
     return BUBBLE_CONTINUE;
 }
+//update weapon status
+- (BUBBLE_RULE) weaponStatusChanged:(WeaponBase *)weapon{
+    //#################
+    //change weapon status
+    //#################
+    return BUBBLE_CONTINUE;
+}
+- (BUBBLE_RULE) time: (float)time{
+    
+    percentage=time/MAX_TIME_BAR;
+    //NSLog(@"left time:%f",time);
+    [timeBar updateTimeBar:percentage];
+    return BUBBLE_CONTINUE;
+    
+}
+- (BUBBLE_RULE) score:(float)score {
+    NSLog(@"score change to: %f", score);
+    //update score
+    [self setScore:score];
+    //change score on screen
+    [self changeScore:score];
+    return BUBBLE_CONTINUE;
+}
+- (BUBBLE_RULE) bonus:(float)bonus {
+    
+    progressPercentage=bonus/MAX_BONUS_BAR;
+    [progressBar updateProgressBar:progressPercentage];
+    return BUBBLE_CONTINUE;
+}
+
+- (BUBBLE_RULE) needReload {
+    //[self showNotify:@"Need Reload"];
+    //#################
+    //aleady check in touch
+    //#################
+    return BUBBLE_CONTINUE;
+}
+
+- (BUBBLE_RULE) gameFinish{
+    //#################
+    //check win or lose?
+    //#################
+    NSLog(@"Game Finish Time up!");
+    return BUBBLE_CONTINUE;
+    
+}
+
 
 /* win, lose && score */
 - (BUBBLE_RULE) win {
@@ -485,27 +578,6 @@
     return BUBBLE_CONTINUE;
 }
 
-- (BUBBLE_RULE) score:(float)score {
-    NSLog(@"score change to: %f", score);
-    //update score
-    [self setScore:score];
-    //change score on screen
-    [self changeScore:score];
-    return BUBBLE_CONTINUE;
-}
 
-- (BUBBLE_RULE) gameFinish{
-    
-    return BUBBLE_CONTINUE;
-
-}
-
-- (BUBBLE_RULE) time: (float)time{
-    
-    percentage=time/MAX_TIME_BAR;
-    [timeBar updateTimeBar:percentage];
-    return BUBBLE_CONTINUE;
-
-}
 
 @end

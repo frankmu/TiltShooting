@@ -65,6 +65,10 @@
 		96852EC2162D533400F43DF8 /* mainmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 96852EC0162D533400F43DF8 /* mainmenu.png */; };
 		96852EC3162D533400F43DF8 /* mainmenu2.png in Resources */ = {isa = PBXBuildFile; fileRef = 96852EC1162D533400F43DF8 /* mainmenu2.png */; };
 		96852EC5162D535900F43DF8 /* pausebg.png in Resources */ = {isa = PBXBuildFile; fileRef = 96852EC4162D535900F43DF8 /* pausebg.png */; };
+		968C10B516617269009C59FA /* TimePlusNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C10B016617269009C59FA /* TimePlusNode.m */; };
+		968C10B616617269009C59FA /* TimeMinusNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C10B216617269009C59FA /* TimeMinusNode.m */; };
+		968C10B716617269009C59FA /* SpecialEffectNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C10B416617269009C59FA /* SpecialEffectNode.m */; };
+		968C10BA16617F8B009C59FA /* TargetNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C10B916617286009C59FA /* TargetNode.m */; };
 		96B9904E16332E780067583C /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9904D16332E770067583C /* Weapon.m */; };
 		96B99051163336870067583C /* TimeProcessBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B99050163336870067583C /* TimeProcessBar.m */; };
 		96BA79DC16385BDB00EA1D4B /* timebar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BA79DA16385BDB00EA1D4B /* timebar_background.png */; };
@@ -72,7 +76,6 @@
 		96E5D41D1641E08600F9FDEC /* ProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E5D41C1641E08600F9FDEC /* ProgressBar.m */; };
 		96E5D4201641E0C800F9FDEC /* processbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E5D41E1641E0C800F9FDEC /* processbar.png */; };
 		96E5D4211641E0C800F9FDEC /* processblur.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E5D41F1641E0C800F9FDEC /* processblur.png */; };
-		AC6656091610FD6B004E4104 /* Bomb.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6655FC1610FD6B004E4104 /* Bomb.m */; };
 		AC66560E1610FD6B004E4104 /* Target.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656081610FD6B004E4104 /* Target.m */; };
 		AC6656191610FE86004E4104 /* Aim.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656111610FE85004E4104 /* Aim.m */; };
 		AC66561C1610FE86004E4104 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6656171610FE86004E4104 /* Enemy.m */; };
@@ -357,6 +360,14 @@
 		96852EC0162D533400F43DF8 /* mainmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainmenu.png; sourceTree = "<group>"; };
 		96852EC1162D533400F43DF8 /* mainmenu2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainmenu2.png; sourceTree = "<group>"; };
 		96852EC4162D535900F43DF8 /* pausebg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pausebg.png; sourceTree = "<group>"; };
+		968C10AF16617269009C59FA /* TimePlusNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePlusNode.h; sourceTree = "<group>"; };
+		968C10B016617269009C59FA /* TimePlusNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimePlusNode.m; sourceTree = "<group>"; };
+		968C10B116617269009C59FA /* TimeMinusNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeMinusNode.h; sourceTree = "<group>"; };
+		968C10B216617269009C59FA /* TimeMinusNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeMinusNode.m; sourceTree = "<group>"; };
+		968C10B316617269009C59FA /* SpecialEffectNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialEffectNode.h; sourceTree = "<group>"; };
+		968C10B416617269009C59FA /* SpecialEffectNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialEffectNode.m; sourceTree = "<group>"; };
+		968C10B816617286009C59FA /* TargetNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TargetNode.h; sourceTree = "<group>"; };
+		968C10B916617286009C59FA /* TargetNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TargetNode.m; sourceTree = "<group>"; };
 		96B9904C16332E770067583C /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		96B9904D16332E770067583C /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
 		96B9904F163336870067583C /* TimeProcessBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeProcessBar.h; sourceTree = "<group>"; };
@@ -367,8 +378,6 @@
 		96E5D41C1641E08600F9FDEC /* ProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBar.m; sourceTree = "<group>"; };
 		96E5D41E1641E0C800F9FDEC /* processbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = processbar.png; path = Resources/processbar.png; sourceTree = "<group>"; };
 		96E5D41F1641E0C800F9FDEC /* processblur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = processblur.png; path = Resources/processblur.png; sourceTree = "<group>"; };
-		AC6655FB1610FD6B004E4104 /* Bomb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bomb.h; sourceTree = "<group>"; };
-		AC6655FC1610FD6B004E4104 /* Bomb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bomb.m; sourceTree = "<group>"; };
 		AC6656071610FD6B004E4104 /* Target.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Target.h; sourceTree = "<group>"; };
 		AC6656081610FD6B004E4104 /* Target.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Target.m; sourceTree = "<group>"; };
 		AC6656101610FE85004E4104 /* Aim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aim.h; sourceTree = "<group>"; };
@@ -789,6 +798,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		968C10AD166171FC009C59FA /* TargetNodes */ = {
+			isa = PBXGroup;
+			children = (
+				968C10B816617286009C59FA /* TargetNode.h */,
+				968C10B916617286009C59FA /* TargetNode.m */,
+				968C10AF16617269009C59FA /* TimePlusNode.h */,
+				968C10B016617269009C59FA /* TimePlusNode.m */,
+				968C10B116617269009C59FA /* TimeMinusNode.h */,
+				968C10B216617269009C59FA /* TimeMinusNode.m */,
+				968C10B316617269009C59FA /* SpecialEffectNode.h */,
+				968C10B416617269009C59FA /* SpecialEffectNode.m */,
+			);
+			name = TargetNodes;
+			sourceTree = "<group>";
+		};
 		AC66560F1610FD75004E4104 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,8 +855,6 @@
 				AC6656111610FE85004E4104 /* Aim.m */,
 				AC6656161610FE86004E4104 /* Enemy.h */,
 				AC6656171610FE86004E4104 /* Enemy.m */,
-				AC6655FB1610FD6B004E4104 /* Bomb.h */,
-				AC6655FC1610FD6B004E4104 /* Bomb.m */,
 				AC6656071610FD6B004E4104 /* Target.h */,
 				AC6656081610FD6B004E4104 /* Target.m */,
 			);
@@ -1493,6 +1515,7 @@
 		ACE3E4F616095DB700976AFD /* view */ = {
 			isa = PBXGroup;
 			children = (
+				968C10AD166171FC009C59FA /* TargetNodes */,
 				96852E72162D4F7300F43DF8 /* GameLayer.h */,
 				96852E73162D4F7300F43DF8 /* GameLayer.m */,
 				96852E74162D4F7300F43DF8 /* GameOverScene.h */,
@@ -1808,7 +1831,6 @@
 				ACE3E4C016095B1900976AFD /* b2WheelJoint.cpp in Sources */,
 				ACE3E4C416095B1900976AFD /* b2Rope.cpp in Sources */,
 				ACE3E4CA16095B1900976AFD /* main.m in Sources */,
-				AC6656091610FD6B004E4104 /* Bomb.m in Sources */,
 				AC66560E1610FD6B004E4104 /* Target.m in Sources */,
 				AC6656191610FE86004E4104 /* Aim.m in Sources */,
 				AC66561C1610FE86004E4104 /* Enemy.m in Sources */,
@@ -1847,6 +1869,10 @@
 				ACADEF851659B90B004F8479 /* TimePlus.m in Sources */,
 				ACADEF8C1659B918004F8479 /* ShakeDispatcher.m in Sources */,
 				ACADEF8D1659B918004F8479 /* ShakeEnabledUIWindow.m in Sources */,
+				968C10B516617269009C59FA /* TimePlusNode.m in Sources */,
+				968C10B616617269009C59FA /* TimeMinusNode.m in Sources */,
+				968C10B716617269009C59FA /* SpecialEffectNode.m in Sources */,
+				968C10BA16617F8B009C59FA /* TargetNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
