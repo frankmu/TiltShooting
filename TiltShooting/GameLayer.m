@@ -515,16 +515,35 @@
 }
 
 - (BUBBLE_RULE) gameFinish{
-    //#################
-    //check win or lose?
-    //#################
-    NSLog(@"Game Finish Time up!");
-    return BUBBLE_CONTINUE;
     
+    NSLog(@"Game Finish Time up!");
+    [self setIsTouchEnabled:NO];
+    if(self.multiShoot){//avoid redundant multi shoot
+        [self unschedule:@selector(fireWeapon)];
+    }
+
+    [Viewer showBigSign:@"Game Over" inLayer:self withDuration:2];
+    //stop model here
+    id<ModelInterface>  model = [[Model class] instance];
+    //[model stop];
+    
+    //replace scene
+    GameOverScene *sc = [GameOverScene node];
+    //pass score to gameoverscene
+    [sc setScore:self.score];
+    [sc setTime:[model maxTime]];
+   
+    //[sc setWin:TRUE];
+    [sc start];
+    
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
+    
+    return BUBBLE_CONTINUE;
+
 }
 
 
-/* win, lose && score */
+/* win, lose  , not used */
 - (BUBBLE_RULE) win {
     NSLog(@"win");
     [self setIsTouchEnabled:NO];

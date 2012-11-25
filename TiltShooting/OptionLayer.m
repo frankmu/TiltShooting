@@ -8,7 +8,7 @@
 
 #import "OptionLayer.h"
 #import "SimpleAudioEngine.h"
-
+#import "CCBReader.h"
 @implementation OptionLayer
 
 @synthesize bar1;
@@ -69,8 +69,8 @@
 
 - (void) onBack:(id) sender
 {
-   
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MenuScene node] withColor:ccWHITE]];
+   CCScene* mainScene = [CCBReader sceneWithNodeGraphFromFile:@"MainMenu.ccbi"];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccWHITE]];
 }
 
 

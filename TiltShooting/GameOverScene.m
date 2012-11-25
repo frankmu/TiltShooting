@@ -13,6 +13,7 @@
 @synthesize background;
 @synthesize win;
 @synthesize score;
+@synthesize time;
 -(id)start{
     
     //if( (self=[super init] )) {
@@ -54,7 +55,8 @@
     }else{
         state=@"You Lose.";
     }
-    CCLabelTTF *result = [CCLabelTTF labelWithString:state fontName:@"Zapfino" fontSize:48];
+    //CCLabelTTF *result = [CCLabelTTF labelWithString:state fontName:@"Zapfino" fontSize:48];
+    CCLabelTTF *result = [CCLabelTTF labelWithString:@"Game Over" fontName:@"Zapfino" fontSize:48];
     //position the label on the center of the screen
     result.position =  ccp( size.width /3 , size.height/1.25 );
     [scoreLayer addChild:result z:3 tag:3];
@@ -70,14 +72,21 @@
     scoreNumber.position =  ccp( size.width /2.8 , size.height/1.9 );
     [scoreLayer addChild:scoreNumber z:5 tag:5];
     //create and initialize a Label
-    CCLabelTTF *time = [CCLabelTTF labelWithString:@"Time:" fontName:@"Marker Felt" fontSize:48];
+    CCLabelTTF *timeFont = [CCLabelTTF labelWithString:@"Time:" fontName:@"Marker Felt" fontSize:48];
     //position the label on the center of the screen
-    time.position =  ccp( size.width /4 , size.height/2.4 );
-    [scoreLayer addChild:time z:6 tag:6];
+    timeFont.position =  ccp( size.width /4 , size.height/2.4 );
+    [scoreLayer addChild:timeFont z:6 tag:6];
+    
+    CCLabelTTF *totalTime=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%.1f",self.time] fontName:@"Marker Felt" fontSize:48];
+    totalTime.anchorPoint=ccp(0,0);
+    totalTime.position =  ccp( size.width /2.8 , size.height/3.0);
+    [scoreLayer addChild:totalTime z:5 tag:5];
+    
     
     [self addChild: scoreLayer z:0 tag:1];
-    
-    //}
+    //##################
+    //get total time in game
+    //##################
     return self;
 }
 

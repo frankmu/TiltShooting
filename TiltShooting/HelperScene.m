@@ -7,7 +7,7 @@
 //
 
 #import "HelperScene.h"
-
+#import "CCBReader.h"
 
 @implementation HelperScene
 @synthesize background;
@@ -41,6 +41,7 @@
 }
 -(void) onBack: (id) sender
 {
-	CCScene *sc = [MenuScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];}
+	//CCScene *sc = [MenuScene node];
+    CCScene* mainScene = [CCBReader sceneWithNodeGraphFromFile:@"MainMenu.ccbi"];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccWHITE]];}
 @end

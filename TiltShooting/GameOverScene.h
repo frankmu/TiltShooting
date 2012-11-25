@@ -16,5 +16,6 @@
 @property(nonatomic,strong) CCSprite *background;
 @property BOOL win;
 @property float score;
+@property float time;
 -(id)start;
 @end
