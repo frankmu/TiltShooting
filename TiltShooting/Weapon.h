@@ -14,11 +14,17 @@
 }
 
 -(id)initWithType:(int)type;
-@property NSString *image;
+//the panel picture of weapon
+@property (nonatomic,strong) CCNode* panel;
 @property int ammo;
-@property int currentAmmo;
-@property int clipAmmo;
-@property int currentClipAmmo;
-@property NSString *aim;
+@property (nonatomic,strong)CCLabelTTF* currentAmmo;
+@property (nonatomic,strong)CCLabelTTF* clipAmmo;
+@property (nonatomic,strong)CCLabelTTF* currentClipAmmo;
+//the corresponding aim node
+@property (nonatomic,strong) CCNode* aim;
 @property float radius;
+
+-(void)changeCurrentClipAmmo:(int)value;
+-(void)changeClipAmmo:(int)value;
+-(void)changeCurrentAmmo:(int)value;
 @end

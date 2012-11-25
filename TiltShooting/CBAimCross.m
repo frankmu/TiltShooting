@@ -1,15 +1,15 @@
 //
-//  CBTarget.m
+//  CBAimCross.m
 //  TiltShooting
 //
-//  Created by yan zhuang on 12-11-24.
+//  Created by yan zhuang on 12-11-25.
 //  Copyright 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "CBTarget.h"
+#import "CBAimCross.h"
 
 
-@implementation CBTarget
+@implementation CBAimCross
 @synthesize myAnimationManager;
 //invoked after ccb loaded
 - (void) didLoadFromCCB
@@ -24,14 +24,15 @@
 {
     // Remove the explosion object after the animation has finished
     //self.isScheduledForRemove = YES;
-    if([name isEqualToString:@"TargetExplosion"]){
-        [self removeFromParentAndCleanup:YES];
-    }
+    //if([name isEqualToString:@"TargetExplosion"]){
+    //    [self removeFromParentAndCleanup:YES];
+    //}
 }
 
 //run timeline
 -(void) runTimeLine:(NSString *)name{
-
+    
     [self.myAnimationManager runAnimationsForSequenceNamed:name];
 }
+
 @end

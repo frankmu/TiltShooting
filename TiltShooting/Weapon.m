@@ -7,11 +7,11 @@
 //
 
 #import "Weapon.h"
-
+#import "CCBReader.h"
 
 @implementation Weapon
 
-@synthesize image;
+@synthesize panel;
 @synthesize ammo;
 @synthesize currentAmmo;
 @synthesize clipAmmo;
@@ -26,27 +26,32 @@
     switch (type) {
         case 1://handgun
             NSLog(@"init weapon type 1 info");
-            image=@"handgun.png";
-            ammo=9999;
-        
-            clipAmmo=7;
-            aim=@"aimcross.png";
-            radius=0;
+            panel=[CCBReader nodeGraphFromFile:@"WeaponPanel.ccbi" owner:self];
+            //aim
             break;
             
         case 2://ak104
             NSLog(@"init weapon type 2 info");
-            image=@"ak104.png";
-            ammo=1000;
-            clipAmmo=30;
-            aim=@"aimcross.png";
-            radius=15;
+            panel=[CCBReader nodeGraphFromFile:@"WeaponPanelM4A1.ccbi" owner:self];
+            //aim
             break;
         default:
             break;
     }
-    currentAmmo=ammo;
-    currentClipAmmo=currentAmmo;
+    //currentAmmo=ammo;
+    //currentClipAmmo=currentAmmo;
     return self;
+}
+-(void)changeCurrentClipAmmo:(int)value{
+    [currentClipAmmo setString:[NSString stringWithFormat:@"%d",value]];
+
+}
+-(void)changeClipAmmo:(int)value{
+    [clipAmmo setString:[NSString stringWithFormat:@"%d",value]];
+    
+}
+-(void)changeCurrentAmmo:(int)value{
+    [currentAmmo setString:[NSString stringWithFormat:@"%d",value]];
+    
 }
 @end

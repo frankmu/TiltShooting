@@ -320,9 +320,9 @@
     //#################
     //shoot effect is shown after TargetHit or TargetMiss
     //#################
-    //[[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
+   //[[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
     //show a bullet hole for test, not using location here
-    [Viewer showBulletHole:self atLocation:self.aimCross.position];
+   // [Viewer showBulletHole:self atLocation:self.aimCross.position];
     
 }
 
@@ -445,6 +445,8 @@
     progressPercentage=[m bonus]/MAX_BONUS_BAR;
     [progressBar updateProgressBar:progressPercentage];
     
+    //init weapon panel
+    [viewer initWeaponWithLayer:self];
     return BUBBLE_CONTINUE;
     
 }
@@ -466,13 +468,47 @@
     }
     return UNKNOWN;
 }
+- (BUBBLE_RULE) targetMiss:(Target *)target{
+    [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
+    
+    //show a bullet hole for test, not using location here
+    [Viewer showBulletHole:self atLocation:self.aimCross.position];
 
+    return BUBBLE_CONTINUE;
+}
 - (BUBBLE_RULE) targetHit:(Target *)target {
     //#################
     //handle target blood, shoot effect, sound
     //#################
+    [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
+    
     if(target.aux!=nil){
         NSLog(@"Target is HITTED");
+        //check type of target
+        TARGET_TYPE type=[self checkTargetType:target];
+        switch (type) {
+            case ENEMY:
+                
+                [Viewer hitTarget:target inLayer:self];
+                break;
+           /* case BOMB:
+                NSLog(@"show explode on target");
+                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
+                [Viewer removeBomb:target inLayer:self];
+                break;
+            case TIMEMINUS:
+                NSLog(@"show explode on target");
+                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
+                [Viewer removeBomb:target inLayer:self];
+                break;
+            case TIMEPLUS:
+                NSLog(@"show explode on target");
+                
+                [Viewer removeTimePlus:target inLayer:self];
+                break;*/
+            default:
+                break;
+        }
     }
     return BUBBLE_CONTINUE;
 }
@@ -481,11 +517,14 @@
     //#################
     //change weapon status
     //#################
+    if(weapon.aux!=nil){
+        [viewer changeWeaponStatus:weapon];
+    }
     return BUBBLE_CONTINUE;
 }
 - (BUBBLE_RULE) time: (float)time{
-    
-    percentage=time/MAX_TIME_BAR;
+    //ceil time
+    percentage=ceil(time)/MAX_TIME_BAR;
     //NSLog(@"left time:%f",time);
     [timeBar updateTimeBar:percentage];
     return BUBBLE_CONTINUE;
@@ -509,8 +548,9 @@
 - (BUBBLE_RULE) needReload {
     //[self showNotify:@"Need Reload"];
     //#################
-    //aleady check in touch
+    //reload sound
     //#################
+    [Viewer showBigSign:@"Reload" inLayer:self withDuration:1];
     return BUBBLE_CONTINUE;
 }
 

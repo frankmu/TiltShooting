@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "cocos2d.h"
 #import "Model.h"
+#import "ShakeEnabledUIWindow.h"
 @interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate>
 {
-	UIWindow *window_;
+	//UIWindow *window_;
+    ShakeEnabledUIWindow *window_;
 	UINavigationController *navController_;
 	
 	CCDirectorIOS	*director_;							// weak ref

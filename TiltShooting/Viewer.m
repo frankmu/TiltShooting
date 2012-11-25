@@ -12,6 +12,10 @@
 #import "Weapon.h"
 #import "TimePlusNode.h"
 #import "TargetNode.h"
+#import "DesertEagle.h"
+#import "M4A1.h"
+#import "CBTarget.h"
+#import "CCBReader.h"
 @implementation Viewer
 @synthesize spriteSheet;
 @synthesize explodeAnim;
@@ -20,6 +24,9 @@
 @synthesize currentWeaponIndex;
 @synthesize nextWeaponIndex;
 @synthesize glayer;
+
+#define TARGET_SIZE 40.0
+#define BOMB_SIZE 32.0
 //Debug Message
 +(void)NSLogDebug:(BOOL)debug withMsg:(NSString*)message{
     if(debug){
@@ -49,9 +56,15 @@
     CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
     //[glayer.background addChild:SheetBulletHolesBig];
     [glayer.background addChild:bulletHoleBig z:5];
+    //###########
+    //temp scale down
+    //##########
+   
     //bulletHoleBig.position=[Viewer viewToCanvas:glayer at:location];
     id<ModelInterface> m = [[Model class] instance];
     bulletHoleBig.position = ccp (m.aim.x, m.aim.y);
+    bulletHoleBig.scaleX=0.7;
+    bulletHoleBig.scaleY=0.7;
     //remove after 2s
     CCSequence *sequence=[CCSequence actions:
                           [CCDelayTime actionWithDuration:0.5],
@@ -68,16 +81,26 @@
     CGPoint p=ccp(location.x+CANVASW/2-layer.background.position.x,location.y+CANVASH/2-layer.background.position.y);
     return p;
 }
-
+/*******------- Show -----------*******/
 +(void) showTarget:(Target*)target inLayer:(CCLayer*)layer{
     GameLayer *glayer=(GameLayer*)layer;
     
-    TargetSprite *tg=[CCSprite spriteWithFile:@"bricktargetgreen.png"];
+    /*TargetSprite *tg=[CCSprite spriteWithFile:@"bricktargetgreen.png"];
     [glayer.background addChild:tg z:1];
     tg.position=ccp(target.x,target.y);
     NSLog(@"add target at x=%f y=%f",target.x,target.y);
-    target.aux=tg;
+    target.aux=tg;*/
     
+    //#################
+    //change scale
+    //################
+    CBTarget *tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"TargetAnimation.ccbi"];
+    [glayer.background addChild:tg z:1];
+    tg.position=ccp(target.x,target.y);
+    tg.scaleX=target.width/TARGET_SIZE;
+    tg.scaleY=target.height/TARGET_SIZE;
+    NSLog(@"add target at x=%f y=%f",target.x,target.y);
+    target.aux=tg;
 }
 
 +(void) showBomb:(Target*)target inLayer:(CCLayer*)layer{
@@ -87,9 +110,11 @@
     //################
     GameLayer *glayer=(GameLayer*)layer;
     
-    TargetSprite *tg=[CCSprite spriteWithFile:@"bricktargetred.png"];
+    CCNode* tg=[CCBReader nodeGraphFromFile:@"Bomb.ccbi"];
     [glayer.background addChild:tg z:1];
     tg.position=ccp(target.x,target.y);
+    tg.scaleX=target.width/BOMB_SIZE;
+    tg.scaleY=target.height/BOMB_SIZE;
     NSLog(@"add Bomb at x=%f y=%f",target.x,target.y);
     target.aux=tg;
     
@@ -125,9 +150,15 @@
                     [CCScaleTo actionWithDuration:d/2.0 scale:1],
                     [CCCallFuncO actionWithTarget:layer selector:@selector(removeChildFromParent:) object:msg],nil]];
 }
-//remove
+/*******------- remove -----------*******/
 +(void) removeTarget:(Target*)target inLayer:(CCLayer*)layer{
     //[Viewer showExplodeInBackground:((GameLayer*)layer).background at:ccp(target.x,target.y)];
+    //[target.aux removeFromParentAndCleanup:YES];
+    GameLayer *glayer=(GameLayer*)layer;
+    CCNode* tea = [CCBReader nodeGraphFromFile:@"TargetExplosionAnimation.ccbi"];
+    [glayer.background addChild:tea z:6];
+    tea.position=ccp(target.x,target.y);
+   // [(CBTarget*)target.aux runTimeLine:@"TargetExplosion"];
     [target.aux removeFromParentAndCleanup:YES];
 }
 +(void) removeBomb:(Target*)target inLayer:(CCLayer*)layer{
@@ -141,9 +172,30 @@
     [target.aux removeFromParentAndCleanup:YES];
     
 }
++(void) hitTarget:(Target*)target inLayer:(CCLayer*)layer{
+    GameLayer *glayer=(GameLayer*)layer;
+    CCNode* spark = [CCBReader nodeGraphFromFile:@"FireSpark.ccbi"];
+    [glayer.background addChild:spark z:6];
+    spark.position=ccp(target.x,target.y);
+    
+    //check health
+    float health=target.hp/target.maxHp;
+    
+    if(health<0.6 && health>0.3){
+        //random a light broke
+        int i= arc4random() % 5+1;
+        [(CBTarget*)target.aux runTimeLine:[NSString stringWithFormat:@"BrokeLight_%d",i]];
+    }
+    else if(health<=0.3){
+        //random a light broke
+        int i= arc4random() % 5+1;
+        [(CBTarget*)target.aux runTimeLine:[NSString stringWithFormat:@"BrokeHard_%d",i]];
+    }
+
+}
 -(void) showExplodeInLayer:(CCLayer*)layer at:(CGPoint)location {
     
-    CCAction *explodeAction =[CCAnimate actionWithAnimation:explodeAnim];
+   /* CCAction *explodeAction =[CCAnimate actionWithAnimation:explodeAnim];
     //run
     CCSprite *explode= [CCSprite spriteWithSpriteFrameName:@"explode1.png"];
     explode.position = location;
@@ -151,7 +203,12 @@
     NSLog(@"start to run animation on target");
     [[SimpleAudioEngine sharedEngine] playEffect:@"explode.mp3"];
     [explode runAction:[CCSequence actions:explodeAction,
-                        [CCCallFuncO actionWithTarget:layer selector:@selector(removeChildFromParent:) object:explode],nil]];
+                        [CCCallFuncO actionWithTarget:layer selector:@selector(removeChildFromParent:) object:explode],nil]];*/
+    GameLayer *glayer=(GameLayer*)layer;
+    CCNode* explosion = [CCBReader nodeGraphFromFile:@"Explosion.ccbi"];
+    [glayer.background addChild:explosion z:6];
+    explosion.position=location;
+    [[SimpleAudioEngine sharedEngine] playEffect:@"explode.mp3"];
     
 }
 -(void)changeWeaponInLayer{
@@ -161,46 +218,59 @@
     CCAction *scaleto=[CCScaleTo actionWithDuration:1 scale:0.3];
     CCAction *scaleback=[CCScaleTo actionWithDuration:0 scale:1];
 
-    [[weaponSpriteList objectAtIndex:currentWeaponIndex] runAction:movedown];
-    [[weaponSpriteList objectAtIndex:currentWeaponIndex] runAction:[CCSequence actions:scaleto,scaleback,nil]];
-    [[weaponSpriteList objectAtIndex:nextWeaponIndex] runAction:moveup];
+    [((Weapon*)[weaponList objectAtIndex:currentWeaponIndex]).panel runAction:movedown];
+    [((Weapon*)[weaponList objectAtIndex:currentWeaponIndex]).panel runAction:[CCSequence actions:scaleto,scaleback,nil]];
+    [((Weapon*)[weaponSpriteList objectAtIndex:nextWeaponIndex]).panel runAction:moveup];
     currentWeaponIndex=nextWeaponIndex;
+    
+}
+-(void)changeWeaponStatus:(WeaponBase*)weapon{
+    Weapon* gun=weapon.aux;
+    [gun changeClipAmmo:weapon.bulletCapacity];
+    [gun changeCurrentAmmo:weapon.depotRemain];
+    [gun changeCurrentClipAmmo:weapon.bulletRemain];
     
 }
 -(void)showPreviousWeapon{
       //check weapon number
-    if([weaponSpriteList count]==0){
+     id<ModelInterface> m = [[Model class] instance];
+    if([weaponList count]==0){
         [Viewer showBigSign:@"Error:No Weapon" inLayer:glayer withDuration:1];
     }
 
-    else if([weaponSpriteList count]==1){
+    else if([weaponList count]==1){
         [Viewer showBigSign:@"No Extra Weapon" inLayer:glayer withDuration:1];
     }
     else if(currentWeaponIndex==0){
-        nextWeaponIndex=[weaponSpriteList count]-1;
+        nextWeaponIndex=[weaponList count]-1;
+        [m switchToPreviousWeapon];
         [self changeWeaponInLayer];
     }
     else{
         nextWeaponIndex=currentWeaponIndex-1;
+        [m switchToPreviousWeapon];
         [self changeWeaponInLayer];
 
     }
 }
 -(void)showNextWeapon{
     //check weapon number
-    if([weaponSpriteList count]==0){
+     id<ModelInterface> m = [[Model class] instance];
+    if([weaponList count]==0){
         [Viewer showBigSign:@"Error:No Weapon" inLayer:glayer withDuration:1];
     }
     
-    else if([weaponSpriteList count]==1){
+    else if([weaponList count]==1){
         [Viewer showBigSign:@"No Extra Weapon" inLayer:glayer withDuration:1];
     }
-    else if(currentWeaponIndex==([weaponSpriteList count]-1)){
+    else if(currentWeaponIndex==([weaponList count]-1)){
         nextWeaponIndex=0;
+        [m switchToNextWeapon];
         [self changeWeaponInLayer];
     }
     else{
         nextWeaponIndex=currentWeaponIndex+1;
+         [m switchToNextWeapon];
         [self changeWeaponInLayer];
         
     }
@@ -227,46 +297,71 @@
         //animation
         explodeAnim = [CCAnimation animationWithFrames:explodeAnimFrames delay:0.1f];
         
-        /*************init weapon*************/
-        //get weapon info from model
-        //now hardcode weapon status , support 3 types
-        NSLog(@"init weapons");
-        //#################
-        //init weapon based on model weapon list
-        //################
-        NSArray *weapons=[NSArray arrayWithObjects:[NSNumber numberWithBool:YES],[NSNumber numberWithBool:YES],[NSNumber numberWithBool:NO],nil];
-        //init weaponList
-        weaponList=[[NSMutableArray alloc] initWithCapacity: 3];
-        for (int j=0; j<[weapons count]; j++) {
-            if([[weapons objectAtIndex:j] boolValue]){
-                NSLog(@"init weapon type %d",j+1);
-                [weaponList addObject:[[Weapon node]initWithType:j+1]];
-            
-            }        
-        }
-        //default init weapon type
-        currentWeaponIndex=0;
-        nextWeaponIndex=0;
-        NSLog(@"weaponlist count= %d",[weaponList count]);
-        //draw all weapon,show current weapon at bottom, others outside the screen
-        weaponSpriteList=[[NSMutableArray alloc] initWithCapacity: 3];
-        for (int i=0; i<[weaponList count]; i++) {
-            CCSprite *weapon=[CCSprite spriteWithFile:((Weapon*)[weaponList objectAtIndex:i]).image];
-            NSLog(@"add weapon into gamelayer");
-            [glayer addChild:weapon];
-            //store in list for switching positions
-            [weaponSpriteList addObject:weapon];
-            if(i==currentWeaponIndex){
-                weapon.position=ccp(240,30);
-            }
-            else{
-                weapon.position=ccp(240,-30);
-            }
-        }
+    
 
     }
     return self;
     
     
 }
+-(void)initWeaponWithLayer:(CCLayer*)layer{
+    /*************init weapon*************/
+    //get weapon info from model
+    //now hardcode weapon status , support 3 types
+    NSLog(@"init weapons");
+    
+    //NSArray *weapons=[NSArray arrayWithObjects:[NSNumber numberWithBool:YES],[NSNumber numberWithBool:YES],[NSNumber numberWithBool:NO],nil];
+    //init weaponList
+    id<ModelInterface> m = [[Model class] instance];
+    weaponList=[[NSMutableArray alloc] initWithCapacity: 3];
+    for (int j=0; j<[[m weaponList] count]; j++) {
+        /*if([[[m weaponList] objectAtIndex:j] boolValue]){
+            NSLog(@"init weapon type %d",j+1);
+            [weaponList addObject:[[Weapon node]initWithType:j+1]];
+            
+        }*/
+        WeaponBase* modelGun=(WeaponBase*)[[m weaponList] objectAtIndex:j];
+        if([[[m weaponList] objectAtIndex:j] isMemberOfClass:[DesertEagle class]]){
+            Weapon* gun=[[Weapon node]initWithType:1];
+            [weaponList addObject:gun];
+            //init weapon status            
+            [gun changeClipAmmo:modelGun.bulletCapacity];
+            [gun changeCurrentAmmo:modelGun.depotRemain];
+            [gun changeCurrentClipAmmo:modelGun.bulletRemain];
+            modelGun.aux=gun;
+        }
+        else if([[[m weaponList] objectAtIndex:j] isMemberOfClass:[M4A1 class]]){
+            Weapon* gun=[[Weapon node]initWithType:2];
+            [weaponList addObject:gun];
+            //init weapon status
+            [gun changeClipAmmo:modelGun.bulletCapacity];
+            [gun changeCurrentAmmo:modelGun.depotRemain];
+            [gun changeCurrentClipAmmo:modelGun.bulletRemain];
+            modelGun.aux=gun;
+        }
+    }
+    //default init weapon type
+    currentWeaponIndex=0;
+    nextWeaponIndex=0;
+    NSLog(@"weaponlist count= %d",[weaponList count]);
+    //draw all weapon,show current weapon at bottom, others outside the screen
+    //sweaponSpriteList=[[NSMutableArray alloc] initWithCapacity: 3];
+    for (int i=0; i<[weaponList count]; i++) {
+        Weapon* weapon=(Weapon*)[weaponList objectAtIndex:i];
+        NSLog(@"add weapon into gamelayer");
+        [glayer addChild:weapon.panel];
+        //store in list for switching positions
+        //[weaponSpriteList addObject:weapon];
+        if(i==currentWeaponIndex){
+            weapon.panel.position=ccp(240,30);
+            
+        }
+        else{
+            weapon.panel.position=ccp(240,-30);
+        }
+    }
+
+
+}
+
 @end
