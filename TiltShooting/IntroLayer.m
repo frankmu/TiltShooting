@@ -9,7 +9,7 @@
 
 // Import the interfaces
 #import "IntroLayer.h"
-
+#import "CCBReader.h"
 
 #pragma mark - IntroLayer
 
@@ -66,8 +66,8 @@
 -(void) makeTransition:(ccTime)dt
 {
     NSLog(@"init menuscene");
-    
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MenuScene node] withColor:ccWHITE]];
+    CCScene* mainScene = [CCBReader sceneWithNodeGraphFromFile:@"MainMenu.ccbi"];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccWHITE]];
     //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer scene] withColor:ccWHITE]];
 }
 @end

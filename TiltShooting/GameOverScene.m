@@ -8,7 +8,7 @@
 
 #import "GameOverScene.h"
 #import "SimpleAudioEngine.h"
-
+#import "CCBReader.h"
 @implementation GameOverScene
 @synthesize background;
 @synthesize win;
@@ -83,8 +83,9 @@
 
 -(void) mainmenu: (id) sender
 {
-	CCScene *sc = [MenuScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
+	//CCScene *sc = [MenuScene node];
+    CCScene* mainScene = [CCBReader sceneWithNodeGraphFromFile:@"MainMenu.ccbi"];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccWHITE]];
 }
 -(void) retry:(id)sender
 {

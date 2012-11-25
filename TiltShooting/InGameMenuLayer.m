@@ -9,6 +9,7 @@
 #import "InGameMenuLayer.h"
 #import "SimpleAudioEngine.h"
 #import "GameLayer.h"
+#import "CCBReader.h"
 #define BULLETNUM 2
 @implementation InGameMenuLayer
 
@@ -97,8 +98,9 @@
     [model resume];
     
     [model stop];
-    CCScene *sc = [MenuScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:sc withColor:ccWHITE]];
+    //CCScene *sc = [MenuScene node];
+    CCScene* mainScene = [CCBReader sceneWithNodeGraphFromFile:@"MainMenu.ccbi"];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccWHITE]];
 }
 
 
