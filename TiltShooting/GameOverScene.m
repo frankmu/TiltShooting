@@ -77,6 +77,9 @@
     timeFont.position =  ccp( size.width /4 , size.height/2.4 );
     [scoreLayer addChild:timeFont z:6 tag:6];
     
+    //################
+    //cancle total time?
+    //################
     CCLabelTTF *totalTime=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%.1f",self.time] fontName:@"Marker Felt" fontSize:48];
     totalTime.anchorPoint=ccp(0,0);
     totalTime.position =  ccp( size.width /2.8 , size.height/3.0);
@@ -84,9 +87,7 @@
     
     
     [self addChild: scoreLayer z:0 tag:1];
-    //##################
-    //get total time in game
-    //##################
+    
     return self;
 }
 
