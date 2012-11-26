@@ -27,28 +27,6 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @end
 
 @implementation Model
-
-@synthesize targetList = _targetList;
-@synthesize targetSet = _targetSet;
-@synthesize weaponList = _weaponList;
-@synthesize currentWeapon = _currentWeapon;
-@synthesize map2Box2D = _map2Box2D;
-@synthesize daemon = _daemon;
-@synthesize aim = _aim;
-@synthesize canvasX = _canvasX, canvasY = _canvasY,
-canvasW = _canvasW, canvasH = _canvasH;
-@synthesize volume = _volume;
-@synthesize score = _score, bonus = _bonus;
-@synthesize remainTime = _remainTime, maxTime = _maxTime;
-@synthesize deviceW = _deviceW, deviceH = _deviceH;
-@synthesize flushInterval = _flushInterval;
-@synthesize hasRecord = _hasRecord;
-@synthesize status = _status;
-@synthesize debug = _debug;
-@synthesize shootHappen = _shootHappen;
-@synthesize reloadHappen = _reloadHappen;
-@synthesize shootPoints = _shootPoints;
-
 + (id<ModelInterface>) instance {
     static id<ModelInterface> shared = nil;
     static dispatch_once_t onceToken;
@@ -133,7 +111,10 @@ canvasW = _canvasW, canvasH = _canvasH;
 
 - (void) startWithLevel: (int) level {
     // some work must be done first in order to init others
-    //[[GameBrain class] initGame];
+    if (self.status != STOPPED) {
+        return;
+    }
+    self.currentLevel = level;
     [self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
     // for experiment
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -145,6 +126,7 @@ canvasW = _canvasW, canvasH = _canvasH;
         [self fireGameInitFinishedEvent];
         [self resetAim];
         [self fireTargetAppearEvent:self.aim];
+        [self fireWeaponStatusChangeEvent:self.currentWeapon];
         NSLog(@"Model Start");
     });
 }
@@ -288,6 +270,13 @@ canvasW = _canvasW, canvasH = _canvasH;
     [self fireEvent:@selector(weaponStatusChanged:)
                with:^(id<CoreEventListener> listener) {
                    return (BUBBLE_RULE) [listener weaponStatusChanged:currentWeapon];
+    }];
+}
+
+- (void) fireTargetMissEvent:(float)x y:(float)y {
+    [self fireEvent:@selector(targetMissX:y:)
+               with:^(id<CoreEventListener> listener) {
+                   return (BUBBLE_RULE) [listener targetMissX:x y:y];
     }];
 }
 

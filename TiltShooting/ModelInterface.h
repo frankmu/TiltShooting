@@ -71,7 +71,6 @@ typedef enum {
 - (void) setCanvasX: (float) cx Y: (float) cy;
 - (void) setCanvasWidth: (float) cw height: (float) ch;
 - (void) setDeviceWidth: (float) dw height: (float)  dh;
-- (void) setCurrentWeapon: (WeaponBase *)weapon;
 - (void) switchToNextWeapon;
 - (void) switchToPreviousWeapon;
 

@@ -27,10 +27,10 @@ typedef enum {
            skillMana: (float)skillMana bulletCapacity: (int)cap
          depotRemain:(int)depRemain;
 
-- (void) shootWithX: (float)x y: (float)y;
-- (void) specialSkillWithX: (float)x y: (float)y;
-- (void) doShootWithX: (float)x y: (float)y;
-- (void) doSpecialSkillWithX: (float)x y: (float)y;
+- (BOOL) shootWithX: (float)x y: (float)y;
+- (BOOL) specialSkillWithX: (float)x y: (float)y;
+- (BOOL) doShootWithX: (float)x y: (float)y;
+- (BOOL) doSpecialSkillWithX: (float)x y: (float)y;
 - (void) increaseManaByBonus: (float)bonus;
 - (void) reload;
 - (BOOL) canReload;

@@ -8,6 +8,7 @@
 
 #import "ModelDaemon.h"
 #import "Model.h"
+#import "GameBrain.h"
 
 #define DEFAULT_FLUSH_INTERVAL (1/60.f)
 
@@ -18,7 +19,6 @@
 @end
 
 @implementation ModelDaemon
-
 - (id) init {
     if (self = [super init]) {
         self.runningTimes = 0;
@@ -42,66 +42,98 @@
                                            selector:@selector(runAsync:)
                                            userInfo:nil
                                             repeats:YES];
+    
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     self.timer = timer;
     NSLog(@"Model Daemon Start");
 }
 
 - (void) stop {
+    self.runningTimes = 0;
     [self.timer invalidate];
     NSLog(@"Model Daemon Stop");
 }
 
 - (void) runAsync: (NSTimer *)timer {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self run:timer];
     });
 }
 
 - (void) run: (NSTimer *) timer {
     id<ModelFullInterface> m = [[Model class] instance];
+    
     if ([m status] != RUNNING) {
         return;
     }
-    // work normally
-    ++ self.runningTimes;
     
+    ++ self.runningTimes;
+    BOOL runEvery2Time = self.runningTimes % 2 == 0;
+    [self runEveryTime:timer];
+    if (runEvery2Time) {
+        [self runEvery2Time:timer];
+    }
+}
+
+- (void) runEveryTime: (NSTimer *) timer {
+    id<ModelFullInterface> m = [[Model class] instance];
     // flush the time
     NSTimeInterval newTime = [m remainTime] - self.timer.timeInterval;
     newTime = newTime < 0.0 ? 0.0 : newTime;
-    [m changeTime:newTime];
+    [m setRemainTime:newTime];
     if (newTime - 0.0 < 10e-5) {
         [m fireGameFinishEvent];
         [m stop];
     }
-    
     if ([m reloadHappen]) {
         [m setReloadHappen:NO];
         [[m currentWeapon] reload];
+        [m fireWeaponStatusChangeEvent:[m currentWeapon]];
     }
     
     if ([m shootHappen]) {
         NSMutableArray *orgPoints = [m shootPoints];
-        //NSMutableArray *points = [orgPoints copy];
-        //[orgPoints removeAllObjects];
         [m resetShootHappen];
         WeaponBase *currentWeapon = [m currentWeapon];
         
         if (![currentWeapon canShoot]) {
             [m fireNeedReloadEvent];
         } else {
-        
             for (POINT *p in orgPoints) {
-                NSLog(@"shoot test at %f %f", p.x, p.y);
+                BOOL hitted = NO;
                 if (p.useSkill) {
-                    [currentWeapon specialSkillWithX:p.x y:p.y];
+                    hitted = [currentWeapon specialSkillWithX:p.x y:p.y];
                 } else {
-                    [currentWeapon shootWithX:p.x y:p.y];
+                    hitted = [currentWeapon shootWithX:p.x y:p.y];
                 }
+                
+                if (!hitted) {
+                    [m fireTargetMissEvent:p.x y:p.y];
+                }
+            }
+            // update weapon status only in need
+            if ([orgPoints count] != 0) {
+                [m fireWeaponStatusChangeEvent: [m currentWeapon]];
             }
         }
         [orgPoints removeAllObjects];
     }
+    [[GameBrain class] refreshGameWithLevel:[m currentLevel]];
+    if ([m canvasMoved]) {
+        [m setCanvasMoved:NO];
+        [m fireCanvasMoveEvent];
+    }
+    
+    if ([m aimMoved]) {
+        [m setAimMoved:NO];
+        [m fireTargetMoveEvent:[m aim]];
+    }
+
+}
+
+- (void) runEvery2Time: (NSTimer *) timer {
+    id<ModelFullInterface> m = [[Model class] instance];
+    [m fireTimeEvent:[m remainTime]];
 }
 
 

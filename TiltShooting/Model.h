@@ -27,6 +27,9 @@
 @property (strong, atomic) NSMutableArray *shootPoints;
 @property (atomic) BOOL shootHappen;
 @property (atomic) BOOL reloadHappen;
+@property (atomic) BOOL aimMoved;
+@property (atomic) BOOL canvasMoved;
+@property (atomic) int currentLevel;
 
 
 @property NSTimeInterval flushInterval;

@@ -182,11 +182,11 @@
     // fire canvas or aim move event
     
     if (model.aim.x != oldAimX || model.aim.y != oldAimY) {
-        [model fireTargetMoveEvent:model.aim];
+        [model setAimMoved:YES];
     }
     
     if (model.canvasX != oldCanvasX || model.canvasY != oldCanvasY) {
-        [model fireCanvasMoveEvent];
+        [model setCanvasMoved:YES];
     }
 }
 

@@ -20,6 +20,7 @@
 - (void) fireTargetAppearEvent: (Target *)target;
 - (void) fireTargetDisappearEvent: (Target *)target;
 - (void) fireTargetHitEvent: (Target *)target;
+- (void) fireTargetMissEvent: (float)x y:(float)y;
 //- (void) fireImpactEvent: (Target *)t1 by: (Target *)t2;
 - (void) fireGameInitFinishedEvent;
 //- (void) fireWinEvent;
@@ -41,9 +42,15 @@
 - (void) setBonus: (float)bonus;
 - (void) setTime: (NSTimeInterval)time;
 - (void) setRemainTime: (NSTimeInterval)remainTime;
+- (void) setCurrentWeapon: (WeaponBase *)weapon;
 - (Map2Box2D *) map2Box2D;
 - (BOOL) shootHappen;
 - (BOOL) reloadHappen;
+- (BOOL) canvasMoved;
+- (BOOL) aimMoved;
+- (int) currentLevel;
+- (void) setAimMoved: (BOOL)aimMoved;
+- (void) setCanvasMoved: (BOOL)canvasMoved;
 - (void) setReloadHappen: (BOOL)reload;
 - (void) resetShootHappen;
 - (NSMutableArray *) shootPoints;

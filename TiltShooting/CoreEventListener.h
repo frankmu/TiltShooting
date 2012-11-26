@@ -37,5 +37,7 @@ typedef enum {
 - (BUBBLE_RULE) score: (float)score;
 - (BUBBLE_RULE) time: (float)time;
 - (BUBBLE_RULE) bonus: (float)bonus;
-//- (BUBBLE_RULE) bonus: (float)bonus;
+
+/* new */
+- (BUBBLE_RULE) targetMissX: (float)x y:(float)y;
 @end

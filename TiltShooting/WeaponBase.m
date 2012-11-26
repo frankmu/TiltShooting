@@ -51,32 +51,27 @@
 
 - (void) reload {
     [self doReload];
-    id<ModelFullInterface> m = [Model instance];
-    [m fireWeaponStatusChangeEvent: self];
 }
 
-- (void) shootWithX: (float)x y: (float)y {
+- (BOOL) shootWithX: (float)x y: (float)y {
     if ([self canShoot]) {
-        [self doShootWithX:x y:y];
-        id<ModelFullInterface> m = [[Model class] instance];
-        [m fireWeaponStatusChangeEvent:self];
+        return [self doShootWithX:x y:y];
     }
+    return NO;
 }
 
-- (void) specialSkillWithX: (float)x y: (float)y {
+- (BOOL) specialSkillWithX: (float)x y: (float)y {
+    BOOL ret = NO;
     if ([self canUseSpecialShill]) {
-        [self doSpecialSkillWithX:x y:y];
-        [self setMana:self.mana - self.skillMana];
-        
-        id<ModelFullInterface> m = [[Model class] instance];
-        [m fireWeaponStatusChangeEvent:self];
+        ret = [self doSpecialSkillWithX:x y:y];
+        if (ret)
+            [self setMana:self.mana - self.skillMana];
     }
+    return ret;
 }
 
 - (void) increaseManaByBonus:(float)bonus {
-    id<ModelFullInterface> m = [[Model class] instance];
     self.mana += bonus;
-    [m fireWeaponStatusChangeEvent:self];
 }
 
 - (BOOL) canUseSpecialShill {
@@ -91,11 +86,11 @@
     return self.depotRemain > 0;
 }
 
-- (void) doSpecialSkillWithX:(float)x y:(float)y {
+- (BOOL) doSpecialSkillWithX:(float)x y:(float)y {
     // nothing
 }
 
-- (void) doShootWithX:(float)x y:(float)y {
+- (BOOL) doShootWithX:(float)x y:(float)y {
     // nothing
 }
 

@@ -11,14 +11,14 @@
 
 @implementation DesertEagle
 - (id) init {
-    if (self = [super initWithSpeed:1.0f damage:5.0f
+    if (self = [super initWithSpeed:1.0f damage:10.0f
                           skillMana:100.0f bulletCapacity:7 depotRemain: 35]) {
         // do nothing
     }
     return self;
 }
 
-- (void) doSpecialSkillWithX:(float)x y:(float)y {
+- (BOOL) doSpecialSkillWithX:(float)x y:(float)y {
     id<ModelFullInterface> m = [[Model class] instance];
     
     // search for the targets
@@ -29,10 +29,10 @@
     [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
         target.hp -= weapon.damage * 10;
     }];
-
+    return t != nil;
 }
 
-- (void) doShootWithX:(float)x y:(float)y {
+- (BOOL) doShootWithX:(float)x y:(float)y {
     id<ModelFullInterface> m = [[Model class] instance];
     // search for the targets
     Map2Box2D *p = [m map2Box2D];
@@ -42,6 +42,11 @@
     [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
         target.hp -= weapon.damage;
     }];
+    return t != nil;
+}
+
+- (NSString*) description {
+    return @"DesertEagle";
 }
 
 @end

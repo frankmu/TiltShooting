@@ -18,7 +18,7 @@
     return self;
 }
 
-- (void) doSpecialSkillWithX:(float)x y:(float)y {
+- (BOOL) doSpecialSkillWithX:(float)x y:(float)y {
     
     // need to find targets in a range
     
@@ -32,10 +32,10 @@
 //    [t onShootBy:self with:^(){
 //        t.hp -= self.damage * 10;
 //    }];
-    
+    return NO;
 }
 
-- (void) doShootWithX:(float)x y:(float)y {
+- (BOOL) doShootWithX:(float)x y:(float)y {
     id<ModelFullInterface> m = [[Model class] instance];
     
     // search for the targets
@@ -46,7 +46,11 @@
     [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
         target.hp -= weapon.damage;
     }];
+    return t != nil;
 }
 
+- (NSString*) description {
+    return @"M4A1";
+}
 
 @end
