@@ -115,9 +115,51 @@
         
 		//debug
         [self setDebug:YES];
+        
+        //**********  test accelermetor shake temp*********/
+        UIAccelerometer *accelerometer=[UIAccelerometer sharedAccelerometer];
+        accelerometer.updateInterval=1.0/60.0;
+        accelerometer.delegate = self;
+        self.shakeonce=FALSE;
+        self.currentTime=0.f;
+        self.shakeStartTime=0.f;
+        [self scheduleUpdate];
 	}
 	return self;
 }
+//********************test shake temp********************/
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+    float THRESHOLD = 2;
+    float timeGap=1;
+    
+    if (fabs(acceleration.x) > THRESHOLD ||fabs(acceleration.y) > THRESHOLD ||fabs(acceleration.z)> THRESHOLD )
+    {
+        
+        NSLog(@"Accelermeter shake happen once");
+        if(!self.shakeonce){
+            //haven't shaken
+            self.shakeStartTime=self.currentTime;
+            self.shakeonce=TRUE;
+            //shake
+            //[Viewer showBigSign:@"Reload once" inLayer:self withDuration:0.5];
+            [[Model instance] setReloadHappen:YES];
+            NSLog(@"excute shake once");
+        }
+        else {
+            
+            float now=self.currentTime;
+            if(now-self.shakeStartTime>=timeGap){
+                
+                self.shakeonce=FALSE;
+                
+            }
+        }
+    }
+}
+-(void) update:(ccTime)deltaTime {
+    self.currentTime += deltaTime;
+}
+
 //On enter
 -(void) onEnter
 {

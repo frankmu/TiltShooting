@@ -28,7 +28,7 @@ typedef enum {
     UNKNOWN
 } TARGET_TYPE;
 
-@interface GameLayer : CCLayer <CoreEventListener>{
+@interface GameLayer : CCLayer <CoreEventListener,UIAccelerometerDelegate>{
     
 }
 @property BOOL facebookEnable;
@@ -51,4 +51,8 @@ typedef enum {
 @property float percentage;
 @property float progressPercentage;
 @property CGPoint firstTouchLocation;
+//@property NSTimeInterval startTime;
+@property BOOL shakeonce;
+@property float currentTime;
+@property float shakeStartTime;
 @end
