@@ -108,6 +108,7 @@
                 }
                 
                 if (!hitted) {
+                    [m updateScoreByHit:nil];
                     [m fireTargetMissEvent:p.x y:p.y];
                 }
             }
@@ -118,6 +119,8 @@
         }
         [orgPoints removeAllObjects];
     }
+    [m fireScoreEvent: [m score]];
+    [m fireBonusEvent:[m bonus]];
     [[GameBrain class] refreshGameWithLevel:[m currentLevel]];
     if ([m canvasMoved]) {
         [m setCanvasMoved:NO];

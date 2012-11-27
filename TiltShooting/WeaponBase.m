@@ -88,10 +88,12 @@
 
 - (BOOL) doSpecialSkillWithX:(float)x y:(float)y {
     // nothing
+    return NO;
 }
 
 - (BOOL) doShootWithX:(float)x y:(float)y {
     // nothing
+    return NO;
 }
 
 @end

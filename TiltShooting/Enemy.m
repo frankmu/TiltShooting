@@ -29,19 +29,17 @@
     bullet(weapon, self);
     id<ModelFullInterface> m = [[Model class] instance];
     if (self.hp < 0) {        
-        [m changeScore:[m score] + self.bonus * 10];
+        [m updateScoreByDestroy:self];
+        [m incBonus:self.bonus];
         [m deleteTarget:self];
         return YES;
     } else {
+        [m updateScoreByHit:self];
         [m fireTargetHitEvent: self];
     }
     return NO;
 }
 
-- (BOOL) onShoot:(float)damage {
-
-    return NO;
-}
 
 - (NSString *) description {
     return [NSString stringWithFormat:@"Enemy%@", [super description]];

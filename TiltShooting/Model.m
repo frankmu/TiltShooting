@@ -23,6 +23,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @property (strong) ModelDaemon *daemon;
 @property (strong) MotionProcessor *motionProcessor;
 @property (strong, atomic) NSMutableSet *targetSet;
+@property (atomic) int combo;
 //@property (strong, atomic) NSMutableArray *eventList;
 @end
 
@@ -61,6 +62,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         self.volume = 100.0f;
         self.score = 0.0f;
         self.bonus = 0.0f;
+        self.combo = 0;
         self.remainTime = 30.0;
         self.maxTime = 30.;
     }
@@ -173,6 +175,10 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     self.currentWeapon = nil;
     [self.map2Box2D destoryWorld];
     self.shootHappen = NO;
+    self.reloadHappen = NO;
+    self.combo = 0;
+    self.score  = 0.f;
+    self.bonus = 0.f;
     [self resetCanvas];
     [self resetAim];
     [self resetTime];
@@ -280,6 +286,13 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     }];
 }
 
+- (void) fireBonusEvent:(float)bonus {
+    [self fireEvent:@selector(bonus:)
+               with:^(id<CoreEventListener> listener) {
+                   return (BUBBLE_RULE) [listener bonus:bonus];
+    }];
+}
+
 - (void) fireEvent: (SEL)handler with: (fireEventBlock) block {
     dispatch_async(dispatch_get_main_queue(), ^ {
         BUBBLE_RULE rule;
@@ -318,9 +331,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     self.shootHappen = NO;
 }
 
-- (void) changeScore:(float)score {
-    self.score = score;
-    [self fireScoreEvent:self.score];
+- (void) incScore:(float)score {
+    self.score += score;
 }
 
 - (void) changeTime:(NSTimeInterval)time {
@@ -359,6 +371,26 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     NSUInteger count = [self.weaponList count];
     index = (index - 1 + count) % [self.weaponList count];
     self.currentWeapon = [self.weaponList objectAtIndex:index];
+}
+
+
+- (void) updateScoreByBonus:(float)bonus {
+    [self incScore:bonus * 3];
+}
+
+- (void) updateScoreByDestroy:(Target *)t {
+    [self incScore:t.hp];
+}
+
+- (void) updateScoreByHit:(Target *)t {
+    self.combo = t != nil ? self.combo + 1 : 0;
+    if (self.combo != 0) {
+        [self incScore: self.combo * t.bonus];
+    }
+}
+
+- (void) incBonus:(float)bonus {
+    self.bonus += bonus;
 }
 
 @end
