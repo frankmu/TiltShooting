@@ -13,6 +13,7 @@
 }
 @property (weak) GameLayer* glayer;
 @property (nonatomic,strong) CCProgressTimer *ct;
+@property CCMenuItemImage *specialSkillButton;
 -(id) showProgressBar:(CCLayer*)layer;
 -(void)updateProgressBar:(float)percentage;
 

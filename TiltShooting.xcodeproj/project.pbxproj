@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		966A93B4166445BC00B955D1 /* processbar_glow.png in Resources */ = {isa = PBXBuildFile; fileRef = 966A93B3166445BC00B955D1 /* processbar_glow.png */; };
+		966A93B6166447F800B955D1 /* ProcessBarPanel.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 966A93B5166447F800B955D1 /* ProcessBarPanel.ccbi */; };
 		96852E92162D4FBF00F43DF8 /* GameBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 96852E60162D4EB400F43DF8 /* GameBrain.m */; };
 		96852E93162D4FC200F43DF8 /* Map2Box2D.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96852E62162D4EB400F43DF8 /* Map2Box2D.mm */; };
 		96852E94162D4FC400F43DF8 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 96852E64162D4EB400F43DF8 /* Model.m */; };
@@ -332,6 +334,8 @@
 
 /* Begin PBXFileReference section */
 		963CF6C81611747A005C393A /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		966A93B3166445BC00B955D1 /* processbar_glow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = processbar_glow.png; sourceTree = "<group>"; };
+		966A93B5166447F800B955D1 /* ProcessBarPanel.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = ProcessBarPanel.ccbi; path = Resources/ProcessBarPanel.ccbi; sourceTree = "<group>"; };
 		96852E5E162D4EB400F43DF8 /* CoreEventListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreEventListener.h; sourceTree = "<group>"; };
 		96852E5F162D4EB400F43DF8 /* GameBrain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameBrain.h; sourceTree = "<group>"; };
 		96852E60162D4EB400F43DF8 /* GameBrain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameBrain.m; sourceTree = "<group>"; };
@@ -1027,6 +1031,7 @@
 		968C11111661D0E2009C59FA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				966A93B3166445BC00B955D1 /* processbar_glow.png */,
 				968C11121661D0E2009C59FA /* aniexplode.plist */,
 				968C11131661D0E2009C59FA /* aniexplode.png */,
 				968C11141661D0E2009C59FA /* back1.png */,
@@ -1199,6 +1204,7 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				966A93B5166447F800B955D1 /* ProcessBarPanel.ccbi */,
 				968C11B71662DE15009C59FA /* FireSpark.ccbi */,
 				968C11B01662D166009C59FA /* AimCross1.ccbi */,
 				968C11B11662D166009C59FA /* AimCross2.ccbi */,
@@ -1966,6 +1972,8 @@
 				968C11B21662D166009C59FA /* AimCross1.ccbi in Resources */,
 				968C11B31662D166009C59FA /* AimCross2.ccbi in Resources */,
 				968C11B81662DE15009C59FA /* FireSpark.ccbi in Resources */,
+				966A93B4166445BC00B955D1 /* processbar_glow.png in Resources */,
+				966A93B6166447F800B955D1 /* ProcessBarPanel.ccbi in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

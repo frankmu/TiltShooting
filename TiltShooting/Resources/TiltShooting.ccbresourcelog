@@ -59,6 +59,7 @@ newgame_button_sel.png
 setting_button.png
 setting_button_sel.png
 title.png
+ProcessBarPanel.ccbi
 TargetAnimation.ccbi
 TargetExplosionAnimation.ccbi
 aniexplode.plist
@@ -96,6 +97,7 @@ menu_button4_sel.png
 nightsky.png
 pausebg.png
 processbar.png
+processbar_glow.png
 processblur.png
 restart.png
 restart2.png

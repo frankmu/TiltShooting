@@ -581,7 +581,7 @@
     return BUBBLE_CONTINUE;
 }
 - (BUBBLE_RULE) bonus:(float)bonus {
-    
+    NSLog(@"change bonus to %f",bonus);
     progressPercentage=bonus/MAX_BONUS_BAR;
     [progressBar updateProgressBar:progressPercentage];
     return BUBBLE_CONTINUE;

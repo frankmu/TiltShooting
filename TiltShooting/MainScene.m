@@ -43,7 +43,11 @@
     [gameLayer setInGameMenuLayer:menuLayer];
 	return self;
 }
+-(id)initWithLevel:(int)level withFBInfo:(NSMutableArray*)array{
 
+
+    return self;
+}
 /* disabled for ARC
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
