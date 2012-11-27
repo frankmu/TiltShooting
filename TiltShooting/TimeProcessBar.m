@@ -34,8 +34,13 @@
 }
 -(void)updateTimeBar:(float)percentage{
     
-    //temp
-    ct.percentage=percentage*100;
+
+      //  ct.percentage=percentage*100;
+    //auto check edges
+    //########
+    //bug display half of normal percentage
+    //########
+    [ct setPercentage:percentage*50];
     //if(ct.percentage==0)
     //    ct.percentage=50;
 }

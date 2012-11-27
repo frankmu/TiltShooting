@@ -16,7 +16,7 @@
 #import "TimeMinus.h"
 #import "TimePlus.h"
 
-#define MAX_TIME_BAR 300.0;  //300s
+#define MAX_TIME_BAR 120.0;  //300s
 #define MAX_BONUS_BAR 20.0;  
 
 @implementation GameLayer
@@ -484,8 +484,8 @@
     percentage=[m remainTime]/MAX_TIME_BAR;
     [timeBar updateTimeBar:percentage];
     //init bonus bar
-    progressPercentage=[m bonus]/MAX_BONUS_BAR;
-    [progressBar updateProgressBar:progressPercentage];
+    //progressPercentage=[m bonus]/MAX_BONUS_BAR;
+    //[progressBar updateProgressBar:progressPercentage];
     
     //init weapon panel
     [viewer initWeaponWithLayer:self];
@@ -510,12 +510,12 @@
     }
     return UNKNOWN;
 }
-- (BUBBLE_RULE) targetMiss:(Target *)target{
+- (BUBBLE_RULE) targetMissX: (float)x y:(float)y{
     [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
     
     //show a bullet hole for test, not using location here
-    [Viewer showBulletHole:self atLocation:self.aimCross.position];
-
+    //[Viewer showBulletHole:self atLocation:self.aimCross.position];
+    [Viewer showBulletHole:self atLocation:ccp(x,y)];
     return BUBBLE_CONTINUE;
 }
 - (BUBBLE_RULE) targetHit:(Target *)target {
@@ -561,12 +561,15 @@
     //#################
     if(weapon.aux!=nil){
         [viewer changeWeaponStatus:weapon];
+        //update special skill bar
+        progressPercentage=weapon.mana/weapon.skillMana;
+        [progressBar updateProgressBar:progressPercentage];
     }
     return BUBBLE_CONTINUE;
 }
 - (BUBBLE_RULE) time: (float)time{
     //ceil time
-    percentage=ceil(time)/MAX_TIME_BAR;
+    percentage=time/MAX_TIME_BAR;
     //NSLog(@"left time:%f",time);
     [timeBar updateTimeBar:percentage];
     return BUBBLE_CONTINUE;
@@ -582,8 +585,9 @@
 }
 - (BUBBLE_RULE) bonus:(float)bonus {
     NSLog(@"change bonus to %f",bonus);
-    progressPercentage=bonus/MAX_BONUS_BAR;
-    [progressBar updateProgressBar:progressPercentage];
+    //now use weapon mana 
+   // progressPercentage=bonus/MAX_BONUS_BAR;
+   // [progressBar updateProgressBar:progressPercentage];
     return BUBBLE_CONTINUE;
 }
 

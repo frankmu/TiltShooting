@@ -40,14 +40,14 @@
     return self;
 }
 -(void)updateProgressBar:(float)percentage{
-    
+    //inverse the mask effect
     if(percentage>=1){
-        ct.percentage=100;
+        //ct.percentage=0;
         [specialSkillButton setIsEnabled:YES];
     }
-    else{
-        ct.percentage=percentage*100;
-    }
+   
+       // ct.percentage=(1.0-percentage)*100;
+    [ct setPercentage:(1.0-percentage)*100];
     
 }
 //invoked when special skill button is pressed
