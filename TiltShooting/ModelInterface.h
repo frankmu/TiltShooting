@@ -19,15 +19,23 @@ typedef enum {
     STOPPED
 } STATUS;
 
+typedef enum {
+    TYPE_UNKNOWN,
+    TYPE_AIM,
+    TYPE_ENEMY,
+    TYPE_TIME_MINUS,
+    TYPE_TIME_PLUS
+}TYPE_TARGET;
+
 @protocol ModelInterface <NSObject>
 
 @required
 + (id) instance;
++ (TYPE_TARGET) targetType: (Target* )target;
 
 - (void) addToCoreEventListenerList: (id<CoreEventListener>) listener;
 - (void) addToCoreEventListenerlist: (id<CoreEventListener>) listener
                            priority: (int) priority;
-
 /* Init. */
 // typically, canvas is the "background" and device is the iphone screen
 // canvas x and y are "background" positions in device coordinate

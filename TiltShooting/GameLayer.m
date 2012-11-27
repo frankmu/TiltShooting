@@ -683,6 +683,19 @@
     return BUBBLE_CONTINUE;
 }
 
+- (BUBBLE_RULE) targetMissX:(float)x y:(float)y {
+    // need to add
+    return BUBBLE_CONTINUE;
+}
+
+- (BUBBLE_RULE) flushFinish {
+    id<ModelInterface> m = [Model instance];
+    for (Target* t in [m targetList]) {
+        CCNode* node = t.aux;
+        node.position = ccp(t.x, t.y);
+    }
+    return BUBBLE_CONTINUE;
+}
 
 
 @end

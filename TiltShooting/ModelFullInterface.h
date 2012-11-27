@@ -15,6 +15,7 @@
 @protocol ModelFullInterface <ModelInterface>
 @required
 /* Fire events */
+- (void) fireFlushFinish;
 - (void) fireCanvasMoveEvent;
 - (void) fireTargetMoveEvent: (Target *)target;
 - (void) fireTargetAppearEvent: (Target *)target;
@@ -51,6 +52,7 @@
 - (Map2Box2D *) map2Box2D;
 - (BOOL) shootHappen;
 - (BOOL) reloadHappen;
+- (int) switchWeaponChange;
 - (BOOL) canvasMoved;
 - (BOOL) aimMoved;
 - (int) currentLevel;
@@ -58,6 +60,7 @@
 - (void) setCanvasMoved: (BOOL)canvasMoved;
 - (void) setReloadHappen: (BOOL)reload;
 - (void) resetShootHappen;
+- (void) resetSwitchWeaponChange;
 - (NSMutableArray *) shootPoints;
 
 @end

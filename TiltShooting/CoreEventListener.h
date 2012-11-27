@@ -40,4 +40,5 @@ typedef enum {
 
 /* new */
 - (BUBBLE_RULE) targetMissX: (float)x y:(float)y;
+- (BUBBLE_RULE) flushFinish;
 @end

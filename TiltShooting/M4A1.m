@@ -11,8 +11,8 @@
 @implementation M4A1
 
 - (id) init {
-    if (self = [super initWithSpeed:0.1f damage:2.0f
-                          skillMana:100.0f bulletCapacity:30 depotRemain: 90]) {
+    if (self = [super initWithSpeed:0.1f damage:10.0f
+                          skillMana:100.0f bulletCapacity:30 depotRemain: 210]) {
         // do nothing
     }
     return self;

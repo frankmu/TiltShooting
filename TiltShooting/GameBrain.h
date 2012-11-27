@@ -10,7 +10,6 @@
 
 @interface GameBrain : NSObject
 
-+ (void) initGame;
 + (void) initGameSceneWithLevel: (int) level;
 + (void) refreshGameWithLevel:(int)level;
 @end

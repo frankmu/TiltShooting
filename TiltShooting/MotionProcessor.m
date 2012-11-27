@@ -51,8 +51,8 @@
         // init motion interval
         self.motionManager.accelerometerUpdateInterval = 0.01;
         // init shakeing event
-        ShakeDispatcher* shakeDispatcher = [ShakeDispatcher sharedInstance];
-        [shakeDispatcher addShakeListener: self];
+        //ShakeDispatcher* shakeDispatcher = [ShakeDispatcher sharedInstance];
+        //[shakeDispatcher addShakeListener: self];
     }
     return self;
 }

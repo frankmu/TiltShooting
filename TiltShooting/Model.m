@@ -12,6 +12,8 @@
 #import "MotionProcessor.h"
 #import "CoreEventListener.h"
 #import "Map2Box2D.h"
+#import "TimeMinus.h"
+#import "TimePlus.h"
 
 #define DEFAULT_START_LEVEL 1
 #define DEFAULT_INTERVAL (1/30.f)
@@ -63,8 +65,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         self.score = 0.0f;
         self.bonus = 0.0f;
         self.combo = 0;
-        self.remainTime = 30.0;
-        self.maxTime = 30.;
+        self.remainTime = 60.0;
+        self.maxTime = 60.f;
     }
     return self;
 }
@@ -118,11 +120,12 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     }
     self.currentLevel = level;
     [self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
+    self.status = RUNNING;
+    [[GameBrain class] initGameSceneWithLevel:1];
     // for experiment
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         // the order to init. is important
-        self.status = RUNNING;
-        [[GameBrain class] initGameSceneWithLevel:1];        
+          
         [self.daemon start];
         [self.motionProcessor start];
         [self fireGameInitFinishedEvent];
@@ -293,6 +296,13 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     }];
 }
 
+- (void) fireFlushFinish {
+    [self fireEvent:@selector(flushFinish)
+               with:^(id<CoreEventListener> listener) {
+                   return (BUBBLE_RULE) [listener flushFinish];
+    }];
+}
+
 - (void) fireEvent: (SEL)handler with: (fireEventBlock) block {
     dispatch_async(dispatch_get_main_queue(), ^ {
         BUBBLE_RULE rule;
@@ -361,16 +371,11 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) switchToNextWeapon {
-    NSUInteger index = [self.weaponList indexOfObject:self.currentWeapon];
-    index = (index + 1) % [self.weaponList count];
-    self.currentWeapon = [self.weaponList objectAtIndex:index];
+    self.switchWeaponChange += 1;
 }
 
 - (void) switchToPreviousWeapon {
-    NSUInteger index = [self.weaponList indexOfObject:self.currentWeapon];
-    NSUInteger count = [self.weaponList count];
-    index = (index - 1 + count) % [self.weaponList count];
-    self.currentWeapon = [self.weaponList objectAtIndex:index];
+    self.switchWeaponChange -= 1;
 }
 
 
@@ -393,4 +398,20 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     self.bonus += bonus;
 }
 
+- (void) resetSwitchWeaponChange {
+    self.switchWeaponChange = 0;
+}
+
++ (TYPE_TARGET) targetType:(Target *)target {
+    if ([target isMemberOfClass:[Enemy class]]) {
+        return TYPE_ENEMY;
+    } else if ([target isMemberOfClass:[Aim class]]) {
+        return TYPE_AIM;
+    } else if ([target isMemberOfClass: [TimeMinus class]]) {
+        return TYPE_TIME_MINUS;
+    } else if ([target isMemberOfClass:[TimePlus class]]) {
+        return TYPE_TIME_PLUS;
+    }
+    return TYPE_UNKNOWN;
+}
 @end

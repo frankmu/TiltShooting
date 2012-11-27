@@ -10,7 +10,7 @@
 #import "Box2D.h"
 #import "Model.h"
 
-#define BOX2D_WORLD_MAX_SIZE (100.0f)
+#define BOX2D_WORLD_MAX_SIZE (20.0f)
 #define DEFAULT_FLUSH_INTERVAL (1/60.0f)
 #define DEFAULT_VELOCITY_INTERATION 8
 #define DEFAULT_POSITION_INTERATION 3
@@ -79,6 +79,7 @@
     // create box2d world
     b2Vec2 gravity(0.0f, 0.0f);
     world = new b2World(gravity);
+    world->SetContinuousPhysics(true);
     // init. static walls
     [self createWalls];
 }
@@ -98,13 +99,17 @@
     b2Body *body = world->CreateBody(&bodyDef);
     // now all bomb and enemy have the same size, which is 40 * 40
     b2PolygonShape shape;
-    shape.SetAsBox([self c2b:20.0f], [self c2b:20.0f]);
+    shape.SetAsBox([self c2b:target.width/2], [self c2b:target.height/2]);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
+    fixtureDef.density = 10.0f;
+    fixtureDef.friction = 10.0f;
+    fixtureDef.restitution= 0.8f;
     body->CreateFixture(&fixtureDef);
     target->box2dAux = body;
+    int x=5;
+    int y=5;
+    [self setMove:target :x :y];
     NSLog(@"attach [%f, %f] to [%f, %f]", target.x, target.y, bodyDef.position.x, bodyDef.position.y);
 }
 
@@ -115,7 +120,21 @@
 
 - (void) step {
     world->Step(self.interval, self.velocityIterations, self.positionIterations);
-    world->ClearForces();
+    
+//    NSLog(@"start_________");
+//    int count=0;
+//    
+    for (b2Body *b = world->GetBodyList(); b; b = b->GetNext())
+    {
+        Target* t = (__bridge Target*)b->GetUserData();
+        b2Vec2 p =  b->GetPosition();
+        t.x = [self b2c:p.x];
+        t.y = [self b2c:p.y];
+    }
+//    NSLog(@"++++++++ %d",count);
+//     
+//    NSLog(@"end________");
+    
 }
 
 - (void) setMove:(Target *)target :(float)x :(float)y{
@@ -148,8 +167,10 @@
 
 
 - (Target *) locateTargetByX:(float)x y:(float)y {
-    x = [self c2b:x];
-    y = [self c2b:y];
+    float tx = [self c2b:x-1];
+    float ty = [self c2b:y-1];
+    float tx1=[self c2b:x+1];
+    float ty1=[self c2b:y+1];
     class MyQueryCallback : public b2QueryCallback
     
     {
@@ -173,9 +194,9 @@
     
     b2AABB aabb;
     
-    aabb.lowerBound.Set(x, y);
+    aabb.lowerBound.Set(tx, ty);
     
-    aabb.upperBound.Set(x+1, y+1);
+    aabb.upperBound.Set(tx1, ty1);
     
     world->QueryAABB(&callback, aabb);
     
@@ -193,4 +214,11 @@
     return fval / self.scale;
 }
 
+- (float) b2c: (float)fval {
+    return fval * self.scale;
+}
+
+- (BOOL) isLock {
+    return world->IsLocked();
+}
 @end

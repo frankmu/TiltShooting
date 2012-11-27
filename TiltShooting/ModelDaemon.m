@@ -73,6 +73,8 @@
     if (runEvery2Time) {
         [self runEvery2Time:timer];
     }
+    
+    [m fireFlushFinish];
 }
 
 - (void) runEveryTime: (NSTimer *) timer {
@@ -84,12 +86,27 @@
     if (newTime - 0.0 < 10e-5) {
         [m fireGameFinishEvent];
         [m stop];
+        return;
     }
+    
+    [[m map2Box2D] step];
     if ([m reloadHappen]) {
         [m setReloadHappen:NO];
         [[m currentWeapon] reload];
         [m fireWeaponStatusChangeEvent:[m currentWeapon]];
     }
+    
+    int switchWeaponChange = [m switchWeaponChange];
+    if (switchWeaponChange != 0) {
+        [m resetSwitchWeaponChange];
+        NSMutableArray *weaponList = [m weaponList];
+        NSUInteger index = [weaponList indexOfObject: [m currentWeapon]];
+        index = (index + switchWeaponChange) % [weaponList count];
+        WeaponBase *newWeapon = [weaponList objectAtIndex:index];
+        [m setCurrentWeapon:newWeapon];
+        [m fireWeaponStatusChangeEvent: [m currentWeapon]];
+    }
+    
     
     if ([m shootHappen]) {
         NSMutableArray *orgPoints = [m shootPoints];
@@ -110,6 +127,9 @@
                 if (!hitted) {
                     [m updateScoreByHit:nil];
                     [m fireTargetMissEvent:p.x y:p.y];
+                } else {
+                    [m fireScoreEvent: [m score]];
+                    [m fireBonusEvent:[m bonus]];
                 }
             }
             // update weapon status only in need
@@ -119,8 +139,6 @@
         }
         [orgPoints removeAllObjects];
     }
-    [m fireScoreEvent: [m score]];
-    [m fireBonusEvent:[m bonus]];
     [[GameBrain class] refreshGameWithLevel:[m currentLevel]];
     if ([m canvasMoved]) {
         [m setCanvasMoved:NO];
@@ -131,7 +149,7 @@
         [m setAimMoved:NO];
         [m fireTargetMoveEvent:[m aim]];
     }
-
+    
 }
 
 - (void) runEvery2Time: (NSTimer *) timer {

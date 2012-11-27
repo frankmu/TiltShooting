@@ -12,6 +12,7 @@
 
 @interface Map2Box2D : NSObject
 
+- (BOOL) isLock;
 - (void) createWorldWithWidth: (float)width height: (float)height;
 - (void) destoryWorld;
 - (void) step;
@@ -20,4 +21,6 @@
 - (Target *) locateTargetByX: (float)x y: (float)y;
 - (void) setMove:(Target *)target:(float)x:(float) y;
 - (void)separateTarget:(Target *) target;
+- (float) c2b: (float)fval;
+- (float) b2c: (float)fval;
 @end

@@ -18,7 +18,7 @@
 - (id) initWithX:(float)x Y:(float)y hp:(float)hp{
     float bonus = sqrtf(hp) + hp / 5;
     float size = sqrtf(hp) * 5;
-    size = size <= 10 ? 10 : size;
+    size = size <= 15 ? 15 : size;
     if (self = [super initWithX:x Y:y width:size height:size hp:hp bonus:bonus]) {
         // nothing
     }    

@@ -13,7 +13,7 @@
 
 - (id) initWithX:(float)x Y:(float)y time: (float)time {
     float size = 50 / time;
-    size = size < 5 ? 5 : size;
+    size = size < 15 ? 15 : size;
     if (self = [super initWithX:x Y:y width:size height:size hp:1 bonus:0]) {
         self.time = time;
     }
