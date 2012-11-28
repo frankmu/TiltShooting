@@ -46,5 +46,5 @@
 @property  NSMutableArray *weaponSpriteList;
 @property int currentWeaponIndex;
 @property int nextWeaponIndex;
-@property (weak) CCLayer* glayer;
+@property (weak) GameLayer* glayer;
 @end

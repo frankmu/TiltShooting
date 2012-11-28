@@ -18,7 +18,7 @@
 #import "TimeProcessBar.h"
 #import "ProgressBar.h"
 #import "InGameMenuLayer.h"
-
+#import "Weapon.h"
 typedef enum {
     AIM,
     ENEMY,
@@ -31,7 +31,6 @@ typedef enum {
 @interface GameLayer : CCLayer <CoreEventListener,UIAccelerometerDelegate>{
     
 }
-@property BOOL facebookEnable;
 @property (nonatomic,strong) Viewer* viewer;
 @property BOOL multiShoot;
 @property BOOL debug;
@@ -55,4 +54,8 @@ typedef enum {
 @property BOOL shakeonce;
 @property float currentTime;
 @property float shakeStartTime;
+@property (nonatomic,weak) Weapon* currentWeapon;
+//FB
+@property BOOL facebookEnable;
+@property (nonatomic,weak) NSMutableArray* FBInfo;
 @end

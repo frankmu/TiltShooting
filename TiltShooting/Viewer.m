@@ -135,6 +135,7 @@
     //show aim for test
     GameLayer *glayer=(GameLayer*)layer;
     TargetSprite *tg=[CCSprite spriteWithFile:@"aimcross.png"];
+    //CCNode* tg=glayer.currentWeapon.aim;
     [glayer.background addChild:tg z:10];
     tg.position=ccp(target.x,target.y);
     NSLog(@"add AimCross at x=%f y=%f",target.x,target.y);
@@ -350,11 +351,17 @@
         Weapon* weapon=(Weapon*)[weaponList objectAtIndex:i];
         NSLog(@"add weapon into gamelayer");
         [glayer addChild:weapon.panel];
+        
+        //###########
+        //add aim into layer in advance
+        //###########
+        //[glayer addChild:weapon.aim];
         //store in list for switching positions
         //[weaponSpriteList addObject:weapon];
         if(i==currentWeaponIndex){
             weapon.panel.position=ccp(240,30);
-            
+            //pointer to current Weapon, used by changing aim and special shoot
+            glayer.currentWeapon=weapon;
         }
         else{
             weapon.panel.position=ccp(240,-30);

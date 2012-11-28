@@ -36,6 +36,7 @@
 @synthesize firstTouchLocation;
 @synthesize progressPercentage;
 @synthesize progressBar;
+@synthesize currentWeapon;
 // on "init" you need to initialize your instance
 -(id) init
 {
