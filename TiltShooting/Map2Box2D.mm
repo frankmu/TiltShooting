@@ -149,7 +149,9 @@
 }
 
 - (void) deleteTarget: (Target *)target {
-    world->DestroyBody((b2Body *)target->box2dAux);
+    b2Body *body = (b2Body *)target->box2dAux;
+    if (body == NULL) return;
+    world->DestroyBody(body);
     target->box2dAux = NULL;
 }
 
