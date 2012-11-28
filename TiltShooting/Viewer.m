@@ -220,7 +220,7 @@
 
     [((Weapon*)[weaponList objectAtIndex:currentWeaponIndex]).panel runAction:movedown];
     [((Weapon*)[weaponList objectAtIndex:currentWeaponIndex]).panel runAction:[CCSequence actions:scaleto,scaleback,nil]];
-    [((Weapon*)[weaponSpriteList objectAtIndex:nextWeaponIndex]).panel runAction:moveup];
+    [((Weapon*)[weaponList objectAtIndex:nextWeaponIndex]).panel runAction:moveup];
     currentWeaponIndex=nextWeaponIndex;
     
 }
