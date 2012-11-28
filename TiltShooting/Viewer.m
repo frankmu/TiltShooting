@@ -55,7 +55,7 @@
     int i= arc4random() % 12;
     CCSprite *bulletHoleBig = [CCSprite spriteWithFile:@"bulletholesbig.png" rect:CGRectMake(30*i,0,30,30)];
     //[glayer.background addChild:SheetBulletHolesBig];
-    [glayer.background addChild:bulletHoleBig z:5];
+    [glayer.background addChild:bulletHoleBig z:0];
     //###########
     //temp scale down
     //##########
@@ -65,7 +65,7 @@
     bulletHoleBig.position = ccp (m.aim.x, m.aim.y);
     bulletHoleBig.scaleX=0.7;
     bulletHoleBig.scaleY=0.7;
-    //remove after 2s
+    //remove after 0.5s
     CCSequence *sequence=[CCSequence actions:
                           [CCDelayTime actionWithDuration:0.5],
                           [CCCallFuncO actionWithTarget:glayer selector:@selector(removeChildFromParent:) object:bulletHoleBig],
