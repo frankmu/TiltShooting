@@ -128,6 +128,7 @@
                     [m updateScoreByHit:nil];
                     [m fireTargetMissEvent:p.x y:p.y];
                 }
+                hitted |= subHitted;
             }
             
             if (hitted) {

@@ -261,6 +261,7 @@
         {
             
             b2Body* body = fixture->GetBody();
+            if (body == NULL) return true;
             [retBody addObject: (__bridge Target*)body->GetUserData()];
             // Return true to continue the query.
             return true;

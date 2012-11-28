@@ -39,7 +39,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "110"
          endingLineNumber = "110"
-         landmarkName = "-attach::"
+         landmarkName = "-attachTarget:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
