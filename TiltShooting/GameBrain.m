@@ -37,7 +37,7 @@ static int Totalenemy = 0;
     [m setScore:0.0f];
     [m setBonus:0.0f];
     [m setTime: 60.0f];
-    [GameBrain setTotalenemy:level*15];
+    [GameBrain setTotalenemy:15];
     
     srand((unsigned int) time(NULL));
     for(int i=0;i<[GameBrain totalenemy];i++)
@@ -92,7 +92,9 @@ static int Totalenemy = 0;
     if(totalnumber>[e count])
     {
         int diff=totalnumber-[e count];
-        int num=diff;
+        if(rand()%100>level*20+diff*10)
+            return;
+        int num=rand()%diff;
         for (int i = 0; i <num ; ++i) {
             int percentage=rand()%100;
             if(percentage>0&&percentage<80)

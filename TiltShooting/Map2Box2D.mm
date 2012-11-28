@@ -14,6 +14,8 @@
 #define DEFAULT_FLUSH_INTERVAL (1/60.0f)
 #define DEFAULT_VELOCITY_INTERATION 8
 #define DEFAULT_POSITION_INTERATION 3
+#define DEFAULT_TIMEPLUS_SPEED 5
+#define DEFAULT_TIMEMIUS_SPEED 3
 
 @interface Map2Box2D() {
     b2World *world;
@@ -107,8 +109,41 @@
     fixtureDef.restitution= 0.8f;
     body->CreateFixture(&fixtureDef);
     target->box2dAux = body;
-    int x=5;
-    int y=5;
+   float x,y;
+    switch ([Model targetType:target]) {
+        case TYPE_ENEMY:
+            x=rand()%5;
+            x=x/10.0;
+            x+=1;
+            y=rand()%5;
+            y=y/10;
+            y+=1;
+            break;
+        case TYPE_TIME_MINUS:
+            x=rand()%5;
+            x=x/10.0;
+            x+=DEFAULT_TIMEMIUS_SPEED;
+            y=rand()%5;
+            y=y/10;
+            y+=DEFAULT_TIMEMIUS_SPEED;
+            break;
+        case TYPE_TIME_PLUS:
+            x=rand()%5;
+            x=x/10.0;
+            x+=DEFAULT_TIMEPLUS_SPEED;
+            y=rand()%5;
+            y=y/10;
+            y+=DEFAULT_TIMEPLUS_SPEED;
+            break;
+        default:
+            x=0;
+            y=0;
+            break;
+    }
+    if(rand()%2==0)
+        x=-x;
+    if(rand()%2==0)
+        y=-y;
     [self setMove:target :x :y];
     NSLog(@"attach [%f, %f] to [%f, %f]", target.x, target.y, bodyDef.position.x, bodyDef.position.y);
 }
@@ -208,7 +243,42 @@
     NSLog(@"[%f, %f] %@", x, y, t);
     return t;
 }
+- (NSMutableArray *)locateRangeTargetX:(float)x y:(float)y :(float)width :(float)height{
+    float tx = [self c2b:x-width/2];
+    float ty = [self c2b:y-height/2];
+    float tx1=[self c2b:x+width/2];
+    float ty1=[self c2b:y+height/2];
+    class MyQueryCallback : public b2QueryCallback
+    {
+        
+    public:
+        MyQueryCallback(){retBody=[NSMutableArray arrayWithCapacity:100];}
+        NSMutableArray* retBody;
+        bool ReportFixture(b2Fixture* fixture)
+        
+        {
+            
+            b2Body* body = fixture->GetBody();
+            [retBody addObject: (__bridge Target*)body->GetUserData()];
+            // Return true to continue the query.
+            return true;
+            
+        }
+        
+    };
+    MyQueryCallback callback;
+    
+    b2AABB aabb;
+    
+    aabb.lowerBound.Set(tx, ty);
+    
+    aabb.upperBound.Set(tx1, ty1);
+    
+    world->QueryAABB(&callback, aabb);
 
+    return callback.retBody;
+
+}
 
 - (float) c2b: (float)fval {
     return fval / self.scale;

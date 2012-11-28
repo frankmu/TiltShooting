@@ -55,7 +55,7 @@
 }
 
 - (void) runAsync: (NSTimer *)timer {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [self run:timer];
     });
 }
@@ -116,21 +116,24 @@
         if (![currentWeapon canShoot]) {
             [m fireNeedReloadEvent];
         } else {
+            BOOL hitted = NO;
             for (POINT *p in orgPoints) {
-                BOOL hitted = NO;
+                BOOL subHitted = NO;
                 if (p.useSkill) {
-                    hitted = [currentWeapon specialSkillWithX:p.x y:p.y];
+                    subHitted = [currentWeapon specialSkillWithX:p.x y:p.y];
                 } else {
-                    hitted = [currentWeapon shootWithX:p.x y:p.y];
+                    subHitted = [currentWeapon shootWithX:p.x y:p.y];
                 }
                 
-                if (!hitted) {
+                if (!subHitted) {
                     [m updateScoreByHit:nil];
                     [m fireTargetMissEvent:p.x y:p.y];
-                } else {
-                    [m fireScoreEvent: [m score]];
-                    [m fireBonusEvent:[m bonus]];
                 }
+            }
+            
+            if (hitted) {
+                [m fireScoreEvent: [m score]];
+                [m fireBonusEvent:[m bonus]];
             }
             // update weapon status only in need
             if ([orgPoints count] != 0) {

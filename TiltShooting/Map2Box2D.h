@@ -19,6 +19,7 @@
 - (void) attachTarget: (Target *)target;
 - (void) deleteTarget: (Target *)target;
 - (Target *) locateTargetByX: (float)x y: (float)y;
+- (NSMutableArray *)locateRangeTargetX:(float)x y:(float)y:(float) width:(float) height;
 - (void) setMove:(Target *)target:(float)x:(float) y;
 - (void)separateTarget:(Target *) target;
 - (float) c2b: (float)fval;
