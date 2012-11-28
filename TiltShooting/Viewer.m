@@ -361,7 +361,7 @@
         if(i==currentWeaponIndex){
             weapon.panel.position=ccp(240,30);
             //pointer to current Weapon, used by changing aim and special shoot
-            glayer.currentWeapon=weapon;
+            ((GameLayer*)glayer).currentWeapon=weapon;
         }
         else{
             weapon.panel.position=ccp(240,-30);
