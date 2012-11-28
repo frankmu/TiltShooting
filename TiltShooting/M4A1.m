@@ -30,7 +30,7 @@
         if ([self canShoot]) {
             self.bulletRemain -= 1;
             [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
-                target.hp -= weapon.damage;
+                target.hp -= weapon.damage * 5;
             }];
             hitHappen = YES;
         } else {

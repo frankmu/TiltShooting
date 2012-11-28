@@ -55,7 +55,7 @@
 }
 
 - (void) runAsync: (NSTimer *)timer {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         [self run:timer];
     });
 }
@@ -89,7 +89,6 @@
         return;
     }
     
-    [[m map2Box2D] step];
     if ([m reloadHappen]) {
         [m setReloadHappen:NO];
         [[m currentWeapon] reload];
@@ -142,8 +141,7 @@
         }
         [orgPoints removeAllObjects];
     }
-    [[GameBrain class] refreshGameWithLevel:[m currentLevel]];
-    if ([m canvasMoved]) {
+        if ([m canvasMoved]) {
         [m setCanvasMoved:NO];
         [m fireCanvasMoveEvent];
     }
@@ -152,7 +150,8 @@
         [m setAimMoved:NO];
         [m fireTargetMoveEvent:[m aim]];
     }
-    
+    [[GameBrain class] refreshGameWithLevel:[m currentLevel]];
+    [[m map2Box2D] step];
 }
 
 - (void) runEvery2Time: (NSTimer *) timer {
