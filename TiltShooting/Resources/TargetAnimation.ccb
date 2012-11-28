@@ -7,7 +7,7 @@
 	<key>currentResolution</key>
 	<integer>0</integer>
 	<key>currentSequenceId</key>
-	<integer>12</integer>
+	<integer>0</integer>
 	<key>fileType</key>
 	<string>CocosBuilder</string>
 	<key>fileVersion</key>
@@ -47,24 +47,6 @@
 										<string>Use regular file</string>
 									</array>
 								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/bricktargetgreen.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
 							</array>
 							<key>name</key>
 							<string>displayFrame</string>
@@ -96,24 +78,6 @@
 										<string>Use regular file</string>
 									</array>
 								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_light1.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
 							</array>
 							<key>name</key>
 							<string>displayFrame</string>
@@ -137,24 +101,6 @@
 									<string>displayFrame</string>
 									<key>time</key>
 									<real>0.0</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_hard5.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
 									<key>type</key>
 									<integer>7</integer>
 									<key>value</key>
@@ -195,25 +141,6 @@
 										<integer>255</integer>
 									</array>
 								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>1</integer>
-									</dict>
-									<key>name</key>
-									<string>color</string>
-									<key>time</key>
-									<real>0.5</real>
-									<key>type</key>
-									<integer>6</integer>
-									<key>value</key>
-									<array>
-										<integer>153</integer>
-										<integer>129</integer>
-										<integer>255</integer>
-									</array>
-								</dict>
 							</array>
 							<key>name</key>
 							<string>color</string>
@@ -237,24 +164,6 @@
 									<string>displayFrame</string>
 									<key>time</key>
 									<real>0.0</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_light2.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
 									<key>type</key>
 									<integer>7</integer>
 									<key>value</key>
@@ -294,24 +203,6 @@
 										<string>Use regular file</string>
 									</array>
 								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_light3.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
 							</array>
 							<key>name</key>
 							<string>displayFrame</string>
@@ -335,24 +226,6 @@
 									<string>displayFrame</string>
 									<key>time</key>
 									<real>0.0</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_light4.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
 									<key>type</key>
 									<integer>7</integer>
 									<key>value</key>
@@ -392,24 +265,6 @@
 										<string>Use regular file</string>
 									</array>
 								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_light5.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
 							</array>
 							<key>name</key>
 							<string>displayFrame</string>
@@ -433,24 +288,6 @@
 									<string>displayFrame</string>
 									<key>time</key>
 									<real>0.0</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_hard1.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
 									<key>type</key>
 									<integer>7</integer>
 									<key>value</key>
@@ -490,24 +327,6 @@
 										<string>Use regular file</string>
 									</array>
 								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_hard2.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
 							</array>
 							<key>name</key>
 							<string>displayFrame</string>
@@ -539,24 +358,6 @@
 										<string>Use regular file</string>
 									</array>
 								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_hard3.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
 							</array>
 							<key>name</key>
 							<string>displayFrame</string>
@@ -580,24 +381,6 @@
 									<string>displayFrame</string>
 									<key>time</key>
 									<real>0.0</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>menu_v2/broke_hard4.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.5</real>
 									<key>type</key>
 									<integer>7</integer>
 									<key>value</key>
@@ -701,8 +484,8 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<integer>153</integer>
-							<integer>129</integer>
+							<integer>255</integer>
+							<integer>255</integer>
 							<integer>255</integer>
 						</array>
 					</dict>
@@ -792,13 +575,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>NormalTarget</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -812,13 +595,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeLight_1</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -832,13 +615,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeLight_2</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -852,13 +635,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeLight_3</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -872,13 +655,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeLight_4</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -892,13 +675,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeLight_5</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -912,13 +695,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeHard_1</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -932,13 +715,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeHard_2</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -952,13 +735,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeHard_3</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -972,13 +755,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeHard_4</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -992,13 +775,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>BrokeHard_5</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -1012,13 +795,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>name</key>
 			<string>FrozenTarget</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
