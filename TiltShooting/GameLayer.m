@@ -683,10 +683,6 @@
     return BUBBLE_CONTINUE;
 }
 
-- (BUBBLE_RULE) targetMissX:(float)x y:(float)y {
-    // need to add
-    return BUBBLE_CONTINUE;
-}
 
 - (BUBBLE_RULE) flushFinish {
     id<ModelInterface> m = [Model instance];
