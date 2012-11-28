@@ -19,6 +19,9 @@
 #import "ProgressBar.h"
 #import "InGameMenuLayer.h"
 #import "Weapon.h"
+
+#define MAX_TIME_BAR 120.0;  //300s
+#define MAX_BONUS_BAR 20.0;
 typedef enum {
     AIM,
     ENEMY,
@@ -55,6 +58,7 @@ typedef enum {
 @property float currentTime;
 @property float shakeStartTime;
 @property (nonatomic,weak) Weapon* currentWeapon;
+@property BOOL specialShoot;
 //FB
 @property BOOL facebookEnable;
 @property (nonatomic,weak) NSMutableArray* FBInfo;

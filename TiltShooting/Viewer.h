@@ -33,6 +33,8 @@
 +(void) removeBomb:(Target*)target inLayer:(CCLayer*)layer;
 +(void) removeAim:(Target*)target inLayer:(CCLayer*)layer;
 +(void) hitTarget:(Target*)target inLayer:(CCLayer*)layer;
+//special shoot
++(void) specialShootWithWeapon:(Weapon*)weapon inLayer:(CCLayer*)layer;
 //init viewer for cache animation
 -(id)initWithLayer:(CCLayer*)layer;
 -(void)initWeaponWithLayer:(CCLayer*)layer;

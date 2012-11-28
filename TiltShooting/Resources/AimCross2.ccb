@@ -81,6 +81,21 @@
 									<key>name</key>
 									<string>visible</string>
 									<key>time</key>
+									<real>0.1666666716337204</real>
+									<key>type</key>
+									<integer>1</integer>
+									<key>value</key>
+									<true/>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>1</integer>
+									</dict>
+									<key>name</key>
+									<string>visible</string>
+									<key>time</key>
 									<real>0.3333333432674408</real>
 									<key>type</key>
 									<integer>1</integer>
@@ -124,11 +139,11 @@
 									<key>name</key>
 									<string>rotation</string>
 									<key>time</key>
-									<real>1</real>
+									<real>0.5</real>
 									<key>type</key>
 									<integer>2</integer>
 									<key>value</key>
-									<real>360</real>
+									<real>180</real>
 								</dict>
 							</array>
 							<key>name</key>
@@ -202,7 +217,7 @@
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<false/>
+						<true/>
 					</dict>
 					<dict>
 						<key>baseValue</key>
@@ -296,13 +311,13 @@
 			<key>chainedSequenceId</key>
 			<integer>0</integer>
 			<key>length</key>
-			<real>0.66666668653488159</real>
+			<real>0.3333333432674408</real>
 			<key>name</key>
 			<string>BlinkAim</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.66666668653488159</real>
+			<real>0.3333333432674408</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -316,13 +331,13 @@
 			<key>chainedSequenceId</key>
 			<integer>1</integer>
 			<key>length</key>
-			<real>1</real>
+			<real>0.5</real>
 			<key>name</key>
 			<string>RotateAim</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>1</real>
+			<real>0.5</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>

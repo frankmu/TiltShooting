@@ -23,7 +23,7 @@
 //the corresponding aim node
 @property (nonatomic,strong) CCNode* aim;
 @property float radius;
-
+@property int type;
 -(void)changeCurrentClipAmmo:(int)value;
 -(void)changeClipAmmo:(int)value;
 -(void)changeCurrentAmmo:(int)value;

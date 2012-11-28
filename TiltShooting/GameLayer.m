@@ -15,9 +15,8 @@
 //#import "Bomb.h"
 #import "TimeMinus.h"
 #import "TimePlus.h"
+#import "CBAimCross.h"
 
-#define MAX_TIME_BAR 120.0;  //300s
-#define MAX_BONUS_BAR 20.0;  
 
 @implementation GameLayer
 
@@ -37,6 +36,7 @@
 @synthesize progressPercentage;
 @synthesize progressBar;
 @synthesize currentWeapon;
+@synthesize specialShoot;
 // on "init" you need to initialize your instance
 -(id) init
 {
@@ -178,6 +178,7 @@
     
     //set shoot mode: default single shoot
     [self setMultiShoot:NO];
+    [self setSpecialShoot:NO];
     // Enable touch
     [self setIsTouchEnabled:YES];
     [Viewer NSLogDebug:self.debug withMsg:@"enable gameLayer touch"];
@@ -284,19 +285,28 @@
     NSLog(@"first touch location x=%f y=%f",firstTouchLocation.x,firstTouchLocation.y);
     
     
-    //#################
-    //need check remain ammo
-    //#################
-    if(self.multiShoot){
-        [self fireWeapon];//at least fire once
-        //#################
-        //set multshoot frequency based on weapon type
-        //#################
-        [self schedule:@selector(fireWeapon) interval:0.15];
+    if(self.specialShoot){
+        //specialShoot
+        [Viewer specialShootWithWeapon:self.currentWeapon inLayer:self];
+        [self setSpecialShoot:NO];
     }
-    else{//single shoot mode
+    else{
+        if(self.multiShoot){
+            //check weapon type
+            if(self.currentWeapon.type==2){
+                //M4A1 rotate aim in multimode
+                [(CBAimCross*)self.currentWeapon.aim runTimeLine:@"RotateAim"];
+            }
+            [self fireWeapon];//at least fire once
+            //#################
+            //set multshoot frequency based on weapon type
+            //#################
+            [self schedule:@selector(fireWeapon) interval:0.15];
+        }
+        else{//single shoot mode
         
-        [self schedule:@selector(fireWeapon) interval:0.1 repeat:0 delay:0];
+            [self schedule:@selector(fireWeapon) interval:0.1 repeat:0 delay:0];
+        }
     }
     return YES;
 }
@@ -348,6 +358,10 @@
     if(self.multiShoot){
         //[self fireWeapon];//at least fire once
         [self unschedule:@selector(fireWeapon)];
+        //reset aim animation
+        if(self.currentWeapon.type==2){
+            [(CBAimCross*)self.currentWeapon.aim runTimeLine:@"NormalAim"];
+        }
     }
     //[[SimpleAudioEngine sharedEngine] playEffect:@"gunShotOntarget.mp3"];
     
@@ -357,7 +371,7 @@
     id<ModelInterface> m = [[Model class] instance];
     [m shoot];
     
-    [Viewer NSLogDebug:self.debug withMsg:@"fire gun once"];
+    //[Viewer NSLogDebug:self.debug withMsg:@"fire gun once"];
     
     
     //#################

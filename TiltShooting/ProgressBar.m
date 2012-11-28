@@ -10,6 +10,7 @@
 
 #import "GameLayer.h"
 #import "CCBReader.h"
+#import "CBAimCross.h"
 @implementation ProgressBar
 @synthesize glayer;
 @synthesize ct;
@@ -55,9 +56,18 @@
     //disable button first
     [specialSkillButton setIsEnabled:NO];
     //Trigger Aim animation
-    
+    [(CBAimCross*)glayer.currentWeapon.aim runTimeLine:@"BlinkAim"];
     //set special shoot mode flag in layer
-
+    [glayer setSpecialShoot:YES];
+    //update process bar
+    id<ModelInterface> m = [[Model class] instance];
+    //init time bar
+    //#################
+    //handle time or bonus overflow
+    //#################
+    float p=[m remainTime]/MAX_TIME_BAR;
+    [self updateProgressBar:p];
+    
 }
 @end
 

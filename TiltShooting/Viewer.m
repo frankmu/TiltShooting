@@ -16,6 +16,7 @@
 #import "M4A1.h"
 #import "CBTarget.h"
 #import "CCBReader.h"
+#import "CBAimCross.h"
 @implementation Viewer
 @synthesize spriteSheet;
 @synthesize explodeAnim;
@@ -134,9 +135,10 @@
 +(void) showAim:(Target*)target inLayer:(CCLayer*)layer{
     //show aim for test
     GameLayer *glayer=(GameLayer*)layer;
-    TargetSprite *tg=[CCSprite spriteWithFile:@"aimcross.png"];
+    CCNode* tg=glayer.currentWeapon.aim;
+    //TargetSprite *tg=[CCSprite spriteWithFile:@"aimcross.png"];
     //CCNode* tg=glayer.currentWeapon.aim;
-    [glayer.background addChild:tg z:10];
+    //[glayer.background addChild:tg z:10];
     tg.position=ccp(target.x,target.y);
     NSLog(@"add AimCross at x=%f y=%f",target.x,target.y);
     target.aux=tg;
@@ -170,8 +172,9 @@
     [target.aux removeFromParentAndCleanup:YES];
 }
 +(void) removeAim:(Target*)target inLayer:(CCLayer*)layer{
-    [target.aux removeFromParentAndCleanup:YES];
-    
+    //[target.aux removeFromParentAndCleanup:YES];
+    GameLayer *glayer=(GameLayer*)layer;
+    glayer.currentWeapon.aim.position=ccp(0,-30);
 }
 +(void) hitTarget:(Target*)target inLayer:(CCLayer*)layer{
     GameLayer *glayer=(GameLayer*)layer;
@@ -191,6 +194,21 @@
         //random a light broke
         int i= arc4random() % 5+1;
         [(CBTarget*)target.aux runTimeLine:[NSString stringWithFormat:@"BrokeHard_%d",i]];
+    }
+
+}
+//special shoot
++(void) specialShootWithWeapon:(Weapon*)weapon inLayer:(CCLayer*)layer{
+
+    id<ModelInterface> m = [[Model class] instance];
+    [m specialShoot];
+    //stop aim
+    GameLayer *glayer=(GameLayer*)layer;
+    [(CBAimCross*)glayer.currentWeapon.aim runTimeLine:@"NormalAim"];
+    //special effect
+    if (glayer.currentWeapon.type==2) {
+        //show a big explosion, use normal explosion temp
+        
     }
 
 }
@@ -223,7 +241,20 @@
     [((Weapon*)[weaponList objectAtIndex:currentWeaponIndex]).panel runAction:[CCSequence actions:scaleto,scaleback,nil]];
     [((Weapon*)[weaponList objectAtIndex:nextWeaponIndex]).panel runAction:moveup];
     currentWeaponIndex=nextWeaponIndex;
-    
+    //aim
+    ((GameLayer*)self.glayer).currentWeapon=(Weapon*)[weaponList objectAtIndex:currentWeaponIndex];
+    [self changeAimInLayer];
+}
+-(void)changeAimInLayer{
+    //change the aim to current weapon's aim
+    id<ModelInterface> m = [[Model class] instance];
+    CCNode* preAim=[m aim].aux;
+    preAim.position=ccp(0,-30);
+    //in case in the special blink mode
+    [(CBAimCross*)preAim runTimeLine:@"NormalAim"];
+    CCNode* curAim=((GameLayer*)self.glayer).currentWeapon.aim;
+    curAim.position=ccp([m aim].x,[m aim].y);
+    [m aim].aux=curAim;
 }
 -(void)changeWeaponStatus:(WeaponBase*)weapon{
     Weapon* gun=weapon.aux;
@@ -355,7 +386,9 @@
         //###########
         //add aim into layer in advance
         //###########
-        //[glayer addChild:weapon.aim];
+        [((GameLayer*)glayer).background addChild:weapon.aim z:10];
+        //put outside the screen
+        weapon.aim.position=ccp(0,-30);
         //store in list for switching positions
         //[weaponSpriteList addObject:weapon];
         if(i==currentWeaponIndex){

@@ -40,6 +40,7 @@
     }
     //currentAmmo=ammo;
     //currentClipAmmo=currentAmmo;
+    self.type=type;
     return self;
 }
 -(void)changeCurrentClipAmmo:(int)value{
@@ -54,4 +55,5 @@
     [currentAmmo setString:[NSString stringWithFormat:@"%d",value]];
     
 }
+
 @end
