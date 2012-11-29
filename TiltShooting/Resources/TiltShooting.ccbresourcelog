@@ -15,6 +15,7 @@ ccbParticleStars.png
 Default-Landscape~ipad.png
 Default.png
 Explosion.ccbi
+FBMenu.ccbi
 FireSpark.ccbi
 fps_images-hd.png
 fps_images-ipadhd.png
@@ -59,6 +60,7 @@ newgame_button_sel.png
 setting_button.png
 setting_button_sel.png
 title.png
+ModeMenu.ccbi
 ProcessBarPanel.ccbi
 TargetAnimation.ccbi
 TargetExplosionAnimation.ccbi

@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "cocos2d.h"
 #import "Model.h"
 #import "ShakeEnabledUIWindow.h"
+
+extern NSString *const FBSessionStateChangedNotification;
+
 @interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate>
 {
 	UIWindow *window_;
@@ -24,5 +28,8 @@
 @property (readonly) UINavigationController *navController;
 @property (readonly) CCDirectorIOS *director;
 @property (readonly) Model *model;
+
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
+- (void) closeSession;
 
 @end

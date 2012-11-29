@@ -19,4 +19,5 @@
 // Great the mainScene with gameLayer as its child
 +(id) ShowScene:(int)level;
 -(id) initWithLevel:(int)level;
+-(id)initWithLevel:(int)level withFBInfo:(NSMutableArray*)array;
 @end

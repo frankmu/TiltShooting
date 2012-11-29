@@ -61,5 +61,6 @@ typedef enum {
 @property BOOL specialShoot;
 //FB
 @property BOOL facebookEnable;
-@property (nonatomic,weak) NSMutableArray* FBInfo;
+@property (nonatomic,strong) NSMutableArray* FBInfo;
+@property  int targetNumber;
 @end

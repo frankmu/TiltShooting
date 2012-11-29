@@ -34,7 +34,7 @@
     //HelloWorldLayer *gameLayer=[HelloWorldLayer node];
     //ControlLayer *clayer = [ControlLayer node];
     //[glayer setLevel:1];
-    
+    [gameLayer setFacebookEnable:NO];
     // add layer as a child to scene
     [self addChild:gameLayer z:0 tag:1];
     //add in game menu
@@ -44,6 +44,23 @@
 	return self;
 }
 -(id)initWithLevel:(int)level withFBInfo:(NSMutableArray*)array{
+    // always call "super" init
+	// Apple recommends to re-assign "self" with the "super" return value
+	NSLog(@"init MainScene with level");
+    NSLog(@"Enter MainScene ");
+    //_myScene=[MainScene node];
+    GameLayer *gameLayer = [GameLayer node];
+    //HelloWorldLayer *gameLayer=[HelloWorldLayer node];
+    //ControlLayer *clayer = [ControlLayer node];
+    //[glayer setLevel:1];
+    [gameLayer setFBInfo:array];
+    [gameLayer setFacebookEnable:YES];
+    // add layer as a child to scene
+    [self addChild:gameLayer z:0 tag:1];
+    //add in game menu
+    InGameMenuLayer *menuLayer=[InGameMenuLayer node];
+    [self addChild:menuLayer z:12];
+    [gameLayer setInGameMenuLayer:menuLayer];
 
 
     return self;

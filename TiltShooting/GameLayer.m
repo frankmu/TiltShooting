@@ -125,6 +125,7 @@
         self.currentTime=0.f;
         self.shakeStartTime=0.f;
         [self scheduleUpdate];
+        self.targetNumber=0;
 	}
 	return self;
 }

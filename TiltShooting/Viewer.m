@@ -95,7 +95,18 @@
     //#################
     //change scale
     //################
-    CBTarget *tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"TargetAnimation.ccbi"];
+    CCNode* tg;
+    
+    if(glayer.facebookEnable){
+        int i= arc4random() % glayer.FBInfo.count;
+        NSString *fileName = [NSString stringWithFormat:@"Test%d.png", glayer.targetNumber];
+        //tg=(CCSprite* )[CCSprite spriteWithCGImage:([UIImage imageWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage]).CGImage key:fileName];
+        tg=(CCSprite* )[CCSprite spriteWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage key:fileName];
+    }
+    else{
+        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"TargetAnimation.ccbi"];
+    }
+    glayer.targetNumber++;
     [glayer.background addChild:tg z:1];
     tg.position=ccp(target.x,target.y);
     tg.scaleX=target.width/TARGET_SIZE;
@@ -158,9 +169,11 @@
     //[Viewer showExplodeInBackground:((GameLayer*)layer).background at:ccp(target.x,target.y)];
     //[target.aux removeFromParentAndCleanup:YES];
     GameLayer *glayer=(GameLayer*)layer;
-    CCNode* tea = [CCBReader nodeGraphFromFile:@"TargetExplosionAnimation.ccbi"];
-    [glayer.background addChild:tea z:6];
-    tea.position=ccp(target.x,target.y);
+    if(!glayer.facebookEnable){
+        CCNode* tea = [CCBReader nodeGraphFromFile:@"TargetExplosionAnimation.ccbi"];
+        [glayer.background addChild:tea z:6];
+        tea.position=ccp(target.x,target.y);
+    }
    // [(CBTarget*)target.aux runTimeLine:@"TargetExplosion"];
     [target.aux removeFromParentAndCleanup:YES];
 }
@@ -183,17 +196,19 @@
     spark.position=ccp(target.x,target.y);
     
     //check health
-    float health=target.hp/target.maxHp;
+    if(!glayer.facebookEnable){
+        float health=target.hp/target.maxHp;
     
-    if(health<0.6 && health>0.3){
-        //random a light broke
-        int i= arc4random() % 5+1;
-        [(CBTarget*)target.aux runTimeLine:[NSString stringWithFormat:@"BrokeLight_%d",i]];
-    }
-    else if(health<=0.3){
-        //random a light broke
-        int i= arc4random() % 5+1;
-        [(CBTarget*)target.aux runTimeLine:[NSString stringWithFormat:@"BrokeHard_%d",i]];
+        if(health<0.6 && health>0.3){
+            //random a light broke
+            int i= arc4random() % 5+1;
+            [(CBTarget*)target.aux runTimeLine:[NSString stringWithFormat:@"BrokeLight_%d",i]];
+        }
+        else if(health<=0.3){
+            //random a light broke
+            int i= arc4random() % 5+1;
+            [(CBTarget*)target.aux runTimeLine:[NSString stringWithFormat:@"BrokeHard_%d",i]];
+        }
     }
 
 }
