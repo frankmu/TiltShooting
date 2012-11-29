@@ -140,6 +140,9 @@
             y=0;
             break;
     }
+    int level=[[Model instance] currentLevel];
+    x+=0.2*level;
+    y+=0.2*level;
     if(rand()%2==0)
         x=-x;
     if(rand()%2==0)
@@ -156,6 +159,7 @@
 }
 
 - (void) step {
+    if (world->IsLocked()) return;
     world->Step(self.interval, self.velocityIterations, self.positionIterations);
     
 //    NSLog(@"start_________");
@@ -263,7 +267,7 @@
             b2Body* body = fixture->GetBody();
             if (body == NULL) return true;
             Target* t = (__bridge Target*)body->GetUserData();
-            if (t == NULL) return true;
+            if (t == nil) return true;
             [retBody addObject: t];
             // Return true to continue the query.
             return true;

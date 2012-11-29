@@ -14,6 +14,7 @@
 #import "Map2Box2D.h"
 #import "TimeMinus.h"
 #import "TimePlus.h"
+#import "cocos2d.h"
 
 #define DEFAULT_START_LEVEL 1
 #define DEFAULT_INTERVAL (1/30.f)
@@ -22,10 +23,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @interface Model()
 
 @property (strong, atomic) NSMutableArray *listenerList;
-@property (strong) ModelDaemon *daemon;
 @property (strong) MotionProcessor *motionProcessor;
 @property (strong, atomic) NSMutableSet *targetSet;
-@property (atomic) int combo;
 //@property (strong, atomic) NSMutableArray *eventList;
 @end
 
@@ -304,6 +303,15 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) fireEvent: (SEL)handler with: (fireEventBlock) block {
+//    for (id<CoreEventListener> listener in self.listenerList) {
+//        if ([listener respondsToSelector:handler]) {
+//            BUBBLE_RULE rule;
+//            rule = block(listener);
+//            if (rule == BUBBLE_STOP) {
+//                return;
+//            }// bubble detect
+//        }// selector detect
+//    }// foreach in listener list
     dispatch_async(dispatch_get_main_queue(), ^ {
         BUBBLE_RULE rule;
         for (id<CoreEventListener> listener in self.listenerList) {

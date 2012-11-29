@@ -56,11 +56,11 @@
 
 - (void) runAsync: (NSTimer *)timer {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [self run:timer];
+        [self run: timer.timeInterval];
     });
 }
 
-- (void) run: (NSTimer *) timer {
+- (void) run: (NSTimeInterval)interval {
     id<ModelFullInterface> m = [[Model class] instance];
     
     if ([m status] != RUNNING) {
@@ -69,18 +69,18 @@
     
     ++ self.runningTimes;
     BOOL runEvery2Time = self.runningTimes % 2 == 0;
-    [self runEveryTime:timer];
+    [self runEveryTime:interval];
     if (runEvery2Time) {
-        [self runEvery2Time:timer];
+        [self runEvery2Time:interval];
     }
     
     [m fireFlushFinish];
 }
 
-- (void) runEveryTime: (NSTimer *) timer {
+- (void) runEveryTime: (NSTimeInterval) interval {
     id<ModelFullInterface> m = [[Model class] instance];
     // flush the time
-    NSTimeInterval newTime = [m remainTime] - self.timer.timeInterval;
+    NSTimeInterval newTime = [m remainTime] - interval;
     newTime = newTime < 0.0 ? 0.0 : newTime;
     [m setRemainTime:newTime];
     if (newTime - 0.0 < 10e-5) {
@@ -109,9 +109,8 @@
     
     if ([m shootHappen]) {
         NSMutableArray *orgPoints = [m shootPoints];
-        [m resetShootHappen];
         WeaponBase *currentWeapon = [m currentWeapon];
-        
+        [m resetShootHappen];
         if (![currentWeapon canShoot]) {
             [m fireNeedReloadEvent];
         } else {
@@ -142,7 +141,7 @@
         }
         [orgPoints removeAllObjects];
     }
-        if ([m canvasMoved]) {
+    if ([m canvasMoved]) {
         [m setCanvasMoved:NO];
         [m fireCanvasMoveEvent];
     }
@@ -155,7 +154,7 @@
     [[m map2Box2D] step];
 }
 
-- (void) runEvery2Time: (NSTimer *) timer {
+- (void) runEvery2Time: (NSTimeInterval) interval {
     id<ModelFullInterface> m = [[Model class] instance];
     [m fireTimeEvent:[m remainTime]];
 }

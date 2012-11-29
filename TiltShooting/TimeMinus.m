@@ -23,7 +23,7 @@
 - (BOOL) onShootBy:(WeaponBase *)weapon with:(bulletBlock)bullet {
     bullet(weapon, self);
     id<ModelFullInterface> m = [[Model class] instance];
-    [m changeTime:[m remainTime] - self.time];
+    [m setRemainTime:[m remainTime] - self.time];
     [m deleteTarget:self];
     return YES;
 }

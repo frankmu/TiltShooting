@@ -13,4 +13,5 @@
 - (void) start;
 - (void) startWithInterval: (NSTimeInterval) interval;
 - (void) stop;
+- (void) run: (NSTimeInterval) interval;
 @end

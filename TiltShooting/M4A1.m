@@ -54,7 +54,7 @@
     self.bulletRemain -= 1;
     
     [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
-        target.hp -= weapon.damage;
+        target.hp -= weapon.damage * (1.f + ((float)[m combo]) / 10.f);
     }];
     return t != nil;
 }

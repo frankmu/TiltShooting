@@ -13,9 +13,9 @@
 #import "TimePlus.h"
 #import "TimeMinus.h"
 #import "DesertEagle.h"
-#import "M4A1.h"
 #import "Map2Box2D.h"
-static int Totalenemy = 0;
+#import "M4A1.h"
+static int Totalenemy;
 
 @implementation GameBrain
 
@@ -37,10 +37,10 @@ static int Totalenemy = 0;
     [m setScore:0.0f];
     [m setBonus:0.0f];
     [m setTime: 60.0f];
-    [GameBrain setTotalenemy:15];
+    [GameBrain setTotalenemy:level*20];
     
     srand((unsigned int) time(NULL));
-    for(int i=0;i<[GameBrain totalenemy];i++)
+    for(int i=0;i<Totalenemy;i++)
     {
         int percentage=rand()%100;
         if(percentage>0&&percentage<80)
@@ -81,20 +81,17 @@ static int Totalenemy = 0;
 
 + (void) refreshGameWithLevel:(int)level{
     //NSLog(@"GOTO referesh");
+    
+    
 
     id<ModelFullInterface> m = [[Model class] instance];
-    if ([[m map2Box2D] isLock]) {
-        return;
-    }
     int totalnumber=[GameBrain totalenemy];
     NSMutableArray * e=[m targetList];
     srand((unsigned int) time(NULL));
     if(totalnumber>[e count])
     {
         int diff=totalnumber-[e count];
-        if(rand()%100>level*20+diff*10)
-            return;
-        int num=rand()%diff;
+        int num=diff;
         for (int i = 0; i <num ; ++i) {
             int percentage=rand()%100;
             if(percentage>0&&percentage<80)

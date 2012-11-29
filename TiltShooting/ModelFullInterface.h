@@ -11,6 +11,7 @@
 #import "ModelInterface.h"
 #import "Map2Box2D.h"
 #import "POINT.h"
+#import "ModelDaemon.h"
 
 @protocol ModelFullInterface <ModelInterface>
 @required
@@ -62,5 +63,8 @@
 - (void) resetShootHappen;
 - (void) resetSwitchWeaponChange;
 - (NSMutableArray *) shootPoints;
+
+- (ModelDaemon*) daemon;
+- (int) combo;
 
 @end

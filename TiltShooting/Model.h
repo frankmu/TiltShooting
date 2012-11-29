@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ModelFullInterface.h"
+#import "ModelDaemon.h"
 
 @interface Model : NSObject <ModelFullInterface>
 @property float canvasX, canvasY, canvasW, canvasH;
@@ -23,6 +24,7 @@
 @property (strong, atomic) NSMutableArray *weaponList;
 @property (strong, atomic) WeaponBase *currentWeapon;
 @property (strong, atomic) Aim *aim;
+@property (strong) ModelDaemon *daemon;
 @property (strong) Map2Box2D *map2Box2D;
 @property (strong, atomic) NSMutableArray *shootPoints;
 @property (atomic) BOOL shootHappen;
@@ -31,6 +33,7 @@
 @property (atomic) BOOL aimMoved;
 @property (atomic) BOOL canvasMoved;
 @property (atomic) int currentLevel;
+@property (atomic) int combo;
 
 
 @property NSTimeInterval flushInterval;
