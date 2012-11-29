@@ -262,7 +262,9 @@
             
             b2Body* body = fixture->GetBody();
             if (body == NULL) return true;
-            [retBody addObject: (__bridge Target*)body->GetUserData()];
+            Target* t = (__bridge Target*)body->GetUserData();
+            if (t == NULL) return true;
+            [retBody addObject: t];
             // Return true to continue the query.
             return true;
             
