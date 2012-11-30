@@ -42,7 +42,7 @@
     
     //CCScene *scene=[[MainScene node] initWithLevel:1];
     CCScene* modeScene = [CCBReader sceneWithNodeGraphFromFile:@"ModeMenu.ccbi"];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:modeScene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:modeScene withColor:ccWHITE]];
 }
 -(void) startNewGame:(id)sender withLevel:(int)level{
     

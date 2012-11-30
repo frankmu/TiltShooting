@@ -15,7 +15,10 @@
 @property(nonatomic,strong) CCSprite *background;
 @property(nonatomic,strong) NSMutableArray *spriteArray;
 @property(nonatomic,strong) NSMutableArray *imageArray;
-@property(nonatomic,strong) CCLayer* facebookMenu;
+@property(nonatomic,strong) CCNode* facebookMenu;
 //@property(nonatomic,strong) CCSprite* facebookBg;
 @property(nonatomic,strong) CCNode* loading;
+@property(nonatomic,strong) CCNode* prompt;
+@property(nonatomic,strong) CCMenu* modeMenuButtons;
+@property(nonatomic,strong) CCMenu* fbMenuButtons;
 @end

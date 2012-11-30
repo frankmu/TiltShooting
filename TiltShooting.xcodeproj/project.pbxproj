@@ -153,6 +153,7 @@
 		96BF80141666E1C50063BF75 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BF80131666E1C50063BF75 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		96BF80161666E2F80063BF75 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96BF80151666E2F80063BF75 /* FBUserSettingsViewResources.bundle */; };
 		96BF802116673D210063BF75 /* FBMenu.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96BF802016673D210063BF75 /* FBMenu.ccbi */; };
+		96BF802616676E160063BF75 /* FBMenuNode.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96BF802516676E160063BF75 /* FBMenuNode.ccbi */; };
 		96E5D41D1641E08600F9FDEC /* ProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E5D41C1641E08600F9FDEC /* ProgressBar.m */; };
 		96EEA0CB1666CC680092DE2B /* ModeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EEA0CA1666CC680092DE2B /* ModeMenu.m */; };
 		96EEA0CD1666CD4A0092DE2B /* ModeMenu.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96EEA0CC1666CD4A0092DE2B /* ModeMenu.ccbi */; };
@@ -534,6 +535,7 @@
 		96BF80131666E1C50063BF75 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		96BF80151666E2F80063BF75 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		96BF802016673D210063BF75 /* FBMenu.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = FBMenu.ccbi; path = Resources/FBMenu.ccbi; sourceTree = "<group>"; };
+		96BF802516676E160063BF75 /* FBMenuNode.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = FBMenuNode.ccbi; path = Resources/FBMenuNode.ccbi; sourceTree = "<group>"; };
 		96E5D41B1641E08600F9FDEC /* ProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBar.h; sourceTree = "<group>"; };
 		96E5D41C1641E08600F9FDEC /* ProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBar.m; sourceTree = "<group>"; };
 		96EEA0C91666CC680092DE2B /* ModeMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeMenu.h; sourceTree = "<group>"; };
@@ -1233,6 +1235,7 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96BF802516676E160063BF75 /* FBMenuNode.ccbi */,
 				96BF802016673D210063BF75 /* FBMenu.ccbi */,
 				96EEA0CC1666CD4A0092DE2B /* ModeMenu.ccbi */,
 				966A93B5166447F800B955D1 /* ProcessBarPanel.ccbi */,
@@ -2011,6 +2014,7 @@
 				96EEA0D11666D2550092DE2B /* FacebookSDKResources.bundle in Resources */,
 				96BF80161666E2F80063BF75 /* FBUserSettingsViewResources.bundle in Resources */,
 				96BF802116673D210063BF75 /* FBMenu.ccbi in Resources */,
+				96BF802616676E160063BF75 /* FBMenuNode.ccbi in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,9 @@
 @synthesize imageArray;
 @synthesize facebookMenu;
 @synthesize loading;
+@synthesize modeMenuButtons;
+@synthesize fbMenuButtons;
+@synthesize prompt;
 -(id)init{
     
     if( (self=[super init] )) {
@@ -27,6 +30,7 @@
         //preload menubgmusic
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"Rifle_Gunshot.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"menumusic_10s.mp3"];
+        
     }
     return self;
 }
@@ -52,9 +56,58 @@
 
 }
 -(void) startNewFBGame:(id)sender{
+    //clear in case there are asyn image after exit facebook menu
+    [imageArray removeAllObjects];
+    [spriteArray removeAllObjects];
+ 
+    //show the facebook menu
+    CCNode* m=[CCBReader nodeGraphFromFile:@"FBMenuNode.ccbi" owner:self];
+    [self addChild:m z:10];
+    //position to slide in
+    self.facebookMenu=m;
+    self.facebookMenu.position=ccp(240,160);
+    [self.loading setVisible:NO];
+    [self.prompt setVisible:NO];
+    //[self.facebookMenu setVisible:NO];
+    //[self.facebookMenu setIsTouchEnabled:NO];
+
+  
+    [self disableMenu:self.modeMenuButtons];
+    //[facebookMenu setIsTouchEnabled:YES];
+    //s[self.facebookMenu setVisible:YES];
+   // CCAction *slidein=[CCMoveTo actionWithDuration:1.0f position:ccp(0,0)];
+    NSLog(@"slide in menu");
+   // CCSequence *sequence=[CCSequence actions:
+    //                      slidein,[CCCallFuncO actionWithTarget:self selector:@selector(login:) object:nil]
+    //                      ,nil];
+    //[self.facebookMenu runAction:slidein];
+    [self login];
+    
 
     
-    AppController *appDelegate = [[UIApplication sharedApplication] delegate];
+}
+-(void)disableMenu:(CCMenu*)menu{
+    for(id m in menu.children){
+        if([m isKindOfClass:[CCMenuItemImage class]]){
+            NSLog(@"disable one button");
+            [(CCMenuItemImage*)m setIsEnabled:NO];
+        }
+    
+    }
+}
+-(void)enableMenu:(CCMenu*)menu{
+    for(id m in menu.children){
+        if([m isKindOfClass:[CCMenuItemImage class]]){
+            [(CCMenuItemImage*)m setIsEnabled:YES];
+        }
+        
+    }
+
+}
+-(void)login{
+    NSLog(@"login fb");
+    NSLog(@"fb menu position x=%f y=%f",self.facebookMenu.position.x,self.facebookMenu.position.y);
+   AppController *appDelegate = [[UIApplication sharedApplication] delegate];
     // The user has initiated a login, so call the openSession method
     // and show the login UX if necessary.
     //   [appDelegate closeSession];
@@ -62,29 +115,20 @@
     
     // If the user is authenticated, log out when the button is clicked.
     // If the user is not authenticated, log in when the button is clicked.
-    if (FBSession.activeSession.isOpen) {
-        [appDelegate closeSession];
-    } else {
+  //  if (FBSession.activeSession.isOpen) {
+  //      [appDelegate closeSession];
+   // } else {
         // The user has initiated a login, so call the openSession method
         // and show the login UX if necessary.
         [appDelegate openSessionWithAllowLoginUI:YES];
-    }
-    //show the facebook menu
-
-    self.facebookMenu=(CCLayer*)[CCBReader nodeGraphFromFile:@"FBMenu.ccbi" owner:self];
-    [self addChild:facebookMenu z:10];
-    //position to slide in
-    self.facebookMenu.position=ccp(480,0);
-    [self setIsTouchEnabled:NO];
-    [facebookMenu setIsTouchEnabled:YES];
-    CCAction *slidein=[CCMoveTo actionWithDuration:0.5 position:ccp(0,0)];
-    [self.facebookMenu runAction:slidein];
-
+ //   }
     //download pic
-    [self loadPicture];
+    //[self loadPicture:nil];
+
 }
--(void) loadPicture{
-    
+-(void) loadPicture:(id)sender{
+    [self.loading setVisible:YES];
+    [self.prompt setVisible:NO];
     // Query to fetch the active user's friends, limit to 5.
     NSString *query =
     @"SELECT uid, name, pic_square FROM user WHERE uid IN "
@@ -102,6 +146,7 @@
                               if (error)
                               {
                                   NSLog(@"Error: %@", [error localizedDescription]);
+                                  NSLog(@"Something wrong with pic downlaoding");
                               }
                               else
                               {
@@ -130,8 +175,8 @@
                                       [spriteArray addObject:pic];
                                       [self.facebookMenu addChild:pic];
                                       [self.facebookMenu addChild:name];
-                                      pic.position=ccp(60,260-15-i*50);
-                                      name.position=ccp(160,260-15-i*50);
+                                      pic.position=ccp(-180,100-15-i*50);
+                                      name.position=ccp(-80,100-15-i*50);
                                       //hide loading font
                                       if(i==friendInfo.count-1){
                                           //last one
@@ -157,7 +202,7 @@
                                   
                               }
                           }];
-    NSLog(@"Loading finished !!!!!");
+    NSLog(@"Loading requset finished");
     
 }
 
@@ -178,12 +223,19 @@
     }
 }
 -(void) startFBGame:(id)sender{
-    //FB
-    for(int i=0; i<BULLETNUM; i++) {
-        [self showBulletHoleOnButton:sender];
+    if(imageArray.count>0){
+        //FB
+        for(int i=0; i<BULLETNUM; i++) {
+            [self showBulletHoleOnButton:sender];
+        }
+        CCScene *scene=[[MainScene node] initWithLevel:1 withFBInfo:imageArray];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
     }
-    CCScene *scene=[[MainScene node] initWithLevel:1 withFBInfo:imageArray];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
+    else{
+    //haven't downloading the pictures
+        NSLog(@"NO pictures");
+        [self.prompt setVisible:YES];
+    }
 
 }
 //invoked to return to main menu
@@ -195,18 +247,24 @@
 //invoked to return to mode menu
 -(void) facebookMenuOnBack:(id)sender{
     //slide out and remove in order to refresh 
-    CCAction *slidein=[CCMoveTo actionWithDuration:0.5 position:ccp(480,0)];
+   /*CCAction *slidein=[CCMoveTo actionWithDuration:0.5 position:ccp(720,160)];
     CCSequence *sequence=[CCSequence actions:
-     slidein,[CCCallFuncO actionWithTarget:self selector:@selector(removeChildFromParent:) object:facebookMenu]
+     slidein,[CCCallFuncO actionWithTarget:self selector:@selector(finishBack:) object:facebookMenu]
               ,nil];
-    [self.facebookMenu runAction:sequence];
+    [self.facebookMenu runAction:sequence];*/
            //remove array
+    [self.facebookMenu removeFromParentAndCleanup:YES];
+    //[self.modeMenuButtons setIsTouchEnabled:YES];
+    [self enableMenu:self.modeMenuButtons];
     [imageArray removeAllObjects];
+    [spriteArray removeAllObjects];
     
 
 }
--(void)removeChildFromParent:(id)object{
-    [object removeAllChildrenWithCleanup:YES];
+-(void)finishBack:(id)object{
+    //self.facebookMenu.position=ccp(0,0);
+    //[self.facebookMenu setVisible:NO];
+    //[object removeAllChildrenWithCleanup:YES];
     [self setIsTouchEnabled:YES];
 
 }
