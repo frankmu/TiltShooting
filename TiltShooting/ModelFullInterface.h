@@ -13,6 +13,7 @@
 #import "POINT.h"
 #import "ModelDaemon.h"
 
+typedef void (^timeupBlock)(Target* t);
 @protocol ModelFullInterface <ModelInterface>
 @required
 /* Fire events */
@@ -25,6 +26,8 @@
 - (void) fireTargetMissEvent: (float)x y:(float)y;
 //- (void) fireImpactEvent: (Target *)t1 by: (Target *)t2;
 - (void) fireGameInitFinishedEvent;
+- (void) firePrepareAppearEvent: (Target*) t time: (NSTimeInterval)time;
+- (void) firePrepareDisappearEvent: (Target*) t time: (NSTimeInterval)time;
 //- (void) fireWinEvent;
 //- (void) fireLoseEvent;
 - (void) fireGameFinishEvent;
@@ -38,6 +41,10 @@
 - (void) deleteTarget: (Target *)target;
 - (void) incScore: (float)score;
 - (void) changeTime: (NSTimeInterval)time;
+- (NSMutableArray*) disappearList;
+- (NSMutableArray*) appearList;
+- (void) appear: (Target*)target time:(NSTimeInterval)time;
+- (void) disappear: (Target*)target time:(NSTimeInterval)time;
 /* Data Access: don't notify */
 - (void) setCanvasX: (float)x;
 - (void) setCanvasY: (float)y;
@@ -63,7 +70,8 @@
 - (void) resetShootHappen;
 - (void) resetSwitchWeaponChange;
 - (NSMutableArray *) shootPoints;
-
+- (void) timeup: (NSMutableArray*)list time:(NSTimeInterval)time
+          block: (timeupBlock)block;
 - (ModelDaemon*) daemon;
 - (int) combo;
 

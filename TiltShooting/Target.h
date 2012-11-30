@@ -23,15 +23,16 @@ typedef void (^bulletBlock)(WeaponBase*, Target*);
     void *box2dAux;
 }
 
-@property (atomic)float x;
-@property (atomic)float y;
-@property (atomic)float width;
-@property (atomic)float height;
+@property (atomic) float x;
+@property (atomic) float y;
+@property (atomic) float width;
+@property (atomic) float height;
+@property (atomic) NSTimeInterval timer;
 
-@property (atomic)float hp;
-@property (atomic)float maxHp;
-@property (atomic)float bonus;
-@property (atomic)TARGET_STATUS status;
+@property (atomic) float hp;
+@property (atomic) float maxHp;
+@property (atomic) float bonus;
+@property (atomic) TARGET_STATUS status;
 @property (atomic, strong) id aux;
 @property (atomic, weak) id intervalAux;
 

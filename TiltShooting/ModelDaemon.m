@@ -106,6 +106,14 @@
         [m fireWeaponStatusChangeEvent: [m currentWeapon]];
     }
     
+    [m timeup:[m disappearList] time:interval block:^(Target* t) {
+        [m deleteTarget:t];
+    }];
+    
+    [m timeup:[m appearList] time:interval block:^(Target* t) {
+        [m createTarget:t];
+    }];
+    
     
     if ([m shootHappen]) {
         NSMutableArray *orgPoints = [m shootPoints];

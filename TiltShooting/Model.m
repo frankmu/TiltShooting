@@ -46,6 +46,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         self.motionProcessor = [[MotionProcessor alloc] init];
         self.targetList = [[NSMutableArray alloc] init];
         self.listenerList = [[NSMutableArray alloc] init];
+        self.appearList = [[NSMutableArray alloc] init];
+        self.disappearList = [[NSMutableArray alloc] init];
         self.targetSet = [[NSMutableSet alloc] init];
         self.weaponList = [[NSMutableArray alloc] init];
         self.shootPoints = [[NSMutableArray alloc] init];
@@ -174,6 +176,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     [self.targetSet removeAllObjects];
     [self.targetList removeAllObjects];
     [self.weaponList removeAllObjects];
+    [self.disappearList removeAllObjects];
+    [self.appearList removeAllObjects];
     self.currentWeapon = nil;
     [self.map2Box2D destoryWorld];
     self.shootHappen = NO;
@@ -277,14 +281,14 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 - (void) fireWeaponStatusChangeEvent:(WeaponBase *)currentWeapon {
     [self fireEvent:@selector(weaponStatusChanged:)
                with:^(id<CoreEventListener> listener) {
-                   return (BUBBLE_RULE) [listener weaponStatusChanged:currentWeapon];
+        return (BUBBLE_RULE) [listener weaponStatusChanged:currentWeapon];
     }];
 }
 
 - (void) fireTargetMissEvent:(float)x y:(float)y {
     [self fireEvent:@selector(targetMissX:y:)
                with:^(id<CoreEventListener> listener) {
-                   return (BUBBLE_RULE) [listener targetMissX:x y:y];
+        return (BUBBLE_RULE) [listener targetMissX:x y:y];
     }];
 }
 
@@ -298,7 +302,21 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 - (void) fireFlushFinish {
     [self fireEvent:@selector(flushFinish)
                with:^(id<CoreEventListener> listener) {
-                   return (BUBBLE_RULE) [listener flushFinish];
+        return (BUBBLE_RULE) [listener flushFinish];
+    }];
+}
+
+- (void) firePrepareAppearEvent:(Target *)t time:(NSTimeInterval)time{
+    [self fireEvent:@selector(prepareToAppear:time:)
+               with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE) [listener prepareToAppear:t time:time];
+    }];
+}
+
+- (void) firePrepareDisappearEvent:(Target *)t time:(NSTimeInterval)time{
+    [self fireEvent:@selector(prepareToDisappear:time:)
+               with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE) [listener prepareToDisappear:t time:time];
     }];
 }
 
@@ -421,5 +439,36 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         return TYPE_TIME_PLUS;
     }
     return TYPE_UNKNOWN;
+}
+
+- (void) insertToTimer: (Target*)target time: (NSTimeInterval)time
+                  list:(NSMutableArray*)list {
+    target.timer = time;
+    if (![list containsObject:target]) {
+        [list addObject:target];
+    }
+}
+
+- (void) appear:(Target *)target time:(NSTimeInterval)time {
+    [self insertToTimer:target time:time list:self.appearList];
+}
+
+- (void) disappear:(Target *)target time:(NSTimeInterval)time {
+    [self insertToTimer:target time:time list:self.disappearList];
+}
+
+- (void) timeup:(NSMutableArray *)list time:(NSTimeInterval)time
+          block:(timeupBlock)block {
+    if ([list count] == 0) return;
+    NSMutableArray* tbd = [[NSMutableArray alloc] init];
+    for (Target* t in list) {
+        t.timer -= time;
+        if (t.timer <= 0) {
+            t.timer = 0;
+            [tbd addObject:t];
+            block(t);
+        }
+    }
+    [list removeObjectsInArray:tbd];
 }
 @end

@@ -22,6 +22,8 @@
 
 @property (strong, atomic) NSMutableArray *targetList;
 @property (strong, atomic) NSMutableArray *weaponList;
+@property (strong, atomic) NSMutableArray *disappearList;
+@property (strong, atomic) NSMutableArray *appearList;
 @property (strong, atomic) WeaponBase *currentWeapon;
 @property (strong, atomic) Aim *aim;
 @property (strong) ModelDaemon *daemon;
