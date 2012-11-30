@@ -236,6 +236,7 @@
         NSLog(@"NO pictures");
         [self.prompt setVisible:YES];
     }
+    
 
 }
 //invoked to return to main menu

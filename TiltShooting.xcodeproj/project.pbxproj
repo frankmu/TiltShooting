@@ -154,6 +154,8 @@
 		96BF80161666E2F80063BF75 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96BF80151666E2F80063BF75 /* FBUserSettingsViewResources.bundle */; };
 		96BF802116673D210063BF75 /* FBMenu.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96BF802016673D210063BF75 /* FBMenu.ccbi */; };
 		96BF802616676E160063BF75 /* FBMenuNode.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96BF802516676E160063BF75 /* FBMenuNode.ccbi */; };
+		96CDC70C16686FF0000DDC84 /* WeaponPanelM4A1b.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96CDC70B16686FF0000DDC84 /* WeaponPanelM4A1b.ccbi */; };
+		96CDC70E16687517000DDC84 /* WeaponPanelDE.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96CDC70D16687517000DDC84 /* WeaponPanelDE.ccbi */; };
 		96E5D41D1641E08600F9FDEC /* ProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E5D41C1641E08600F9FDEC /* ProgressBar.m */; };
 		96EEA0CB1666CC680092DE2B /* ModeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EEA0CA1666CC680092DE2B /* ModeMenu.m */; };
 		96EEA0CD1666CD4A0092DE2B /* ModeMenu.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96EEA0CC1666CD4A0092DE2B /* ModeMenu.ccbi */; };
@@ -536,6 +538,8 @@
 		96BF80151666E2F80063BF75 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		96BF802016673D210063BF75 /* FBMenu.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = FBMenu.ccbi; path = Resources/FBMenu.ccbi; sourceTree = "<group>"; };
 		96BF802516676E160063BF75 /* FBMenuNode.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = FBMenuNode.ccbi; path = Resources/FBMenuNode.ccbi; sourceTree = "<group>"; };
+		96CDC70B16686FF0000DDC84 /* WeaponPanelM4A1b.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = WeaponPanelM4A1b.ccbi; path = Resources/WeaponPanelM4A1b.ccbi; sourceTree = "<group>"; };
+		96CDC70D16687517000DDC84 /* WeaponPanelDE.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = WeaponPanelDE.ccbi; path = Resources/WeaponPanelDE.ccbi; sourceTree = "<group>"; };
 		96E5D41B1641E08600F9FDEC /* ProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBar.h; sourceTree = "<group>"; };
 		96E5D41C1641E08600F9FDEC /* ProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBar.m; sourceTree = "<group>"; };
 		96EEA0C91666CC680092DE2B /* ModeMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeMenu.h; sourceTree = "<group>"; };
@@ -1235,6 +1239,8 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96CDC70D16687517000DDC84 /* WeaponPanelDE.ccbi */,
+				96CDC70B16686FF0000DDC84 /* WeaponPanelM4A1b.ccbi */,
 				96BF802516676E160063BF75 /* FBMenuNode.ccbi */,
 				96BF802016673D210063BF75 /* FBMenu.ccbi */,
 				96EEA0CC1666CD4A0092DE2B /* ModeMenu.ccbi */,
@@ -2015,6 +2021,8 @@
 				96BF80161666E2F80063BF75 /* FBUserSettingsViewResources.bundle in Resources */,
 				96BF802116673D210063BF75 /* FBMenu.ccbi in Resources */,
 				96BF802616676E160063BF75 /* FBMenuNode.ccbi in Resources */,
+				96CDC70C16686FF0000DDC84 /* WeaponPanelM4A1b.ccbi in Resources */,
+				96CDC70E16687517000DDC84 /* WeaponPanelDE.ccbi in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

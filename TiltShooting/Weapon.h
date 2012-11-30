@@ -17,9 +17,12 @@
 //the panel picture of weapon
 @property (nonatomic,strong) CCNode* panel;
 @property int ammo;
-@property (nonatomic,strong)CCLabelTTF* currentAmmo;
-@property (nonatomic,strong)CCLabelTTF* clipAmmo;
-@property (nonatomic,strong)CCLabelTTF* currentClipAmmo;
+//@property (nonatomic,strong)CCLabelTTF* currentAmmo;
+//@property (nonatomic,strong)CCLabelTTF* clipAmmo;
+//@property (nonatomic,strong)CCLabelTTF* currentClipAmmo;
+@property (nonatomic,strong)CCLabelBMFont* currentAmmo;
+@property (nonatomic,strong)CCLabelBMFont* clipAmmo;
+@property (nonatomic,strong)CCLabelBMFont* currentClipAmmo;
 //the corresponding aim node
 @property (nonatomic,strong) CCNode* aim;
 @property float radius;

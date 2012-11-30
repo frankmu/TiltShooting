@@ -26,13 +26,13 @@
     switch (type) {
         case 1://handgun
             NSLog(@"init weapon type 1 info");
-            panel=[CCBReader nodeGraphFromFile:@"WeaponPanel.ccbi" owner:self];
+            panel=[CCBReader nodeGraphFromFile:@"WeaponPanelDE.ccbi" owner:self];
             aim=[CCBReader nodeGraphFromFile:@"AimCross1.ccbi"];
             break;
             
         case 2://ak104
             NSLog(@"init weapon type 2 info");
-            panel=[CCBReader nodeGraphFromFile:@"WeaponPanelM4A1.ccbi" owner:self];
+            panel=[CCBReader nodeGraphFromFile:@"WeaponPanelM4A1b.ccbi" owner:self];
             aim=[CCBReader nodeGraphFromFile:@"AimCross2.ccbi"];
             break;
         default:
@@ -45,7 +45,7 @@
 }
 -(void)changeCurrentClipAmmo:(int)value{
     [currentClipAmmo setString:[NSString stringWithFormat:@"%d",value]];
-
+    
 }
 -(void)changeClipAmmo:(int)value{
     [clipAmmo setString:[NSString stringWithFormat:@"%d",value]];

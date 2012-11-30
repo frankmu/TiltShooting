@@ -272,10 +272,11 @@
     [m aim].aux=curAim;
 }
 -(void)changeWeaponStatus:(WeaponBase*)weapon{
-    Weapon* gun=weapon.aux;
+   Weapon* gun=weapon.aux;
     [gun changeClipAmmo:weapon.bulletCapacity];
     [gun changeCurrentAmmo:weapon.depotRemain];
     [gun changeCurrentClipAmmo:weapon.bulletRemain];
+    
     
 }
 -(void)showPreviousWeapon{
