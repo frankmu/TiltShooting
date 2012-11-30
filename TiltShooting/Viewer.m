@@ -18,10 +18,10 @@
 #import "CCBReader.h"
 #import "CBAimCross.h"
 @implementation Viewer
-@synthesize spriteSheet;
-@synthesize explodeAnim;
+//@synthesize spriteSheet;
+//@synthesize explodeAnim;
 @synthesize weaponList;
-@synthesize weaponSpriteList;
+//@synthesize weaponSpriteList;
 @synthesize currentWeaponIndex;
 @synthesize nextWeaponIndex;
 @synthesize glayer;
@@ -50,7 +50,7 @@
 }
 //show bullet hole at location of aimcross
 +(void) showBulletHole:(CCLayer*)layer atLocation:(CGPoint)location{
-    GameLayer *glayer=(GameLayer*)layer;
+   GameLayer *glayer=(GameLayer*)layer;
     //CCSpriteBatchNode *SheetBulletHolesBig = [CCSpriteBatchNode batchNodeWithFile:@"bulletholesbig.png" capacity:12];
     //random hole in 12 types
     int i= arc4random() % 12;
@@ -72,6 +72,7 @@
                           [CCCallFuncO actionWithTarget:glayer selector:@selector(removeChildFromParent:) object:bulletHoleBig],
                           nil];
     [bulletHoleBig runAction:sequence];
+   
 }
 
 //temp for test
@@ -328,7 +329,9 @@
     if (self = [super init]) {
         NSLog(@"init viewer for animation cache");
         //cache frames
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:
+        glayer=(GameLayer*)layer;
+    //comment out to release cache
+      /*  [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:
          @"aniexplode.plist"];
         //sprite batch node , child of bg
         spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"aniexplode.png"];
@@ -345,7 +348,7 @@
         //animation
         explodeAnim = [CCAnimation animationWithFrames:explodeAnimFrames delay:0.1f];
         
-    
+    */
 
     }
     return self;

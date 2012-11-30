@@ -42,10 +42,10 @@
 -(void)changeWeaponStatus:(WeaponBase*)weapon;
 -(void)showPreviousWeapon;
 -(void)showNextWeapon;
-@property (nonatomic,strong) CCSpriteBatchNode *spriteSheet;
-@property (nonatomic,strong)  CCAnimation *explodeAnim;
+//@property (nonatomic,strong) CCSpriteBatchNode *spriteSheet;
+//@property (nonatomic,strong)  CCAnimation *explodeAnim;
 @property  NSMutableArray *weaponList;
-@property  NSMutableArray *weaponSpriteList;
+//@property  NSMutableArray *weaponSpriteList;
 @property int currentWeaponIndex;
 @property int nextWeaponIndex;
 @property (weak) CCLayer* glayer;
