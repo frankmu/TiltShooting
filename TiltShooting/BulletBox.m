@@ -1,21 +1,21 @@
 //
-//  TimePlus.m
-//  TiltShootingModel
+//  BulletBox.m
+//  TiltShooting
 //
-//  Created by yirui zhang on 11/16/12.
+//  Created by yirui zhang on 11/30/12.
 //
 //
 
-#import "TimePlus.h"
+#import "BulletBox.h"
 #import "Model.h"
 
-@implementation TimePlus
+@implementation BulletBox
 
 - (id) initWithX:(float)x Y:(float)y level:(float)level {
-    float time = level;
+    float bullet = level * 10 + 10;
     float size = SIZE_BACKWARD(level);
     if (self = [super initWithX:x Y:y width:size height:size hp:1 bonus:0]) {
-        self.time = time;
+        self.bullet = bullet;
     }
     return self;
 }
@@ -24,13 +24,12 @@
     bullet(weapon, self);
     
     id<ModelFullInterface> m = [[Model class] instance];
-    [m setRemainTime:[m remainTime] + self.time];
+    weapon.depotRemain += self.bullet;
     [m deleteTarget:self];
     return YES;
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"TimePlus%@", [super description]];
+    return [NSString stringWithFormat:@"BulletBox%@", [super description]];
 }
-
 @end

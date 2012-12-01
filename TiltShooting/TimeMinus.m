@@ -11,9 +11,9 @@
 
 @implementation TimeMinus
 
-- (id) initWithX:(float)x Y:(float)y time: (float)time {
-    float size = sqrtf(time) * 10;
-    size = size < 25 ? 25 : size;
+- (id) initWithX:(float)x Y:(float)y level:(float)level {
+    float time = level;
+    float size = SIZE_FORWARD(level);
     if (self = [super initWithX:x Y:y width:size height:size hp:1 bonus:0]) {
         self.time = time;
     }

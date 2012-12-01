@@ -22,14 +22,6 @@
 
 #define MAX_TIME_BAR 120.0;  //300s
 #define MAX_BONUS_BAR 20.0;
-typedef enum {
-    AIM,
-    ENEMY,
-    BOMB,
-    TIMEPLUS,
-    TIMEMINUS,
-    UNKNOWN
-} TARGET_TYPE;
 
 @interface GameLayer : CCLayer <CoreEventListener,UIAccelerometerDelegate>{
     

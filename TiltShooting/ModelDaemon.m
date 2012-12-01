@@ -95,6 +95,8 @@
         [m fireWeaponStatusChangeEvent:[m currentWeapon]];
     }
     
+    [m refreshTimerTaskList:interval];
+    
     int switchWeaponChange = [m switchWeaponChange];
     if (switchWeaponChange != 0) {
         [m resetSwitchWeaponChange];
@@ -104,16 +106,7 @@
         WeaponBase *newWeapon = [weaponList objectAtIndex:index];
         [m setCurrentWeapon:newWeapon];
         [m fireWeaponStatusChangeEvent: [m currentWeapon]];
-    }
-    
-    [m timeup:[m disappearList] time:interval block:^(Target* t) {
-        [m deleteTarget:t];
-    }];
-    
-    [m timeup:[m appearList] time:interval block:^(Target* t) {
-        [m createTarget:t];
-    }];
-    
+    }    
     
     if ([m shootHappen]) {
         NSMutableArray *orgPoints = [m shootPoints];

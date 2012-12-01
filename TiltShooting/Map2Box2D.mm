@@ -109,7 +109,7 @@
     fixtureDef.restitution= 0.8f;
     body->CreateFixture(&fixtureDef);
     target->box2dAux = body;
-   float x,y;
+    float x,y;
     switch ([Model targetType:target]) {
         case TYPE_ENEMY:
             x=rand()%5;
@@ -194,11 +194,11 @@
     id<ModelFullInterface> m = [[Model class] instance];
     Enemy *enemy=(Enemy *)target;
     [m deleteTarget:enemy];
-    int num=rand()%3+4	;
+    int num=rand()%3+4;
     for(int i=0;i<num;i++)
     {
         double temp=tan((i*(360/num)+180.0/num)/180*3.141);
-        Enemy *enemy = [[Enemy alloc] initWithX: x Y: y hp:10];
+        Enemy *enemy = [[Enemy alloc] initWithX: x Y: y level:1];
         [self attachTarget:enemy];
         [self setMove:enemy :5.0 :(5.0*temp)];
         [m deleteTarget:enemy];

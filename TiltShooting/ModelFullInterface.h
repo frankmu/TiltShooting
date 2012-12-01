@@ -12,8 +12,8 @@
 #import "Map2Box2D.h"
 #import "POINT.h"
 #import "ModelDaemon.h"
+#import "TimerTask.h"
 
-typedef void (^timeupBlock)(Target* t);
 @protocol ModelFullInterface <ModelInterface>
 @required
 /* Fire events */
@@ -41,8 +41,6 @@ typedef void (^timeupBlock)(Target* t);
 - (void) deleteTarget: (Target *)target;
 - (void) incScore: (float)score;
 - (void) changeTime: (NSTimeInterval)time;
-- (NSMutableArray*) disappearList;
-- (NSMutableArray*) appearList;
 - (void) appear: (Target*)target time:(NSTimeInterval)time;
 - (void) disappear: (Target*)target time:(NSTimeInterval)time;
 /* Data Access: don't notify */
@@ -70,8 +68,11 @@ typedef void (^timeupBlock)(Target* t);
 - (void) resetShootHappen;
 - (void) resetSwitchWeaponChange;
 - (NSMutableArray *) shootPoints;
-- (void) timeup: (NSMutableArray*)list time:(NSTimeInterval)time
-          block: (timeupBlock)block;
+
+- (void) addTimerTask: (NSTimeInterval)time 
+                  aux:(id) aux ID:(id)obj block: (timerTaskblock) block;
+- (void) refreshTimerTaskList: (NSTimeInterval) time;
+- (void) removeTimerTask: (id) obj;
 - (ModelDaemon*) daemon;
 - (int) combo;
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface GameBrain : NSObject
-
++ (int) totalenemy;
 + (void) initGameSceneWithLevel: (int) level;
 + (void) refreshGameWithLevel:(int)level;
 @end

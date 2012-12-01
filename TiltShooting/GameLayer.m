@@ -392,26 +392,21 @@
     //handle target scale
     //#################
     //check type of target
-    TARGET_TYPE type=[self checkTargetType:target];
+    TYPE_TARGET type= [Model targetType:target] ;
     switch (type) {
-        case AIM:
+        case TYPE_AIM:
             //model init aimCross position?? now, init in gameLayer above
             [Viewer showAim:target inLayer:self];
             break;
-        case ENEMY:
-            
+        case TYPE_ENEMY:
+        case TYPE_MONSTER:
             [Viewer showTarget:target inLayer:self];
             break;
-        case BOMB:
-            
-            [Viewer showBomb:target inLayer:self];
-            break;
-        case TIMEMINUS:
+        case TYPE_TIME_MINUS:
             //test using bomb
             [Viewer showBomb:target inLayer:self];
-
             break;
-        case TIMEPLUS:
+        case TYPE_TIME_PLUS:
             NSLog(@"show explode on target");
             //[viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
             [Viewer showTimePlus:target inLayer:self];
@@ -426,30 +421,24 @@
     //for test
     if(target.aux!=nil){
         //check type of target
-        TARGET_TYPE type=[self checkTargetType:target];
+        TYPE_TARGET type= [Model targetType:target];
         switch (type) {
-            case AIM:
-                
+            case TYPE_AIM:
                 [Viewer removeAim:target inLayer:self];
                 break;
-            case ENEMY:
+            case TYPE_ENEMY:
+            case TYPE_MONSTER:
                 NSLog(@"show explode on target");
                 [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
                 [Viewer removeTarget:target inLayer:self];
                 break;
-            case BOMB:
+            case TYPE_TIME_MINUS:
                 NSLog(@"show explode on target");
                 [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
                 [Viewer removeBomb:target inLayer:self];
                 break;
-            case TIMEMINUS:
+            case TYPE_TIME_PLUS:
                 NSLog(@"show explode on target");
-                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
-                [Viewer removeBomb:target inLayer:self];
-                break;
-            case TIMEPLUS:
-                NSLog(@"show explode on target");
-                
                 [Viewer removeTimePlus:target inLayer:self];
                 break;
             default:
@@ -509,23 +498,6 @@
     
 }
 
-//check target type
--(TARGET_TYPE)checkTargetType:(Target*)target{
-    if([target isMemberOfClass:[Aim class]]){
-        //[Viewer NSLogDebug:self.debug withMsg:@"got an Aim target"];
-        return AIM;
-    }
-    else if([target isMemberOfClass:[Enemy class]]){
-        //NSLog(@"got an enemy target");
-        return ENEMY;
-    }
-    else if ([target isMemberOfClass:[TimePlus class]]) {
-        return TIMEPLUS;
-    } else if ([target isMemberOfClass:[TimeMinus class]]){
-        return TIMEMINUS;
-    }
-    return UNKNOWN;
-}
 - (BUBBLE_RULE) targetMissX: (float)x y:(float)y{
     [[SimpleAudioEngine sharedEngine] playEffect:@"Rifle_GunShot.mp3"];
     
@@ -542,31 +514,7 @@
     
     if(target.aux!=nil){
         NSLog(@"Target is HITTED");
-        //check type of target
-        TARGET_TYPE type=[self checkTargetType:target];
-        switch (type) {
-            case ENEMY:
-                
-                [Viewer hitTarget:target inLayer:self];
-                break;
-           /* case BOMB:
-                NSLog(@"show explode on target");
-                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
-                [Viewer removeBomb:target inLayer:self];
-                break;
-            case TIMEMINUS:
-                NSLog(@"show explode on target");
-                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
-                [Viewer removeBomb:target inLayer:self];
-                break;
-            case TIMEPLUS:
-                NSLog(@"show explode on target");
-                
-                [Viewer removeTimePlus:target inLayer:self];
-                break;*/
-            default:
-                break;
-        }
+        [Viewer hitTarget:target inLayer:self];
     }
     return BUBBLE_CONTINUE;
 }

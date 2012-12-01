@@ -11,7 +11,7 @@
 @implementation M4A1
 
 - (id) init {
-    if (self = [super initWithSpeed:0.1f damage:10.0f
+    if (self = [super initWithSpeed:0.1f damage:8.0f
                           skillMana:100.0f bulletCapacity:30 depotRemain: 210]) {
         // do nothing
     }
@@ -30,7 +30,7 @@
         if ([self canShoot]) {
             self.bulletRemain -= 1;
             [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
-                target.hp -= weapon.damage * 5;
+                target.hp -= weapon.damage * 5 * ((float)[m combo] / 8.f + 1.f);
             }];
             hitHappen = YES;
         } else {

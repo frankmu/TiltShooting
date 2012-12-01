@@ -24,7 +24,11 @@ typedef enum {
     TYPE_AIM,
     TYPE_ENEMY,
     TYPE_TIME_MINUS,
-    TYPE_TIME_PLUS
+    TYPE_TIME_PLUS,
+    TYPE_BULLET_BOX,
+    TYPE_MONSTER,
+    TYPE_SPIDER,
+    TYPE_VAMPIRE
 }TYPE_TARGET;
 
 @protocol ModelInterface <NSObject>

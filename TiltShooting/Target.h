@@ -10,6 +10,14 @@
 #import <UIKit/UIKit.h>
 #import "WeaponBase.h"
 
+#define MAX_SIZE 70.f
+#define MIN_SIZE 20.f
+#define MAX_LEVEL 10.f
+#define SIZE_PER_LEVEL ((MAX_SIZE - MIN_SIZE) / MAX_LEVEL)
+#define SIZE_FORWARD(level) (level * SIZE_PER_LEVEL + MIN_SIZE)
+#define SIZE_BACKWARD(level) (MAX_SIZE - level * SIZE_PER_LEVEL)
+#define HP(base, inc, level) (base + inc * level)
+#define BONUS(weight, level) (weight * sqrtf(level))
 typedef enum {
     TARGET_NORMAL,
     TARGET_FREEZE

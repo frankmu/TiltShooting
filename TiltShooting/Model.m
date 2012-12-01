@@ -14,7 +14,10 @@
 #import "Map2Box2D.h"
 #import "TimeMinus.h"
 #import "TimePlus.h"
+#import "BulletBox.h"
 #import "cocos2d.h"
+#import "TimerTask.h"
+#import "Monster.h"
 
 #define DEFAULT_START_LEVEL 1
 #define DEFAULT_INTERVAL (1/30.f)
@@ -46,8 +49,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         self.motionProcessor = [[MotionProcessor alloc] init];
         self.targetList = [[NSMutableArray alloc] init];
         self.listenerList = [[NSMutableArray alloc] init];
-        self.appearList = [[NSMutableArray alloc] init];
-        self.disappearList = [[NSMutableArray alloc] init];
+        self.timerTaskList = [[NSMutableArray alloc] init];
         self.targetSet = [[NSMutableSet alloc] init];
         self.weaponList = [[NSMutableArray alloc] init];
         self.shootPoints = [[NSMutableArray alloc] init];
@@ -176,8 +178,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     [self.targetSet removeAllObjects];
     [self.targetList removeAllObjects];
     [self.weaponList removeAllObjects];
-    [self.disappearList removeAllObjects];
-    [self.appearList removeAllObjects];
+    [self.timerTaskList removeAllObjects];
     self.currentWeapon = nil;
     [self.map2Box2D destoryWorld];
     self.shootHappen = NO;
@@ -344,7 +345,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) createTarget:(Target *)target{
-    if (![self.targetSet containsObject:target]) {
+    if (![self.targetSet containsObject:target] && ![self.map2Box2D isLock]) {
         [self.targetList addObject:target];
         [self.targetSet addObject:target];
         [self.map2Box2D attachTarget:target];
@@ -355,9 +356,10 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 - (void) deleteTarget:(Target *)target{
     if ([self.targetSet containsObject:target]) {
         NSLog(@"delete target %@", target);
+        [self removeTimerTask:target];
+        [self.map2Box2D deleteTarget:target];
         [self.targetList removeObject:target];
         [self.targetSet removeObject:target];
-        [self.map2Box2D deleteTarget:target];
         [self.currentWeapon increaseManaByBonus:target.bonus];
         [self fireTargetDisappearEvent:target];
     }
@@ -437,6 +439,10 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         return TYPE_TIME_MINUS;
     } else if ([target isMemberOfClass:[TimePlus class]]) {
         return TYPE_TIME_PLUS;
+    } else if([target isMemberOfClass:[BulletBox class]]) {
+        return TYPE_BULLET_BOX;
+    } else if([target isMemberOfClass:[Monster class]]) {
+        return TYPE_MONSTER;
     }
     return TYPE_UNKNOWN;
 }
@@ -450,25 +456,51 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) appear:(Target *)target time:(NSTimeInterval)time {
-    [self insertToTimer:target time:time list:self.appearList];
+    [self addTimerTask:time aux:target ID:target block:^NSTimeInterval(id aux) {
+        id<ModelFullInterface> m = [Model instance];
+        [m createTarget:(Target *)aux];
+        return -1.f;
+    }];
+    [self firePrepareAppearEvent:target time:time];
 }
 
 - (void) disappear:(Target *)target time:(NSTimeInterval)time {
-    [self insertToTimer:target time:time list:self.disappearList];
+    [self addTimerTask:time aux:target ID:target block:^NSTimeInterval(id aux) {
+        id<ModelFullInterface> m = [Model instance];
+        [m deleteTarget:(Target *)aux];
+        return -1.f;
+    }];
+    [self firePrepareDisappearEvent:target time:time];
 }
 
-- (void) timeup:(NSMutableArray *)list time:(NSTimeInterval)time
-          block:(timeupBlock)block {
-    if ([list count] == 0) return;
+- (void) addTimerTask: (NSTimeInterval)time aux:(id) aux ID:(id)obj
+                block: (timerTaskblock) block{
+    [self.timerTaskList addObject:[[TimerTask alloc]
+                                   initWithTime:time block:block aux:aux ID:obj]];
+}
+
+- (void) removeTimerTask: (id) obj {
+    NSMutableArray* list = [[NSMutableArray alloc] init];
+    for (TimerTask* t in self.timerTaskList) {
+        if ([t.ID isEqual:obj]) {
+            [list addObject:t];
+        }// if
+    }// for
+    [self.timerTaskList removeObjectsInArray:list];
+}
+
+- (void) refreshTimerTaskList: (NSTimeInterval) time {
     NSMutableArray* tbd = [[NSMutableArray alloc] init];
-    for (Target* t in list) {
-        t.timer -= time;
-        if (t.timer <= 0) {
-            t.timer = 0;
-            [tbd addObject:t];
-            block(t);
+    for (TimerTask* task in self.timerTaskList) {
+        task.time -= time;
+        if (task.time <= 0) {
+            NSTimeInterval inc = task.block(task.aux);
+            task.time += inc;
+            if (task.time <= 0) {
+                [tbd addObject:task];
+            }
         }
     }
-    [list removeObjectsInArray:tbd];
+    [self.timerTaskList removeObjectsInArray:tbd];
 }
 @end

@@ -10,5 +10,5 @@
 
 @interface TimePlus : Target
 @property (atomic) float time;
-- (id)initWithX:(float)x Y:(float)y time:(float)time;
+- (id)initWithX:(float)x Y:(float)y level:(float)level;
 @end

@@ -15,10 +15,10 @@
 
 @implementation Enemy
 
-- (id) initWithX:(float)x Y:(float)y hp:(float)hp{
-    float bonus = sqrtf(hp) + hp / 5;
-    float size = sqrtf(hp) * 5;
-    size = size <= 15 ? 15 : size;
+- (id) initWithX:(float)x Y:(float)y level:(float)level{
+    float hp = HP(10, 5, level);
+    float bonus = BONUS(5, level);
+    float size = SIZE_FORWARD(level);
     if (self = [super initWithX:x Y:y width:size height:size hp:hp bonus:bonus]) {
         // nothing
     }    
