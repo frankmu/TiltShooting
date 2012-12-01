@@ -36,6 +36,7 @@
 - (void) fireTimeEvent: (NSTimeInterval)time;
 - (void) fireWeaponStatusChangeEvent: (WeaponBase *)currentWeapon;
 - (void) fireNeedReloadEvent;
+- (void) fireTargetResizeEvent: (Target *) target;
 /* Data Access: notify */
 - (void) createTarget: (Target *)target;
 - (void) deleteTarget: (Target *)target;

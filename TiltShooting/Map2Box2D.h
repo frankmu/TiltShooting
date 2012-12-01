@@ -21,7 +21,7 @@
 - (Target *) locateTargetByX: (float)x y: (float)y;
 - (NSMutableArray *)locateRangeTargetX:(float)x y:(float)y:(float) width:(float) height;
 - (void) setMove:(Target *)target:(float)x:(float) y;
-- (void)separateTarget:(Target *) target;
+-(void)separateTarget:(Target *)target number: (int) number level: (float) level;
 - (float) c2b: (float)fval;
 - (float) b2c: (float)fval;
 @end

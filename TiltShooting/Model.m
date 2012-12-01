@@ -322,6 +322,13 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     }];
 }
 
+- (void) fireTargetResizeEvent:(Target *)target {
+    [self fireEvent:@selector(targetResize:)
+               with:^(id<CoreEventListener> listener) {
+        return (BUBBLE_RULE) [listener targetResize:target];
+    }];
+}
+
 - (void) fireEvent: (SEL)handler with: (fireEventBlock) block {
 //    for (id<CoreEventListener> listener in self.listenerList) {
 //        if ([listener respondsToSelector:handler]) {
@@ -441,6 +448,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     } else if ([target isMemberOfClass:[TimePlus class]]) {
         return TYPE_TIME_PLUS;
     } else if ([target isMemberOfClass:[Spider class]]) {
+        return TYPE_SPIDER;
     } else if([target isMemberOfClass:[BulletBox class]]) {
         return TYPE_BULLET_BOX;
     } else if([target isMemberOfClass:[Monster class]]) {

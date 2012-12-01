@@ -8,6 +8,8 @@
 
 #import "M4A1.h"
 #import "Model.h"
+#define SPECIAL_SHOOT_RANGE 200.f
+#define SPECIAL_SHOOT_SR 10000.f
 @implementation M4A1
 
 - (id) init {
@@ -24,24 +26,23 @@
     
     id<ModelFullInterface> m = [[Model class] instance];
     Map2Box2D *p = [m map2Box2D];
-    NSMutableArray* array = [p locateRangeTargetX:x y:y :240 :160];
+    NSMutableArray* array = [p locateRangeTargetX:x y:y :SPECIAL_SHOOT_RANGE
+                                                 :SPECIAL_SHOOT_RANGE];
     BOOL hitHappen = NO;
+    float srr = SPECIAL_SHOOT_SR;
+    self.bulletRemain -= 1;
     for (Target *t in array) {
-        if ([self canShoot]) {
-            self.bulletRemain -= 1;
-            [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
-                target.hp -= weapon.damage * 5 * ((float)[m combo] / 8.f + 1.f);
-            }];
-            hitHappen = YES;
-        } else {
-            break;
-        }
+        float tx = t.x;
+        float ty = t.y;
+        float sdistance = (x - tx) * (x - tx) + (y - ty) * (y - ty);
+        sdistance = sdistance <= 50 ? 50 : sdistance;
+        sdistance = sdistance > 1250 ? 1250 : sdistance;
+        float rate = sqrtf(srr / sdistance);
+        [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
+            target.hp -= weapon.damage * ((float)[m combo] / 8.f + 1.f) * rate;
+        }];
+        hitHappen = YES;
     }
-//    self.bulletRemain -= 1;
-//    
-//    [t onShootBy:self with:^(){
-//        t.hp -= self.damage * 10;
-//    }];
     return hitHappen;
 }
 

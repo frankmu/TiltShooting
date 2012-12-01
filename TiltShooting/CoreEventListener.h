@@ -23,6 +23,7 @@ typedef enum {
 - (BUBBLE_RULE) targetDisAppear: (Target *)target;
 - (BUBBLE_RULE) targetMove: (Target *)target;
 - (BUBBLE_RULE) targetHit: (Target *)target;
+- (BUBBLE_RULE) targetResize: (Target *)target;
 - (BUBBLE_RULE) prepareToDisappear: (Target *)target time:(NSTimeInterval)time;
 - (BUBBLE_RULE) prepareToAppear: (Target *)target time:(NSTimeInterval)time;
 /* weapon */

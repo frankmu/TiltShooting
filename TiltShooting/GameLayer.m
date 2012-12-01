@@ -399,7 +399,7 @@
             [Viewer showAim:target inLayer:self];
             break;
         case TYPE_ENEMY:
-        case TYPE_MONSTER:
+        case TYPE_SPIDER:
             [Viewer showTarget:target inLayer:self];
             break;
         case TYPE_TIME_MINUS:
@@ -427,7 +427,7 @@
                 [Viewer removeAim:target inLayer:self];
                 break;
             case TYPE_ENEMY:
-            case TYPE_MONSTER:
+            case TYPE_SPIDER:
                 NSLog(@"show explode on target");
                 [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
                 [Viewer removeTarget:target inLayer:self];

@@ -44,6 +44,7 @@ typedef void (^bulletBlock)(WeaponBase*, Target*);
 @property (atomic, strong) id aux;
 @property (atomic, weak) id intervalAux;
 
+- (id) initWithX:(float)x Y:(float)y level:(float)level;
 - (id) init;
 - (id) initWithX:(float)x Y:(float)y width: (float)width height: (float)height
               hp: (float)hp bonus:(float)bonus;

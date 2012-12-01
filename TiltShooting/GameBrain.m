@@ -18,6 +18,7 @@
 #import "Monster.h"
 #import "BulletBox.h"
 #import "Spider.h"
+#import "PeaceKeeper.h"
 static int Totalenemy;
 
 @implementation GameBrain
@@ -36,13 +37,14 @@ static int Totalenemy;
     NSMutableArray *weapons = [m weaponList];
     [weapons addObject: [[DesertEagle alloc] init]];
     [weapons addObject: [[M4A1 alloc] init]];
+    [weapons addObject:[[PeaceKeeper alloc] init]];
     // init current weapon
     [m setCurrentWeapon: [weapons objectAtIndex:0]];
     // init score system
     [m setScore:0.0f];
     [m setBonus:0.0f];
     [m setTime: 60.0f];
-    [GameBrain setTotalenemy:level*20];
+    [GameBrain setTotalenemy:sqrtf(level) * 20];
     // test
     //[GameBrain setTotalenemy:level];
     [GameBrain generateWithNumber:Totalenemy level:level];
@@ -57,13 +59,13 @@ static int Totalenemy;
     NSMutableArray * e=[m targetList];
     int differ = totalnumber - [e count];
     if(differ > 0) {
-//        srand((unsigned int) time(NULL));
-//        int num = rand() % differ;
-//        int percentage = ((float)differ / (float)totalnumber) * 100;
-//        percentage = rand() % (100 - percentage);
-//        if (percentage > 30) {
-//            [GameBrain generateWithNumber:num level:level];
-//        }
+        srand((unsigned int) time(NULL));
+        int num = rand() % differ;
+        int percentage = ((float)differ / (float)totalnumber) * 100;
+        percentage = rand() % (100 - percentage);
+        if (percentage > 30) {
+            [GameBrain generateWithNumber:num level:level];
+        }
     }
 }
 
@@ -77,20 +79,20 @@ static int Totalenemy;
         float targetLevel = ((float) (rand() % 100)) / 10.f + (float)level;
         targetLevel = targetLevel > 10.f ? 10.f : targetLevel;
         Target* t = nil;
-        t = [[Spider alloc] initWithX:x Y:y level:targetLevel];
-//        if(percentage > 0 && percentage < 50) {
-//            t = [[Enemy alloc] initWithX:x Y:y level:targetLevel];
-//        } else if(percentage < 60) {
-//            t = [[Spider alloc] initWithX:x Y:y level:targetLevel];
-//        } else if(percentage < 70) {
-//            t = [[Monster alloc] initWithX:x Y:y level:targetLevel];
-//        } else if (percentage < 80) {
-//            t = [[BulletBox alloc] initWithX:x Y:y level:targetLevel];
-//        } else if(percentage < 90) {
-//            t = [[TimePlus alloc] initWithX:x Y:y level:targetLevel];
-//        } else {
-//            t = [[TimeMinus alloc] initWithX:x Y:y level:targetLevel];
-//        }
+        //t = [[Spider alloc] initWithX:x Y:y level:targetLevel];//test
+        if(percentage > 0 && percentage < 50) {
+            t = [[Enemy alloc] initWithX:x Y:y level:targetLevel];
+        } else if(percentage < 60) {
+            t = [[Spider alloc] initWithX:x Y:y level:targetLevel];
+        } else if(percentage < 70) {
+            t = [[Monster alloc] initWithX:x Y:y level:targetLevel];
+        } else if (percentage < 80) {
+            t = [[BulletBox alloc] initWithX:x Y:y level:targetLevel];
+        } else if(percentage < 90) {
+            t = [[TimePlus alloc] initWithX:x Y:y level:targetLevel];
+        } else {
+            t = [[TimeMinus alloc] initWithX:x Y:y level:targetLevel];
+        }
         NSLog(@"Zadd target %f %f",x,y);
         [m createTarget:t];
     }

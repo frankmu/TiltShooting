@@ -9,5 +9,6 @@
 #import "Enemy.h"
 
 @interface Vampire : Enemy
-
+@property (nonatomic) int number;
+- (void) absorb: (Target*) target;
 @end

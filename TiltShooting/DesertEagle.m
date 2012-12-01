@@ -12,7 +12,7 @@
 @implementation DesertEagle
 - (id) init {
     if (self = [super initWithSpeed:1.0f damage:15.0f
-                          skillMana:100.0f bulletCapacity:7 depotRemain: 63]) {
+                          skillMana:20.0f bulletCapacity:7 depotRemain: 63]) {
         // do nothing
     }
     return self;

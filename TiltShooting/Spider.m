@@ -26,7 +26,7 @@
     if (died) {
         id<ModelFullInterface> m = [Model instance];
         Map2Box2D* box = [m map2Box2D];
-        [box separateTarget:self];
+        [box separateTarget:self number:self.splitNumber level:self.level];
     }
     return died;
 }
