@@ -19,6 +19,7 @@
 #import "TimerTask.h"
 #import "Monster.h"
 #import "Spider.h"
+#import "Vampire.h"
 
 #define DEFAULT_START_LEVEL 1
 #define DEFAULT_INTERVAL (1/30.f)
@@ -453,6 +454,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         return TYPE_BULLET_BOX;
     } else if([target isMemberOfClass:[Monster class]]) {
         return TYPE_MONSTER;
+    } else if([target isMemberOfClass:[Vampire class]]) {
+        return TYPE_VAMPIRE;
     }
     return TYPE_UNKNOWN;
 }
