@@ -60,9 +60,9 @@ static int Totalenemy;
     int differ = totalnumber - [e count];
     if(differ > 0) {
         srand((unsigned int) time(NULL));
-        int num = rand() % differ;
+        int num = arc4random() % differ;
         int percentage = ((float)differ / (float)totalnumber) * 100;
-        percentage = rand() % (100 - percentage);
+        percentage = arc4random() % (100 - percentage);
         if (percentage > 30) {
             [GameBrain generateWithNumber:num level:level];
         }
@@ -74,9 +74,9 @@ static int Totalenemy;
     srand((unsigned int) time(NULL));
     for (int i = 0; i < number ; ++i) {
         int percentage=rand()%100;
-        float x = rand() % (int)m.canvasW;
-        float y = rand() % (int)m.canvasH;
-        float targetLevel = ((float) (rand() % 100)) / 10.f + (float)level;
+        float x = arc4random() % (int)m.canvasW;
+        float y = arc4random() % (int)m.canvasH;
+        float targetLevel = ((float) (arc4random() % 100)) / 10.f + (float)level;
         targetLevel = targetLevel > 10.f ? 10.f : targetLevel;
         Target* t = nil;
         //t = [[Spider alloc] initWithX:x Y:y level:targetLevel];//test
