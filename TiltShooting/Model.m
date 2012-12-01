@@ -18,6 +18,7 @@
 #import "cocos2d.h"
 #import "TimerTask.h"
 #import "Monster.h"
+#import "Spider.h"
 
 #define DEFAULT_START_LEVEL 1
 #define DEFAULT_INTERVAL (1/30.f)
@@ -439,6 +440,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         return TYPE_TIME_MINUS;
     } else if ([target isMemberOfClass:[TimePlus class]]) {
         return TYPE_TIME_PLUS;
+    } else if ([target isMemberOfClass:[Spider class]]) {
     } else if([target isMemberOfClass:[BulletBox class]]) {
         return TYPE_BULLET_BOX;
     } else if([target isMemberOfClass:[Monster class]]) {

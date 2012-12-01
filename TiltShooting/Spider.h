@@ -9,5 +9,6 @@
 #import "Enemy.h"
 
 @interface Spider : Enemy
-
+@property (nonatomic) int splitNumber;
+@property (nonatomic) float level;
 @end

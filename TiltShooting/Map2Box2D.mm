@@ -186,24 +186,17 @@
     target->box2dAux=body;
 }
 
--(void)separateTarget:(Target *)target{
-    float x=target.x;
-    float y=target.y;
-    b2Body *body=(b2Body *)target->box2dAux;
-    world->DestroyBody(body);
+-(void)separateTarget:(Target *)target number: (int) number level: (float) level{
+    float x = target.x;
+    float y = target.y;
     id<ModelFullInterface> m = [[Model class] instance];
-    Enemy *enemy=(Enemy *)target;
-    [m deleteTarget:enemy];
-    int num=rand()%3+4;
-    for(int i=0;i<num;i++)
-    {
+    int num = number;
+    for(int i=0;i<num;++i) {
         double temp=tan((i*(360/num)+180.0/num)/180*3.141);
-        Enemy *enemy = [[Enemy alloc] initWithX: x Y: y level:1];
-        [self attachTarget:enemy];
-        [self setMove:enemy :5.0 :(5.0*temp)];
-        [m deleteTarget:enemy];
+        Enemy* enemy = [[Enemy alloc] initWithX: x Y: y level:level];
+        [m createTarget:enemy];
+        [self setMove:enemy :5.0 :(5.0*temp)];        
     }
-    
 }
 
 

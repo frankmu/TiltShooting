@@ -176,6 +176,7 @@
 		ACD223C41669748100C79B82 /* BulletBox.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD223C31669748100C79B82 /* BulletBox.m */; };
 		ACD223C81669771E00C79B82 /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD223C71669771E00C79B82 /* Monster.m */; };
 		ACD223CB1669849300C79B82 /* TimerTask.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD223CA1669849200C79B82 /* TimerTask.m */; };
+		ACD223CE1669DE8D00C79B82 /* Spider.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD223CD1669DE8D00C79B82 /* Spider.m */; };
 		ACE3E2AF16095B1600976AFD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2AE16095B1600976AFD /* QuartzCore.framework */; };
 		ACE3E2B116095B1600976AFD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B016095B1600976AFD /* OpenGLES.framework */; };
 		ACE3E2B316095B1600976AFD /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE3E2B216095B1600976AFD /* OpenAL.framework */; };
@@ -579,6 +580,8 @@
 		ACD223C71669771E00C79B82 /* Monster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Monster.m; sourceTree = "<group>"; };
 		ACD223C91669849100C79B82 /* TimerTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerTask.h; sourceTree = "<group>"; };
 		ACD223CA1669849200C79B82 /* TimerTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerTask.m; sourceTree = "<group>"; };
+		ACD223CC1669DE8C00C79B82 /* Spider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spider.h; sourceTree = "<group>"; };
+		ACD223CD1669DE8D00C79B82 /* Spider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spider.m; sourceTree = "<group>"; };
 		ACD93CEE16190FE500FB1FC7 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "Resources/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		ACD93CF016190FE500FB1FC7 /* fps_images-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-hd.png"; path = "Resources/fps_images-hd.png"; sourceTree = "<group>"; };
 		ACD93CF216190FE500FB1FC7 /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
@@ -1178,6 +1181,8 @@
 				ACD223C31669748100C79B82 /* BulletBox.m */,
 				ACD223C61669771E00C79B82 /* Monster.h */,
 				ACD223C71669771E00C79B82 /* Monster.m */,
+				ACD223CC1669DE8C00C79B82 /* Spider.h */,
+				ACD223CD1669DE8D00C79B82 /* Spider.m */,
 			);
 			name = targets;
 			sourceTree = "<group>";
@@ -2252,6 +2257,7 @@
 				ACD223C41669748100C79B82 /* BulletBox.m in Sources */,
 				ACD223C81669771E00C79B82 /* Monster.m in Sources */,
 				ACD223CB1669849300C79B82 /* TimerTask.m in Sources */,
+				ACD223CE1669DE8D00C79B82 /* Spider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
