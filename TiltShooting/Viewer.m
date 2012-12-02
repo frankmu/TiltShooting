@@ -29,6 +29,7 @@
 
 #define TARGET_SIZE 40.0
 #define BOMB_SIZE 32.0
+#define BULLETBOX_SIZE 40.0
 //Debug Message
 +(void)NSLogDebug:(BOOL)debug withMsg:(NSString*)message{
     if(debug){
@@ -168,6 +169,19 @@
 
 
 }
++(void) showBUlletBox:(Target*)target inLayer:(CCLayer*)layer{
+    GameLayer *glayer=(GameLayer*)layer;
+    
+     CCSprite *tg=[CCSprite spriteWithFile:@"bulletbox.png"];
+     [glayer.background addChild:tg z:1];
+     tg.position=ccp(target.x,target.y);
+     tg.scaleX=target.width/BULLETBOX_SIZE;
+     tg.scaleY=target.height/BULLETBOX_SIZE;
+     NSLog(@"add bullet box at x=%f y=%f",target.x,target.y);
+     target.aux=tg;
+
+
+}
 +(void) showSpiderTarget:(Target*)target inLayer:(CCLayer*)layer{
     CCNode* tg;
     GameLayer *glayer=(GameLayer*)layer;
@@ -178,7 +192,7 @@
         tg=(CCSprite* )[CCSprite spriteWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage key:fileName];
     }
     else{
-        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"SplitTarget.ccbi"];
+        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"EvilTarget.ccbi"];
     }
     glayer.targetNumber++;
     [glayer.background addChild:tg z:1];

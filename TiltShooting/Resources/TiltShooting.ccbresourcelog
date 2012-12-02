@@ -70,6 +70,7 @@ newgame_button_sel.png
 NormalMode1.png
 setting_button.png
 setting_button_sel.png
+SpiderTarget.png
 SplitEvil.png
 start_game.png
 title.png
@@ -77,6 +78,7 @@ ModeMenu.ccbi
 NewExplosion.ccbi
 NormalTarget.ccbi
 ProcessBarPanel.ccbi
+SpiderTarget.ccbi
 SplitTarget.ccbi
 TargetAnimation.ccbi
 TargetExplosionAnimation.ccbi
@@ -86,6 +88,7 @@ back1.png
 back2.png
 bar.png
 barItem.png
+bg5.png
 blocks.png
 bricktargetgreen.png
 bricktargetred.png
@@ -100,6 +103,8 @@ gameover_nextlevel.png
 gameover_nextlevel_sel.png
 gameover_retry.png
 gameover_retry_sel.png
+gameover_ShareButton.png
+gameover_ShareButtonSelected.png
 help_background.png
 mainmenu.png
 mainmenu2.png

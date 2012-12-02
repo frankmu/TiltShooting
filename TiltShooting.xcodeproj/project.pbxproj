@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		963D4F64166BDEA4001756DD /* gameover_ShareButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 963D4F62166BDEA4001756DD /* gameover_ShareButton.png */; };
 		963D4F65166BDEA4001756DD /* gameover_ShareButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 963D4F63166BDEA4001756DD /* gameover_ShareButtonSelected.png */; };
+		963D4F89166BF900001756DD /* SpiderTarget.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 963D4F88166BF900001756DD /* SpiderTarget.ccbi */; };
+		963D4F8B166BF912001756DD /* SpiderTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 963D4F8A166BF912001756DD /* SpiderTarget.png */; };
+		963D4F90166C18E7001756DD /* bulletbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 963D4F8F166C18E7001756DD /* bulletbox.png */; };
 		966A93B4166445BC00B955D1 /* processbar_glow.png in Resources */ = {isa = PBXBuildFile; fileRef = 966A93B3166445BC00B955D1 /* processbar_glow.png */; };
 		966A93B6166447F800B955D1 /* ProcessBarPanel.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 966A93B5166447F800B955D1 /* ProcessBarPanel.ccbi */; };
 		96852E92162D4FBF00F43DF8 /* GameBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 96852E60162D4EB400F43DF8 /* GameBrain.m */; };
@@ -404,6 +407,9 @@
 		963D4F83166BE0FD001756DD /* FBTestSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTestSession.h; sourceTree = "<group>"; };
 		963D4F84166BE0FD001756DD /* FBUserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUserSettingsViewController.h; sourceTree = "<group>"; };
 		963D4F85166BE0FD001756DD /* FBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBViewController.h; sourceTree = "<group>"; };
+		963D4F88166BF900001756DD /* SpiderTarget.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = SpiderTarget.ccbi; path = Resources/SpiderTarget.ccbi; sourceTree = "<group>"; };
+		963D4F8A166BF912001756DD /* SpiderTarget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpiderTarget.png; sourceTree = "<group>"; };
+		963D4F8F166C18E7001756DD /* bulletbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bulletbox.png; sourceTree = "<group>"; };
 		966A93B3166445BC00B955D1 /* processbar_glow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = processbar_glow.png; sourceTree = "<group>"; };
 		966A93B5166447F800B955D1 /* ProcessBarPanel.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = ProcessBarPanel.ccbi; path = Resources/ProcessBarPanel.ccbi; sourceTree = "<group>"; };
 		96852E5E162D4EB400F43DF8 /* CoreEventListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreEventListener.h; sourceTree = "<group>"; };
@@ -1105,6 +1111,7 @@
 				96ADD926166B2C9B00375C18 /* ex.plist */,
 				96ADD91D166B297B00375C18 /* FacebookMode.png */,
 				96ADD91E166B297B00375C18 /* load_picture.png */,
+				963D4F8A166BF912001756DD /* SpiderTarget.png */,
 				96ADD91F166B297B00375C18 /* NormalMode1.png */,
 				96ADD920166B297B00375C18 /* start_game.png */,
 				968C11AC1662D136009C59FA /* aim1.png */,
@@ -1247,6 +1254,7 @@
 		968C113C1661D0E2009C59FA /* gun */ = {
 			isa = PBXGroup;
 			children = (
+				963D4F8F166C18E7001756DD /* bulletbox.png */,
 				96ADD917166B12E000375C18 /* metal_bombgun.png */,
 				96ADD919166B19BF00375C18 /* AimCross3.png */,
 				968C113D1661D0E2009C59FA /* aimcross.png */,
@@ -1390,6 +1398,7 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				963D4F88166BF900001756DD /* SpiderTarget.ccbi */,
 				96ADD933166B381D00375C18 /* NormalTarget.ccbi */,
 				96ADD92F166B346D00375C18 /* EvilTarget.ccbi */,
 				96ADD930166B346E00375C18 /* SplitTarget.ccbi */,
@@ -2199,6 +2208,9 @@
 				96ADD938166B427800375C18 /* bg5.png in Resources */,
 				963D4F64166BDEA4001756DD /* gameover_ShareButton.png in Resources */,
 				963D4F65166BDEA4001756DD /* gameover_ShareButtonSelected.png in Resources */,
+				963D4F89166BF900001756DD /* SpiderTarget.ccbi in Resources */,
+				963D4F8B166BF912001756DD /* SpiderTarget.png in Resources */,
+				963D4F90166C18E7001756DD /* bulletbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

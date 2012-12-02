@@ -19,6 +19,7 @@
 +(void) showTarget:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showBomb:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showTimePlus:(Target*)target inLayer:(CCLayer*)layer;
++(void) showBUlletBox:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showSpiderTarget:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showMonsterTarget:(Target*)target inLayer:(CCLayer*)layer;
 +(void) showAim:(Target*)target inLayer:(CCLayer*)layer;
