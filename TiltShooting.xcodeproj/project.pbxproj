@@ -163,6 +163,7 @@
 		96ADD931166B346E00375C18 /* EvilTarget.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD92F166B346D00375C18 /* EvilTarget.ccbi */; };
 		96ADD932166B346E00375C18 /* SplitTarget.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD930166B346E00375C18 /* SplitTarget.ccbi */; };
 		96ADD934166B381E00375C18 /* NormalTarget.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD933166B381D00375C18 /* NormalTarget.ccbi */; };
+		96ADD938166B427800375C18 /* bg5.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD937166B427800375C18 /* bg5.png */; };
 		96B9904E16332E780067583C /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9904D16332E770067583C /* Weapon.m */; };
 		96B99051163336870067583C /* TimeProcessBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B99050163336870067583C /* TimeProcessBar.m */; };
 		96BF80121666E1BF0063BF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BF80111666E1BF0063BF75 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -567,6 +568,7 @@
 		96ADD92F166B346D00375C18 /* EvilTarget.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = EvilTarget.ccbi; path = Resources/EvilTarget.ccbi; sourceTree = "<group>"; };
 		96ADD930166B346E00375C18 /* SplitTarget.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = SplitTarget.ccbi; path = Resources/SplitTarget.ccbi; sourceTree = "<group>"; };
 		96ADD933166B381D00375C18 /* NormalTarget.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = NormalTarget.ccbi; path = Resources/NormalTarget.ccbi; sourceTree = "<group>"; };
+		96ADD937166B427800375C18 /* bg5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg5.png; sourceTree = "<group>"; };
 		96B9904C16332E770067583C /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		96B9904D16332E770067583C /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
 		96B9904F163336870067583C /* TimeProcessBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeProcessBar.h; sourceTree = "<group>"; };
@@ -1118,6 +1120,7 @@
 		968C11111661D0E2009C59FA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				96ADD937166B427800375C18 /* bg5.png */,
 				966A93B3166445BC00B955D1 /* processbar_glow.png */,
 				968C11121661D0E2009C59FA /* aniexplode.plist */,
 				968C11131661D0E2009C59FA /* aniexplode.png */,
@@ -2117,6 +2120,7 @@
 				96ADD931166B346E00375C18 /* EvilTarget.ccbi in Resources */,
 				96ADD932166B346E00375C18 /* SplitTarget.ccbi in Resources */,
 				96ADD934166B381E00375C18 /* NormalTarget.ccbi in Resources */,
+				96ADD938166B427800375C18 /* bg5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

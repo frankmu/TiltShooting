@@ -49,7 +49,10 @@
         //[Viewer showMenuBackground:self];
         CGSize size = [[CCDirector sharedDirector] winSize];
 		// Load background 1440*960 ??
-		background = [CCSprite spriteWithFile:@"nightsky.png"];
+		//background = [CCSprite spriteWithFile:@"nightsky.png"];
+        //background 960*640
+        background =[CCSprite spriteWithFile:@"bg5.png"];
+
 		[self addChild:background z:0 tag:9];
         background.position=ccp( size.width /2 , size.height/2 );
         /**  init time bar  */
@@ -113,7 +116,8 @@
         // register to model event listener
         id<ModelInterface>  model = [[Model class] instance];
         [model addToCoreEventListenerList:self];
-        
+        //set canvas size and position
+        [model decideCanvasX:240.0f canvasY:160.0f canvasWidth:960.0f canvasHeight:640.0f deviceWidth:480.0f deviceHeight:320.0f];
 		//debug
         [self setDebug:YES];
         

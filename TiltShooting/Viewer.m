@@ -245,7 +245,7 @@
     TYPE_TARGET type= [Model targetType:target];
     if(!glayer.facebookEnable && type==TYPE_ENEMY){
         float health=target.hp/target.maxHp;
-    
+        NSLog(@"broke target!");
         if(health<0.6 && health>0.3){
             //random a light broke
             int i= arc4random() % 5+1;

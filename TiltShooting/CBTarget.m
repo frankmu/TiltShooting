@@ -24,9 +24,9 @@
 {
     // Remove the explosion object after the animation has finished
     //self.isScheduledForRemove = YES;
-    if([name isEqualToString:@"TargetExplosion"]){
-        [self removeFromParentAndCleanup:YES];
-    }
+   // if([name isEqualToString:@"TargetExplosion"]){
+   //     [self removeFromParentAndCleanup:YES];
+   // }
 }
 
 //run timeline
