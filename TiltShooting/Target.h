@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "WeaponBase.h"
 
-#define MAX_SIZE 70.f
+#define MAX_SIZE 60.f
 #define MIN_SIZE 20.f
 #define MAX_LEVEL 10.f
 #define SIZE_PER_LEVEL ((MAX_SIZE - MIN_SIZE) / MAX_LEVEL)

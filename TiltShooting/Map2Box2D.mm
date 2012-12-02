@@ -195,7 +195,7 @@
         double temp=tan((i*(360/num)+180.0/num)/180*3.141);
         Enemy* enemy = [[Enemy alloc] initWithX: x Y: y level:level];
         [m createTarget:enemy];
-        [self setMove:enemy :5.0 :(5.0*temp)];        
+        [self setMove:enemy :2.0 :(2.0*temp)];
     }
 }
 

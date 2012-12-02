@@ -63,7 +63,7 @@ static int Totalenemy;
         int num = arc4random() % differ;
         int percentage = ((float)differ / (float)totalnumber) * 100;
         percentage = arc4random() % (100 - percentage);
-        if (percentage > 30) {
+        if (percentage > 50) {
             [GameBrain generateWithNumber:num level:level];
         }
     }

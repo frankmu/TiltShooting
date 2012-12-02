@@ -15,7 +15,7 @@
     float bonus = BONUS(10, level);
     float size = SIZE_FORWARD(level);
     if (self = [super initWithX:x Y:y width:size height:size hp:hp bonus:bonus]) {
-        self.splitNumber = level + 1;
+        self.splitNumber = level > 5 ? 5 : level;
         self.level = level;
     }
     return self;

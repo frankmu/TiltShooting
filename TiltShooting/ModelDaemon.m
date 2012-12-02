@@ -102,7 +102,7 @@
         [m resetSwitchWeaponChange];
         NSMutableArray *weaponList = [m weaponList];
         NSUInteger index = [weaponList indexOfObject: [m currentWeapon]];
-        index = (index + switchWeaponChange) % [weaponList count];
+        index = (index + switchWeaponChange + [weaponList count]) % [weaponList count];
         WeaponBase *newWeapon = [weaponList objectAtIndex:index];
         [m setCurrentWeapon:newWeapon];
         [m fireWeaponStatusChangeEvent: [m currentWeapon]];
@@ -151,6 +151,7 @@
         [m setAimMoved:NO];
         [m fireTargetMoveEvent:[m aim]];
     }
+    
     [[GameBrain class] refreshGameWithLevel:[m currentLevel]];
     [[m map2Box2D] step];
 }
