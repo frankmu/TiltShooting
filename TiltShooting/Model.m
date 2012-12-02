@@ -503,17 +503,17 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) refreshTimerTaskList: (NSTimeInterval) time {
-    NSMutableArray* tbd = [[NSMutableArray alloc] init];
+    int count = 0;
     for (TimerTask* task in [self.timerTaskList copy]) {
         task.time -= time;
         if (task.time <= 0) {
             NSTimeInterval inc = task.block(task.aux);
             task.time += inc;
             if (task.time <= 0) {
-                [tbd addObject:task];
+                [self.timerTaskList removeObjectAtIndex:count];
             }
         }
+        ++count;
     }
-    [self.timerTaskList removeObjectsInArray:tbd];
 }
 @end

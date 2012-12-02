@@ -70,6 +70,7 @@
     ++ self.runningTimes;
     BOOL runEvery2Time = self.runningTimes % 2 == 0;
     [self runEveryTime:interval];
+    [[m map2Box2D] step];
     if (runEvery2Time) {
         [self runEvery2Time:interval];
     }
@@ -153,7 +154,6 @@
     }
     
     [[GameBrain class] refreshGameWithLevel:[m currentLevel]];
-    [[m map2Box2D] step];
 }
 
 - (void) runEvery2Time: (NSTimeInterval) interval {
