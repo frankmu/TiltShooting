@@ -158,9 +158,9 @@
     target->box2dAux = NULL;
 }
 
-- (void) step {
-    if (world->IsLocked()) return;
-    world->Step(self.interval, self.velocityIterations, self.positionIterations);
+- (void) step: (NSTimeInterval) interval {
+    if (world == NULL || world->IsLocked()) return;
+    world->Step(interval, self.velocityIterations, self.positionIterations);
     
 //    NSLog(@"start_________");
 //    int count=0;

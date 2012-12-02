@@ -85,7 +85,7 @@ typedef enum {
 - (void) setDeviceWidth: (float) dw height: (float)  dh;
 - (void) switchToNextWeapon;
 - (void) switchToPreviousWeapon;
-
+- (int) combo;
 /* Game Control */
 
 /* Conf. */

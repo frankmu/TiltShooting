@@ -53,12 +53,12 @@
                                                  :SHOOT_RANGE];
     BOOL hitHappen = NO;
     self.bulletRemain -= 1;
-    int totalNumber = 15;
+    int totalNumber = arc4random() % 10 + 5;
     for (Target *t in array) {
         int number = totalNumber <= 2 ? 1 : arc4random() % totalNumber;
         totalNumber -= number;
         [t onShootBy:self with:^(WeaponBase* weapon, Target* target){
-            target.hp -= weapon.damage * number * ((float)[m combo] / 10.f + 1.f);
+            target.hp -= weapon.damage * number;
         }];
         hitHappen = YES;
     }

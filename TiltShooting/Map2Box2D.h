@@ -15,7 +15,7 @@
 - (BOOL) isLock;
 - (void) createWorldWithWidth: (float)width height: (float)height;
 - (void) destoryWorld;
-- (void) step;
+- (void) step: (NSTimeInterval) interval;
 - (void) attachTarget: (Target *)target;
 - (void) deleteTarget: (Target *)target;
 - (Target *) locateTargetByX: (float)x y: (float)y;

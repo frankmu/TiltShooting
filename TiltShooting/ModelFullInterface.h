@@ -75,6 +75,5 @@
 - (void) refreshTimerTaskList: (NSTimeInterval) time;
 - (void) removeTimerTask: (id) obj;
 - (ModelDaemon*) daemon;
-- (int) combo;
 
 @end

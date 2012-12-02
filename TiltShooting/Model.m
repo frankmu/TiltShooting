@@ -417,17 +417,17 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 
 
 - (void) updateScoreByBonus:(float)bonus {
-    [self incScore:bonus * 3];
+    [self incScore:bonus];
 }
 
 - (void) updateScoreByDestroy:(Target *)t {
-    [self incScore:t.hp];
+    [self incScore: t.bonus * 2];
 }
 
 - (void) updateScoreByHit:(Target *)t {
     self.combo = t != nil ? self.combo + 1 : 0;
     if (self.combo != 0) {
-        [self incScore: self.combo * t.bonus];
+        [self incScore: sqrtf(self.combo) * t.bonus];
     }
 }
 

@@ -15,13 +15,17 @@
 @interface ModelDaemon ()
 
 @property (weak) NSTimer *timer;
+@property (strong) NSLock *lock;
 @property NSUInteger runningTimes;
+@property NSTimeInterval interval;
 @end
 
 @implementation ModelDaemon
 - (id) init {
     if (self = [super init]) {
         self.runningTimes = 0;
+        self.interval = 0;
+        self.lock = [[NSLock alloc] init];
         self.flushInterval = DEFAULT_FLUSH_INTERVAL;
     }
     return self;
@@ -50,6 +54,7 @@
 
 - (void) stop {
     self.runningTimes = 0;
+    self.interval = 0;
     [self.timer invalidate];
     NSLog(@"Model Daemon Stop");
 }
@@ -62,20 +67,26 @@
 
 - (void) run: (NSTimeInterval)interval {
     id<ModelFullInterface> m = [[Model class] instance];
-    
+    self.interval += interval;
     if ([m status] != RUNNING) {
+        return;
+    }
+    
+    BOOL ret = [self.lock tryLock];
+    if (!ret) {
         return;
     }
     
     ++ self.runningTimes;
     BOOL runEvery2Time = self.runningTimes % 2 == 0;
-    [self runEveryTime:interval];
-    [[m map2Box2D] step];
+    [self runEveryTime:self.interval];
+    [[m map2Box2D] step: self.interval];
     if (runEvery2Time) {
-        [self runEvery2Time:interval];
+        [self runEvery2Time:self.interval];
     }
-    
+    self.interval = 0;
     [m fireFlushFinish];
+    [self.lock unlock];
 }
 
 - (void) runEveryTime: (NSTimeInterval) interval {
