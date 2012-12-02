@@ -12,7 +12,7 @@
 
 @implementation Monster
 - (id) initWithX:(float)x Y:(float)y level:(float) level {
-    float hp = HP(20, 10, level);
+    float hp = HP(150, 20, level);
     float bonus = BONUS(10, level);
     float size = SIZE_FORWARD(level);
     if (self = [super initWithX:x Y:y width:size height:size hp:hp bonus:bonus]) {

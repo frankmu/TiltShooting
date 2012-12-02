@@ -69,32 +69,35 @@ static int Totalenemy;
     }
 }
 
-+ (void) generateWithNumber:(int)number level:(int)level {
++ (void) randomGen: (int) level {
     id<ModelFullInterface> m = [[Model class] instance];
-    srand((unsigned int) time(NULL));
+    int percentage=rand() % 100;
+    float x = arc4random() % (int)m.canvasW;
+    float y = arc4random() % (int)m.canvasH;
+    float targetLevel = ((float) (arc4random() % 100)) / 10.f + (float)level;
+    targetLevel = targetLevel > 10.f ? 10.f : targetLevel;
+    Target* t = nil;
+    //t = [[Spider alloc] initWithX:x Y:y level:targetLevel];//test
+    if(percentage > 0 && percentage < 50) {
+        t = [[Enemy alloc] initWithX:x Y:y level:targetLevel];
+    } else if(percentage < 60) {
+        t = [[Spider alloc] initWithX:x Y:y level:targetLevel];
+    } else if(percentage < 65) {
+        t = [[Monster alloc] initWithX:x Y:y level:targetLevel];
+    } else if (percentage < 80) {
+        t = [[BulletBox alloc] initWithX:x Y:y level:targetLevel];
+    } else if(percentage < 90) {
+        t = [[TimePlus alloc] initWithX:x Y:y level:targetLevel];
+    } else {
+        t = [[TimeMinus alloc] initWithX:x Y:y level:targetLevel];
+    }
+    [m createTarget:t];
+}
+
++ (void) generateWithNumber:(int)number level:(int)level {
+    
     for (int i = 0; i < number ; ++i) {
-        int percentage=rand()%100;
-        float x = arc4random() % (int)m.canvasW;
-        float y = arc4random() % (int)m.canvasH;
-        float targetLevel = ((float) (arc4random() % 100)) / 10.f + (float)level;
-        targetLevel = targetLevel > 10.f ? 10.f : targetLevel;
-        Target* t = nil;
-        //t = [[Spider alloc] initWithX:x Y:y level:targetLevel];//test
-        if(percentage > 0 && percentage < 50) {
-            t = [[Enemy alloc] initWithX:x Y:y level:targetLevel];
-        } else if(percentage < 60) {
-            t = [[Spider alloc] initWithX:x Y:y level:targetLevel];
-        } else if(percentage < 70) {
-            t = [[Monster alloc] initWithX:x Y:y level:targetLevel];
-        } else if (percentage < 80) {
-            t = [[BulletBox alloc] initWithX:x Y:y level:targetLevel];
-        } else if(percentage < 90) {
-            t = [[TimePlus alloc] initWithX:x Y:y level:targetLevel];
-        } else {
-            t = [[TimeMinus alloc] initWithX:x Y:y level:targetLevel];
-        }
-        NSLog(@"Zadd target %f %f",x,y);
-        [m createTarget:t];
+        [self randomGen: level];
     }
 }
 

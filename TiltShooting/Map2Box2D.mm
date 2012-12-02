@@ -168,6 +168,9 @@
     for (b2Body *b = world->GetBodyList(); b; b = b->GetNext())
     {
         Target* t = (__bridge Target*)b->GetUserData();
+        if (t == nil) {
+            continue;
+        }
         b2Vec2 p =  b->GetPosition();
         t.x = [self b2c:p.x];
         t.y = [self b2c:p.y];
@@ -180,6 +183,7 @@
 
 - (void) setMove:(Target *)target :(float)x :(float)y{
     b2Body *body=(b2Body *)target->box2dAux;
+    if (body == NULL) return;
     b2Vec2 direction;
 	direction.Set(x,y);
 	body->SetLinearVelocity(direction);
@@ -239,7 +243,6 @@
          t = (__bridge Target*)(callback.retBody->GetUserData());
     }
     
-    NSLog(@"[%f, %f] %@", x, y, t);
     return t;
 }
 - (NSMutableArray *)locateRangeTargetX:(float)x y:(float)y :(float)width :(float)height{
