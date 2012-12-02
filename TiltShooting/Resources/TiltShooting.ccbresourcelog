@@ -1,5 +1,6 @@
 AimCross1.ccbi
 AimCross2.ccbi
+AimCross3.ccbi
 ak104-hd.png
 Bomb.ccbi
 ccbDefaultImages-hd.plist
@@ -22,8 +23,10 @@ fps_images-hd.png
 fps_images-ipadhd.png
 fps_images.png
 aimcross.png
+AimCross3.png
 ak104.png
 handgun.png
+metal_bombgun.png
 handgun-hd.png
 Icon-72.png
 Icon-Small-50.png
@@ -112,3 +115,4 @@ WeaponPanel.ccbi
 WeaponPanelDE.ccbi
 WeaponPanelM4A1.ccbi
 WeaponPanelM4A1b.ccbi
+WeaponPanelPK.ccbi

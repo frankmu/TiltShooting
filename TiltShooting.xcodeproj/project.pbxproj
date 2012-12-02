@@ -147,6 +147,10 @@
 		968C11B61662D243009C59FA /* CBAimCross.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C11B51662D240009C59FA /* CBAimCross.m */; };
 		968C11B81662DE15009C59FA /* FireSpark.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 968C11B71662DE15009C59FA /* FireSpark.ccbi */; };
 		968C11BB1662DE3A009C59FA /* FireSpark.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C11BA1662DE35009C59FA /* FireSpark.m */; };
+		96ADD916166B119000375C18 /* WeaponPanelPK.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD915166B119000375C18 /* WeaponPanelPK.ccbi */; };
+		96ADD918166B12E000375C18 /* metal_bombgun.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD917166B12E000375C18 /* metal_bombgun.png */; };
+		96ADD91A166B19BF00375C18 /* AimCross3.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD919166B19BF00375C18 /* AimCross3.png */; };
+		96ADD91C166B19D000375C18 /* AimCross3.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD91B166B19D000375C18 /* AimCross3.ccbi */; };
 		96B9904E16332E780067583C /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9904D16332E770067583C /* Weapon.m */; };
 		96B99051163336870067583C /* TimeProcessBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B99050163336870067583C /* TimeProcessBar.m */; };
 		96BF80121666E1BF0063BF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BF80111666E1BF0063BF75 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -535,6 +539,10 @@
 		968C11B71662DE15009C59FA /* FireSpark.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = FireSpark.ccbi; path = Resources/FireSpark.ccbi; sourceTree = "<group>"; };
 		968C11B91662DE32009C59FA /* FireSpark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireSpark.h; sourceTree = "<group>"; };
 		968C11BA1662DE35009C59FA /* FireSpark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireSpark.m; sourceTree = "<group>"; };
+		96ADD915166B119000375C18 /* WeaponPanelPK.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = WeaponPanelPK.ccbi; path = Resources/WeaponPanelPK.ccbi; sourceTree = "<group>"; };
+		96ADD917166B12E000375C18 /* metal_bombgun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metal_bombgun.png; sourceTree = "<group>"; };
+		96ADD919166B19BF00375C18 /* AimCross3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AimCross3.png; sourceTree = "<group>"; };
+		96ADD91B166B19D000375C18 /* AimCross3.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = AimCross3.ccbi; path = Resources/AimCross3.ccbi; sourceTree = "<group>"; };
 		96B9904C16332E770067583C /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		96B9904D16332E770067583C /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
 		96B9904F163336870067583C /* TimeProcessBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeProcessBar.h; sourceTree = "<group>"; };
@@ -1129,6 +1137,8 @@
 		968C113C1661D0E2009C59FA /* gun */ = {
 			isa = PBXGroup;
 			children = (
+				96ADD917166B12E000375C18 /* metal_bombgun.png */,
+				96ADD919166B19BF00375C18 /* AimCross3.png */,
 				968C113D1661D0E2009C59FA /* aimcross.png */,
 				968C113E1661D0E2009C59FA /* ak104.png */,
 				968C113F1661D0E2009C59FA /* handgun.png */,
@@ -1269,6 +1279,7 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96ADD915166B119000375C18 /* WeaponPanelPK.ccbi */,
 				96CDC70D16687517000DDC84 /* WeaponPanelDE.ccbi */,
 				96CDC70B16686FF0000DDC84 /* WeaponPanelM4A1b.ccbi */,
 				96BF802516676E160063BF75 /* FBMenuNode.ccbi */,
@@ -1278,6 +1289,7 @@
 				968C11B71662DE15009C59FA /* FireSpark.ccbi */,
 				968C11B01662D166009C59FA /* AimCross1.ccbi */,
 				968C11B11662D166009C59FA /* AimCross2.ccbi */,
+				96ADD91B166B19D000375C18 /* AimCross3.ccbi */,
 				968C11A61662BCCC009C59FA /* Bomb.ccbi */,
 				968C11791661ED67009C59FA /* WeaponPanel.ccbi */,
 				968C119B1661FBB4009C59FA /* Explosion.ccbi */,
@@ -2053,6 +2065,10 @@
 				96BF802616676E160063BF75 /* FBMenuNode.ccbi in Resources */,
 				96CDC70C16686FF0000DDC84 /* WeaponPanelM4A1b.ccbi in Resources */,
 				96CDC70E16687517000DDC84 /* WeaponPanelDE.ccbi in Resources */,
+				96ADD916166B119000375C18 /* WeaponPanelPK.ccbi in Resources */,
+				96ADD918166B12E000375C18 /* metal_bombgun.png in Resources */,
+				96ADD91A166B19BF00375C18 /* AimCross3.png in Resources */,
+				96ADD91C166B19D000375C18 /* AimCross3.ccbi in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,7 @@
 #import "CBTarget.h"
 #import "CCBReader.h"
 #import "CBAimCross.h"
+#import "PeaceKeeper.h"
 @implementation Viewer
 //@synthesize spriteSheet;
 //@synthesize explodeAnim;
@@ -383,6 +384,15 @@
         }
         else if([[[m weaponList] objectAtIndex:j] isMemberOfClass:[M4A1 class]]){
             Weapon* gun=[[Weapon node]initWithType:2];
+            [weaponList addObject:gun];
+            //init weapon status
+            [gun changeClipAmmo:modelGun.bulletCapacity];
+            [gun changeCurrentAmmo:modelGun.depotRemain];
+            [gun changeCurrentClipAmmo:modelGun.bulletRemain];
+            modelGun.aux=gun;
+        }
+        else if([[[m weaponList] objectAtIndex:j] isMemberOfClass:[PeaceKeeper class]]){
+            Weapon* gun=[[Weapon node]initWithType:3];
             [weaponList addObject:gun];
             //init weapon status
             [gun changeClipAmmo:modelGun.bulletCapacity];

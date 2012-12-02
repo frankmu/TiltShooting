@@ -308,6 +308,11 @@
         
             [self schedule:@selector(fireWeapon) interval:0.1 repeat:0 delay:0];
         }
+        if(self.currentWeapon.type==3){
+            //expand aim
+            [(CBAimCross*)self.currentWeapon.aim runTimeLine:@"ExpandAim"];
+        }
+
     }
     return YES;
 }

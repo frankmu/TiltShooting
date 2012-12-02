@@ -35,6 +35,11 @@
             panel=[CCBReader nodeGraphFromFile:@"WeaponPanelM4A1b.ccbi" owner:self];
             aim=[CCBReader nodeGraphFromFile:@"AimCross2.ccbi"];
             break;
+        case 3://peacekeeper
+            NSLog(@"init weapon type 3 info");
+            panel=[CCBReader nodeGraphFromFile:@"WeaponPanelPK.ccbi" owner:self];
+            aim=[CCBReader nodeGraphFromFile:@"AimCross3.ccbi"];
+            break;
         default:
             break;
     }
