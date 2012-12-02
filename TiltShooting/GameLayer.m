@@ -404,8 +404,13 @@
             [Viewer showAim:target inLayer:self];
             break;
         case TYPE_ENEMY:
-        case TYPE_SPIDER:
             [Viewer showTarget:target inLayer:self];
+            break;
+        case TYPE_MONSTER:
+            [Viewer showMonsterTarget:target inLayer:self];
+            break;
+        case TYPE_SPIDER:
+            [Viewer showSpiderTarget:target inLayer:self];
             break;
         case TYPE_TIME_MINUS:
             //test using bomb
@@ -432,6 +437,15 @@
                 [Viewer removeAim:target inLayer:self];
                 break;
             case TYPE_ENEMY:
+                NSLog(@"show explode on target");
+                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
+                [Viewer removeTarget:target inLayer:self];
+                break;
+            case TYPE_MONSTER:
+                NSLog(@"show explode on target");
+                [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];
+                [Viewer removeBomb:target inLayer:self];
+                break;
             case TYPE_SPIDER:
                 NSLog(@"show explode on target");
                 [viewer showExplodeInLayer:self at:ccp(target.x,target.y)];

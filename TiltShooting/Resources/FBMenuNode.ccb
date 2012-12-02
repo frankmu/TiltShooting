@@ -499,8 +499,8 @@
 										<string>ScaleLock</string>
 										<key>value</key>
 										<array>
-											<real>0.76941090822219849</real>
-											<real>0.71602886915206909</real>
+											<real>0.54901307821273804</real>
+											<real>0.6201322078704834</real>
 											<false/>
 											<integer>0</integer>
 										</array>
@@ -540,7 +540,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>menu_v2/newgame_button.png</string>
+											<string>menu_v2/start_game.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -551,7 +551,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>menu_v2/newgame_button_sel.png</string>
+											<string>menu_v2/start_game.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -562,7 +562,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>menu_v2/newgame_button.png</string>
+											<string>menu_v2/start_game.png</string>
 										</array>
 									</dict>
 								</array>
@@ -725,8 +725,8 @@
 										<string>ScaleLock</string>
 										<key>value</key>
 										<array>
-											<real>0.48353910446166992</real>
-											<real>0.62329727411270142</real>
+											<real>0.55431634187698364</real>
+											<real>0.58990371227264404</real>
 											<false/>
 											<integer>0</integer>
 										</array>
@@ -766,7 +766,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>UI/menu_button2.png</string>
+											<string>menu_v2/load_picture.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -777,7 +777,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>UI/menu_button2_sel.png</string>
+											<string>menu_v2/load_picture.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -788,7 +788,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>UI/menu_button2.png</string>
+											<string>menu_v2/load_picture.png</string>
 										</array>
 									</dict>
 								</array>
@@ -1089,8 +1089,6 @@
 								<string>Please download first </string>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>

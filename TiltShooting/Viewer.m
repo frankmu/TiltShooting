@@ -106,7 +106,7 @@
         tg=(CCSprite* )[CCSprite spriteWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage key:fileName];
     }
     else{
-        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"TargetAnimation.ccbi"];
+        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"NormalTarget.ccbi"];
     }
     glayer.targetNumber++;
     [glayer.background addChild:tg z:1];
@@ -143,6 +143,50 @@
     target.aux=tg;
 
 
+
+}
++(void) showMonsterTarget:(Target*)target inLayer:(CCLayer*)layer{
+    CCNode* tg;
+    GameLayer *glayer=(GameLayer*)layer;
+    if(glayer.facebookEnable){
+        int i= arc4random() % glayer.FBInfo.count;
+        NSString *fileName = [NSString stringWithFormat:@"Test%d.png", glayer.targetNumber];
+        //tg=(CCSprite* )[CCSprite spriteWithCGImage:([UIImage imageWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage]).CGImage key:fileName];
+        tg=(CCSprite* )[CCSprite spriteWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage key:fileName];
+    }
+    else{
+        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"EvilTarget.ccbi"];
+    }
+    glayer.targetNumber++;
+    [glayer.background addChild:tg z:1];
+    tg.position=ccp(target.x,target.y);
+    tg.scaleX=target.width/TARGET_SIZE;
+    tg.scaleY=target.height/TARGET_SIZE;
+    NSLog(@"add monster target at x=%f y=%f",target.x,target.y);
+    target.aux=tg;
+
+
+
+}
++(void) showSpiderTarget:(Target*)target inLayer:(CCLayer*)layer{
+    CCNode* tg;
+    GameLayer *glayer=(GameLayer*)layer;
+    if(glayer.facebookEnable){
+        int i= arc4random() % glayer.FBInfo.count;
+        NSString *fileName = [NSString stringWithFormat:@"Test%d.png", glayer.targetNumber];
+        //tg=(CCSprite* )[CCSprite spriteWithCGImage:([UIImage imageWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage]).CGImage key:fileName];
+        tg=(CCSprite* )[CCSprite spriteWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage key:fileName];
+    }
+    else{
+        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"SplitTarget.ccbi"];
+    }
+    glayer.targetNumber++;
+    [glayer.background addChild:tg z:1];
+    tg.position=ccp(target.x,target.y);
+    tg.scaleX=target.width/TARGET_SIZE;
+    tg.scaleY=target.height/TARGET_SIZE;
+    NSLog(@"add spider target at x=%f y=%f",target.x,target.y);
+    target.aux=tg;
 
 }
 +(void) showAim:(Target*)target inLayer:(CCLayer*)layer{
@@ -198,7 +242,8 @@
     spark.position=ccp(target.x,target.y);
     
     //check health
-    if(!glayer.facebookEnable){
+    TYPE_TARGET type= [Model targetType:target];
+    if(!glayer.facebookEnable && type==TYPE_ENEMY){
         float health=target.hp/target.maxHp;
     
         if(health<0.6 && health>0.3){
@@ -225,7 +270,9 @@
     //special effect
     if (glayer.currentWeapon.type==2) {
         //show a big explosion, use normal explosion temp
-        
+        CCNode* spark = [CCBReader nodeGraphFromFile:@"NewExplosion.ccbi"];
+        [glayer.background addChild:spark z:6];
+        spark.position=ccp([m aim].x,[m aim].y);
     }
 
 }

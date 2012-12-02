@@ -151,6 +151,18 @@
 		96ADD918166B12E000375C18 /* metal_bombgun.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD917166B12E000375C18 /* metal_bombgun.png */; };
 		96ADD91A166B19BF00375C18 /* AimCross3.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD919166B19BF00375C18 /* AimCross3.png */; };
 		96ADD91C166B19D000375C18 /* AimCross3.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD91B166B19D000375C18 /* AimCross3.ccbi */; };
+		96ADD921166B297B00375C18 /* FacebookMode.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD91D166B297B00375C18 /* FacebookMode.png */; };
+		96ADD922166B297B00375C18 /* load_picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD91E166B297B00375C18 /* load_picture.png */; };
+		96ADD923166B297B00375C18 /* NormalMode1.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD91F166B297B00375C18 /* NormalMode1.png */; };
+		96ADD924166B297B00375C18 /* start_game.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD920166B297B00375C18 /* start_game.png */; };
+		96ADD927166B2C9B00375C18 /* ex.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD925166B2C9B00375C18 /* ex.png */; };
+		96ADD928166B2C9B00375C18 /* ex.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD926166B2C9B00375C18 /* ex.plist */; };
+		96ADD92A166B2DC100375C18 /* NewExplosion.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD929166B2DC000375C18 /* NewExplosion.ccbi */; };
+		96ADD92D166B33D200375C18 /* EvilTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD92B166B33D200375C18 /* EvilTarget.png */; };
+		96ADD92E166B33D200375C18 /* SplitEvil.png in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD92C166B33D200375C18 /* SplitEvil.png */; };
+		96ADD931166B346E00375C18 /* EvilTarget.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD92F166B346D00375C18 /* EvilTarget.ccbi */; };
+		96ADD932166B346E00375C18 /* SplitTarget.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD930166B346E00375C18 /* SplitTarget.ccbi */; };
+		96ADD934166B381E00375C18 /* NormalTarget.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 96ADD933166B381D00375C18 /* NormalTarget.ccbi */; };
 		96B9904E16332E780067583C /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9904D16332E770067583C /* Weapon.m */; };
 		96B99051163336870067583C /* TimeProcessBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B99050163336870067583C /* TimeProcessBar.m */; };
 		96BF80121666E1BF0063BF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BF80111666E1BF0063BF75 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -543,6 +555,18 @@
 		96ADD917166B12E000375C18 /* metal_bombgun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metal_bombgun.png; sourceTree = "<group>"; };
 		96ADD919166B19BF00375C18 /* AimCross3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AimCross3.png; sourceTree = "<group>"; };
 		96ADD91B166B19D000375C18 /* AimCross3.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = AimCross3.ccbi; path = Resources/AimCross3.ccbi; sourceTree = "<group>"; };
+		96ADD91D166B297B00375C18 /* FacebookMode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FacebookMode.png; sourceTree = "<group>"; };
+		96ADD91E166B297B00375C18 /* load_picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load_picture.png; sourceTree = "<group>"; };
+		96ADD91F166B297B00375C18 /* NormalMode1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NormalMode1.png; sourceTree = "<group>"; };
+		96ADD920166B297B00375C18 /* start_game.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_game.png; sourceTree = "<group>"; };
+		96ADD925166B2C9B00375C18 /* ex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex.png; sourceTree = "<group>"; };
+		96ADD926166B2C9B00375C18 /* ex.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ex.plist; sourceTree = "<group>"; };
+		96ADD929166B2DC000375C18 /* NewExplosion.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = NewExplosion.ccbi; path = Resources/NewExplosion.ccbi; sourceTree = "<group>"; };
+		96ADD92B166B33D200375C18 /* EvilTarget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EvilTarget.png; sourceTree = "<group>"; };
+		96ADD92C166B33D200375C18 /* SplitEvil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplitEvil.png; sourceTree = "<group>"; };
+		96ADD92F166B346D00375C18 /* EvilTarget.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = EvilTarget.ccbi; path = Resources/EvilTarget.ccbi; sourceTree = "<group>"; };
+		96ADD930166B346E00375C18 /* SplitTarget.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = SplitTarget.ccbi; path = Resources/SplitTarget.ccbi; sourceTree = "<group>"; };
+		96ADD933166B381D00375C18 /* NormalTarget.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = NormalTarget.ccbi; path = Resources/NormalTarget.ccbi; sourceTree = "<group>"; };
 		96B9904C16332E770067583C /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		96B9904D16332E770067583C /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
 		96B9904F163336870067583C /* TimeProcessBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeProcessBar.h; sourceTree = "<group>"; };
@@ -1000,6 +1024,14 @@
 		968C10BE16618EFD009C59FA /* menu_v2 */ = {
 			isa = PBXGroup;
 			children = (
+				96ADD92B166B33D200375C18 /* EvilTarget.png */,
+				96ADD92C166B33D200375C18 /* SplitEvil.png */,
+				96ADD925166B2C9B00375C18 /* ex.png */,
+				96ADD926166B2C9B00375C18 /* ex.plist */,
+				96ADD91D166B297B00375C18 /* FacebookMode.png */,
+				96ADD91E166B297B00375C18 /* load_picture.png */,
+				96ADD91F166B297B00375C18 /* NormalMode1.png */,
+				96ADD920166B297B00375C18 /* start_game.png */,
 				968C11AC1662D136009C59FA /* aim1.png */,
 				968C11AD1662D136009C59FA /* aim2.png */,
 				968C11971661F99C009C59FA /* bricktargetgreen.png */,
@@ -1279,6 +1311,10 @@
 		ACE3E2C116095B1600976AFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96ADD933166B381D00375C18 /* NormalTarget.ccbi */,
+				96ADD92F166B346D00375C18 /* EvilTarget.ccbi */,
+				96ADD930166B346E00375C18 /* SplitTarget.ccbi */,
+				96ADD929166B2DC000375C18 /* NewExplosion.ccbi */,
 				96ADD915166B119000375C18 /* WeaponPanelPK.ccbi */,
 				96CDC70D16687517000DDC84 /* WeaponPanelDE.ccbi */,
 				96CDC70B16686FF0000DDC84 /* WeaponPanelM4A1b.ccbi */,
@@ -2069,6 +2105,18 @@
 				96ADD918166B12E000375C18 /* metal_bombgun.png in Resources */,
 				96ADD91A166B19BF00375C18 /* AimCross3.png in Resources */,
 				96ADD91C166B19D000375C18 /* AimCross3.ccbi in Resources */,
+				96ADD921166B297B00375C18 /* FacebookMode.png in Resources */,
+				96ADD922166B297B00375C18 /* load_picture.png in Resources */,
+				96ADD923166B297B00375C18 /* NormalMode1.png in Resources */,
+				96ADD924166B297B00375C18 /* start_game.png in Resources */,
+				96ADD927166B2C9B00375C18 /* ex.png in Resources */,
+				96ADD928166B2C9B00375C18 /* ex.plist in Resources */,
+				96ADD92A166B2DC100375C18 /* NewExplosion.ccbi in Resources */,
+				96ADD92D166B33D200375C18 /* EvilTarget.png in Resources */,
+				96ADD92E166B33D200375C18 /* SplitEvil.png in Resources */,
+				96ADD931166B346E00375C18 /* EvilTarget.ccbi in Resources */,
+				96ADD932166B346E00375C18 /* SplitTarget.ccbi in Resources */,
+				96ADD934166B381E00375C18 /* NormalTarget.ccbi in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

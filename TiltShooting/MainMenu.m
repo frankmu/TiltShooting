@@ -56,7 +56,7 @@
     }
     //show optionScene
     CCScene *scene=[OptionScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
 }
 //help
 
@@ -66,7 +66,7 @@
     }
     //show helpScene
     CCScene *scene=[HelperScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
 }
 //show bullet holes effect on a button
 -(void) showBulletHoleOnButton:(CCMenuItemImage*)button{

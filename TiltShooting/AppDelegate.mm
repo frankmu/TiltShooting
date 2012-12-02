@@ -10,7 +10,7 @@
 
 #import "AppDelegate.h"
 #import "IntroLayer.h"
-
+#import "CCBReader.h"
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_, model=model_;
@@ -78,8 +78,9 @@
 	[CCTexture2D PVRImagesHavePremultipliedAlpha:YES];
 	
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
-	[director_ runWithScene: [IntroScene node]];
-	
+    CCScene* mainScene = [CCBReader sceneWithNodeGraphFromFile:@"MainMenu.ccbi"];
+	//[director_ runWithScene: [IntroScene node]];
+	[director_ runWithScene:mainScene ];
 	//initialize model instance
     //***********
     model_=[Model instance];

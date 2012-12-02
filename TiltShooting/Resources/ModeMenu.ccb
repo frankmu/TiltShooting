@@ -131,7 +131,7 @@
 								<key>value</key>
 								<array>
 									<real>164</real>
-									<real>187</real>
+									<real>151</real>
 									<integer>0</integer>
 								</array>
 							</dict>
@@ -194,7 +194,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>menu_v2/newgame_button.png</string>
+									<string>menu_v2/NormalMode1.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -205,7 +205,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>menu_v2/newgame_button.png</string>
+									<string>menu_v2/NormalMode1.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -216,7 +216,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>menu_v2/newgame_button.png</string>
+									<string>menu_v2/NormalMode1.png</string>
 								</array>
 							</dict>
 						</array>
@@ -243,8 +243,8 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>396</real>
-									<real>119</real>
+									<real>358</real>
+									<real>151</real>
 									<integer>0</integer>
 								</array>
 							</dict>
@@ -307,7 +307,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>menu_v2/newgame_button.png</string>
+									<string>menu_v2/FacebookMode.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -318,7 +318,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>menu_v2/newgame_button_sel.png</string>
+									<string>menu_v2/FacebookMode.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -329,7 +329,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>menu_v2/newgame_button.png</string>
+									<string>menu_v2/FacebookMode.png</string>
 								</array>
 							</dict>
 						</array>
@@ -543,8 +543,6 @@
 						<false/>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>baseClass</key>
@@ -684,8 +682,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>395</real>
-							<real>160</real>
+							<real>355</real>
+							<real>227</real>
 							<integer>0</integer>
 						</array>
 					</dict>
