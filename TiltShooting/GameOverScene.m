@@ -14,7 +14,36 @@
 @synthesize win;
 @synthesize score;
 @synthesize time;
+@synthesize postParams = _postParams;
+@synthesize facebook = _facebook;
+@synthesize appDelegate;
+
 -(id)start{
+    
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    if(!FBSession.activeSession.isOpen)
+    {
+        [appDelegate openSessionWithAllowLoginUI:YES];
+    }
+    
+    //for Facebook post part!
+    // Initiate a Facebook instance and properties
+    if (FBSession.activeSession.isOpen) {
+        
+        if (nil == self.facebook) {
+            self.facebook = [[Facebook alloc]
+                             initWithAppId:FBSession.activeSession.appID
+                             andDelegate:nil];
+            
+            // Store the Facebook session information
+            self.facebook.accessToken = FBSession.activeSession.accessToken;
+            self.facebook.expirationDate = FBSession.activeSession.expirationDate;
+        } else {
+            // Clear out the Facebook instance
+            self.facebook = nil;
+        }
+    }
     
     //if( (self=[super init] )) {
     
@@ -37,15 +66,15 @@
     CCMenuItemImage *retry = [CCMenuItemImage itemFromNormalImage:@"gameover_retry.png" selectedImage:@"gameover_retry_sel.png" disabledImage:nil target:self selector:@selector(retry:)];
     retry.position=ccp(-150,-120);
     //self.retry=retry;
-    CCMenuItemImage *nextLevel= [CCMenuItemImage itemFromNormalImage:@"gameover_nextlevel.png" selectedImage:@"gameover_nextlevel_sel.png" disabledImage:nil target:self selector:@selector(nextlevel:)];
-    nextLevel.position=ccp(0,-120);
-    //self.nextlevel=nextLevel;
+    
     CCMenuItemImage *mainMenu = [CCMenuItemImage itemFromNormalImage:@"gameover_mainmenu.png" selectedImage:@"gameover_mainmenu_sel.png" disabledImage:nil target:self selector:@selector(mainmenu:)];
-    mainMenu.position=ccp(150,-120);
+    mainMenu.position=ccp(0,-120);
     //self.mainMenu=mainMenu;
     
-    [nextLevel setIsEnabled:NO];
-    CCMenu *mn = [CCMenu menuWithItems:retry, nextLevel, mainMenu, nil];
+    CCMenuItemImage *postToFB = [CCMenuItemImage itemFromNormalImage:@"gameover_ShareButton.png" selectedImage:@"gameover_ShareButtonSelected.png" disabledImage:nil target:self selector:@selector(posttofb:)];
+    postToFB.position=ccp(150,-120);
+    
+    CCMenu *mn = [CCMenu menuWithItems:retry, mainMenu, postToFB, nil];
     [scoreLayer addChild:mn z:2 tag:2];
     
     //create and initialize a Label
@@ -102,6 +131,59 @@
     
     CCScene *scene=[[MainScene node] initWithLevel:1];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2 scene:scene withColor:ccWHITE]];
+}
+
+-(void) posttofb:(id)sender
+{
+    NSLog(@"I have entered the posttofb");
+    
+    // Put together the dialog parameters
+    self.postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                       @"TiltShooting", @"name",
+                       @"It's developed by Zhuang Yan, Xincheng Ma, Tengfei Mu, Yirui Zhang and Xuming Zhu!", @"caption",
+                       [NSString stringWithFormat:@"I have gotten %d scores in TiltShooting! Friends me on Facebook! Let's play together!",(int)self.score], @"description",
+                       @"http://www.facebook.com/tiltshooting.ma", @"link",
+                       @"http://farm9.staticflickr.com/8482/8238168065_af9e082dec_m.jpg", @"picture",
+//                      @"https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png", @"picture",
+                       nil];
+    // Invoke the dialog
+    [self.facebook dialog:@"feed" andParams:self.postParams andDelegate:self];
+}
+/**
+ * A function for parsing URL parameters.
+ */
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [[kv objectAtIndex:1]
+         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [params setObject:val forKey:[kv objectAtIndex:0]];
+    }
+    return params;
+}
+
+// Handle the publish feed call back
+- (void)dialogCompleteWithUrl:(NSURL *)url {
+    NSDictionary *params = [self parseURLParams:[url query]];
+/*    NSString *msg = [NSString stringWithFormat:
+                     @"Posted story, id: %@",
+                     [params valueForKey:@"post_id"]];
+
+    NSLog(@"%@", msg);
+  */
+    
+    
+    // Show the result in an alert
+    [[[UIAlertView alloc] initWithTitle:@"Result"
+                                message:@"Cong! Post Success!"
+                               delegate:nil
+                      cancelButtonTitle:@"OK!"
+                      otherButtonTitles:nil]
+     show];
 }
 
 @end

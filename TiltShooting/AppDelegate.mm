@@ -138,9 +138,10 @@
 // application will be killed
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-	CC_DIRECTOR_END();
+    //    [FBSession.activeSession close];
+    [FBSession.activeSession closeAndClearTokenInformation];
     
-    [FBSession.activeSession close];
+	CC_DIRECTOR_END();
 }
 
 // purge memory

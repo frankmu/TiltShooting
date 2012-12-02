@@ -21,6 +21,7 @@
 @synthesize modeMenuButtons;
 @synthesize fbMenuButtons;
 @synthesize prompt;
+@synthesize appDelegate;
 -(id)init{
     
     if( (self=[super init] )) {
@@ -31,6 +32,7 @@
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"Rifle_Gunshot.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"menumusic_10s.mp3"];
         
+        appDelegate = [[UIApplication sharedApplication] delegate];
     }
     return self;
 }
@@ -107,7 +109,6 @@
 -(void)login{
     NSLog(@"login fb");
     NSLog(@"fb menu position x=%f y=%f",self.facebookMenu.position.x,self.facebookMenu.position.y);
-   AppController *appDelegate = [[UIApplication sharedApplication] delegate];
     // The user has initiated a login, so call the openSession method
     // and show the login UX if necessary.
     //   [appDelegate closeSession];

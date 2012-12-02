@@ -21,4 +21,5 @@
 @property(nonatomic,strong) CCNode* prompt;
 @property(nonatomic,strong) CCMenu* modeMenuButtons;
 @property(nonatomic,strong) CCMenu* fbMenuButtons;
+@property(nonatomic,strong) AppController *appDelegate;
 @end

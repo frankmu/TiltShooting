@@ -24,11 +24,11 @@
     CCSprite *timebar=[CCSprite spriteWithFile:@"timebar.png"];
     ct=[CCProgressTimer progressWithSprite:timebar];
     [ct setPosition:ccp( size.width /1.7 , size.height/1.08)];
-    ct.barChangeRate=ccp(0.775,0);
+    ct.barChangeRate=ccp(1,0);
     ct.midpoint=ccp(0,1);
-    [ct setPercentage:40];
+    [ct setPercentage:99];
     [ct setType:kCCProgressTimerTypeBar];
-    ct.percentage+=9;
+    ct.percentage+=1;
     [glayer addChild:ct z:21 tag:21];
     return self;
 }
@@ -40,7 +40,7 @@
     //########
     //bug display half of normal percentage
     //########
-    [ct setPercentage:percentage*50];
+    [ct setPercentage:percentage*100];
     //if(ct.percentage==0)
     //    ct.percentage=50;
 }

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
+//#import <FacebookSDK/FacebookSDK.h>
+#import "Facebook.h"
 #import "cocos2d.h"
 #import "Model.h"
 #import "ShakeEnabledUIWindow.h"
