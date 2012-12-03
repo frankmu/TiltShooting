@@ -12,6 +12,8 @@
 #import "cocos2d.h"
 #import "Model.h"
 #import "ShakeEnabledUIWindow.h"
+//#import "GameOverScene.h"
+@class GameOverScene;
 
 extern NSString *const FBSessionStateChangedNotification;
 
@@ -29,6 +31,8 @@ extern NSString *const FBSessionStateChangedNotification;
 @property (readonly) UINavigationController *navController;
 @property (readonly) CCDirectorIOS *director;
 @property (readonly) Model *model;
+@property NSString *flag;
+@property GameOverScene *layer;
 
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
 - (void) closeSession;

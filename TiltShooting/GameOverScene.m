@@ -20,31 +20,6 @@
 
 -(id)start{
     
-    appDelegate = [[UIApplication sharedApplication] delegate];
-    
-    if(!FBSession.activeSession.isOpen)
-    {
-        [appDelegate openSessionWithAllowLoginUI:YES];
-    }
-    
-    //for Facebook post part!
-    // Initiate a Facebook instance and properties
-    if (FBSession.activeSession.isOpen) {
-        
-        if (nil == self.facebook) {
-            self.facebook = [[Facebook alloc]
-                             initWithAppId:FBSession.activeSession.appID
-                             andDelegate:nil];
-            
-            // Store the Facebook session information
-            self.facebook.accessToken = FBSession.activeSession.accessToken;
-            self.facebook.expirationDate = FBSession.activeSession.expirationDate;
-        } else {
-            // Clear out the Facebook instance
-            self.facebook = nil;
-        }
-    }
-    
     //if( (self=[super init] )) {
     
     [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
@@ -137,17 +112,52 @@
 {
     NSLog(@"I have entered the posttofb");
     
-    // Put together the dialog parameters
-    self.postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                       @"TiltShooting", @"name",
-                       @"It's developed by Zhuang Yan, Xincheng Ma, Tengfei Mu, Yirui Zhang and Xuming Zhu!", @"caption",
-                       [NSString stringWithFormat:@"I have gotten %d scores in TiltShooting! Friends me on Facebook! Let's play together!",(int)self.score], @"description",
-                       @"http://www.facebook.com/tiltshooting.ma", @"link",
-                       @"http://farm9.staticflickr.com/8482/8238168065_af9e082dec_m.jpg", @"picture",
-//                      @"https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png", @"picture",
-                       nil];
-    // Invoke the dialog
-    [self.facebook dialog:@"feed" andParams:self.postParams andDelegate:self];
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    //for fb login part.
+    if (!FBSession.activeSession.isOpen)
+    {
+        appDelegate.flag = @"post";
+        appDelegate.layer = self;
+        [appDelegate openSessionWithAllowLoginUI:YES];
+        
+        NSLog(@"FBSession.activeSession is not Open");
+    }
+    
+        //for Facebook post part!
+        // Initiate a Facebook instance and properties
+        if (FBSession.activeSession.isOpen)
+        {
+             NSLog(@"FBSession.activeSession is Open");
+            
+            if (nil == self.facebook) {
+                self.facebook = [[Facebook alloc]
+                                   initWithAppId:FBSession.activeSession.appID
+                                   andDelegate:nil];
+                
+                // Store the Facebook session information
+                self.facebook.accessToken = FBSession.activeSession.accessToken;
+                self.facebook.expirationDate = FBSession.activeSession.expirationDate;
+            } else {
+                // Clear out the Facebook instance
+                self.facebook = nil;
+            }
+        }
+        
+        NSLog(@"I will post now.");
+        // Put together the dialog parameters
+        self.postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                             @"TiltShooting", @"name",
+                             @"It's developed by Zhuang Yan, Xincheng Ma, Tengfei Mu, Yirui Zhang and Xuming Zhu!", @"caption",
+                             [NSString stringWithFormat:@"I have gotten %d scores in TiltShooting! Friends me on Facebook! Let's play together!",(int)self.score], @"description",
+                             @"http://www.facebook.com/tiltshooting.ma", @"link",
+                             @"http://farm9.staticflickr.com/8482/8238168065_af9e082dec_m.jpg", @"picture",
+                             //                      @"https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png", @"picture",
+                             nil];
+        // Invoke the dialog
+        [self.facebook dialog:@"feed" andParams:self.postParams andDelegate:self];
+        
+    
 }
 /**
  * A function for parsing URL parameters.

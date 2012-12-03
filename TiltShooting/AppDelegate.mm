@@ -13,10 +13,13 @@
 #import "CCBReader.h"
 @implementation AppController
 
-@synthesize window=window_, navController=navController_, director=director_, model=model_;
+@synthesize window=window_, navController=navController_, director=director_, model=model_, flag=flag_, layer=layer_;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    flag_ = nil;
+    layer_ = nil;
+    
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	//window_ = [[ShakeEnabledUIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -178,6 +181,7 @@ NSString *const FBSessionStateChangedNotification =@"TiltShooting:FBSessionState
                       state:(FBSessionState) state
                       error:(NSError *)error
 {
+    NSLog(@"sessionStateChanged has been entered!");
     switch (state) {
         case FBSessionStateOpen:
             if (!error) {
@@ -191,6 +195,43 @@ NSString *const FBSessionStateChangedNotification =@"TiltShooting:FBSessionState
             break;
         default:
             break;
+    }
+    
+    NSLog(@"before post !!!");
+    
+    if(flag_ == @"post")
+    {
+        
+        //for Facebook post part!
+        // Initiate a Facebook instance and properties
+        if (FBSession.activeSession.isOpen) {
+            
+            if (nil == layer_.facebook) {
+                layer_.facebook = [[Facebook alloc]
+                                 initWithAppId:FBSession.activeSession.appID
+                                 andDelegate:nil];
+                
+                // Store the Facebook session information
+                layer_.facebook.accessToken = FBSession.activeSession.accessToken;
+                layer_.facebook.expirationDate = FBSession.activeSession.expirationDate;
+            } else {
+                // Clear out the Facebook instance
+                layer_.facebook = nil;
+            }
+        }
+        
+        NSLog(@"I will post now.");
+        // Put together the dialog parameters
+        layer_.postParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                           @"TiltShooting", @"name",
+                           @"It's developed by Zhuang Yan, Xincheng Ma, Tengfei Mu, Yirui Zhang and Xuming Zhu!", @"caption",
+                           [NSString stringWithFormat:@"I have gotten %d scores in TiltShooting! Friends me on Facebook! Let's play together!",(int)layer_.score], @"description",
+                           @"http://www.facebook.com/tiltshooting.ma", @"link",
+                           @"http://farm9.staticflickr.com/8482/8238168065_af9e082dec_m.jpg", @"picture",
+                           //                      @"https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png", @"picture",
+                           nil];
+        // Invoke the dialog
+        [layer_.facebook dialog:@"feed" andParams:layer_.postParams andDelegate:layer_];
     }
     
     [[NSNotificationCenter defaultCenter]
@@ -220,7 +261,8 @@ NSString *const FBSessionStateChangedNotification =@"TiltShooting:FBSessionState
                                               allowLoginUI:allowLoginUI
                                          completionHandler:^(FBSession *session,
                                                              FBSessionState state,
-                                                             NSError *error) {
+                                                             NSError *error
+                                                             ) {
                                              [self sessionStateChanged:session
                                                                  state:state
                                                                  error:error];

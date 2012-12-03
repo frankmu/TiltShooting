@@ -82,8 +82,14 @@
     NSLog(@"ingamemenulayer resume model before restart");
     //***** need fix here, model should support restart, reset when stop
     //[(GameLayer*)self.glayer restartGame];
-    CCScene *scene=[[MainScene node] initWithLevel:1];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
+    CCScene *scene;
+    if(((GameLayer*)self.glayer).facebookEnable){
+         scene=[CCBReader sceneWithNodeGraphFromFile:@"ModeMenu.ccbi"];
+    }
+    else{
+        scene=[[MainScene node] initWithLevel:1];
+    }
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
 }
 
 //return to the main menu

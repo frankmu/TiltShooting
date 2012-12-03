@@ -121,8 +121,10 @@
    // } else {
         // The user has initiated a login, so call the openSession method
         // and show the login UX if necessary.
+        appDelegate.flag = nil;
+        appDelegate.layer = nil;
         [appDelegate openSessionWithAllowLoginUI:YES];
- //   }
+      //   }
     //download pic
     //[self loadPicture:nil];
 
