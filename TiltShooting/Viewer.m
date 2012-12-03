@@ -224,6 +224,29 @@
                     [CCScaleTo actionWithDuration:d/2.0 scale:1],
                     [CCCallFuncO actionWithTarget:layer selector:@selector(removeChildFromParent:) object:msg],nil]];
 }
++(void) showNotify: (NSString*)string inLayer:(CCLayer*)layer{
+    // init notify label
+    GameLayer *glayer=(GameLayer*)layer;
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    CCLabelTTF* notifyLabel = [CCLabelTTF labelWithString:string
+                                                 fontName:@"Marker Felt" fontSize:24.f];
+    
+    notifyLabel.position = ccp(size.width /1.25f, size.height / 1.3f);
+    [glayer addChild:notifyLabel z:10];
+    // init action
+    //id show = [CCFadeIn actionWithDuration:1];
+    id hide = [CCFadeOut actionWithDuration:1.5];
+    id move = [CCMoveTo actionWithDuration:1.5
+                                  position:ccpAdd(notifyLabel.position, ccp(0, 100))];
+    id action = [CCSpawn actions:hide, move, nil];
+    id func = [CCCallFuncO actionWithTarget:glayer
+                                   selector:@selector(removeChildFromParent:) object:notifyLabel];
+    id combine = [CCSequence actions: action, func, nil];
+    [notifyLabel runAction: combine];
+    
+}
+
+
 /*******------- remove -----------*******/
 +(void) removeTarget:(Target*)target inLayer:(CCLayer*)layer{
     //[Viewer showExplodeInBackground:((GameLayer*)layer).background at:ccp(target.x,target.y)];
@@ -271,6 +294,8 @@
             [(CBTarget*)target.aux runTimeLine:[NSString stringWithFormat:@"BrokeHard_%d",i]];
         }
     }
+    id<ModelInterface> m = [[Model class] instance];
+    [Viewer showNotify:[NSString stringWithFormat:@"+%d Hits!",[m combo]] inLayer:layer];
 
 }
 //special shoot
