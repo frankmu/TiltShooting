@@ -192,7 +192,7 @@
         tg=(CCSprite* )[CCSprite spriteWithCGImage:((UIImage*)[glayer.FBInfo objectAtIndex:i]).CGImage key:fileName];
     }
     else{
-        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"EvilTarget.ccbi"];
+        tg=(CBTarget *)[CCBReader nodeGraphFromFile:@"SplitTarget.ccbi"];
     }
     glayer.targetNumber++;
     [glayer.background addChild:tg z:1];
