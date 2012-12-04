@@ -40,6 +40,7 @@ typedef enum {
 - (void) addToCoreEventListenerList: (id<CoreEventListener>) listener;
 - (void) addToCoreEventListenerlist: (id<CoreEventListener>) listener
                            priority: (int) priority;
+- (void) removeCoreEventListener: (id<CoreEventListener>) listener;
 /* Init. */
 // typically, canvas is the "background" and device is the iphone screen
 // canvas x and y are "background" positions in device coordinate

@@ -516,4 +516,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         ++count;
     }
 }
+
+- (void) removeCoreEventListener:(id<CoreEventListener>)listener {
+    [self.listenerList removeObject:listener];
+}
 @end
