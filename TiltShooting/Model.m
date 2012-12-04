@@ -30,6 +30,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 @property (strong, atomic) NSMutableArray *listenerList;
 @property (strong) MotionProcessor *motionProcessor;
 @property (strong, atomic) NSMutableSet *targetSet;
+@property (strong, atomic) NSMutableArray* deletedListenerlist;
 //@property (strong, atomic) NSMutableArray *eventList;
 @end
 
@@ -56,6 +57,7 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
         self.weaponList = [[NSMutableArray alloc] init];
         self.shootPoints = [[NSMutableArray alloc] init];
         self.map2Box2D = [[Map2Box2D alloc] init];
+        self.deletedListenerlist = [[NSMutableArray alloc] init];
         self.aim = [[Aim alloc] initWithX:0.f Y:0.f];
         // default canvas and device setting
         [self decideCanvasX:240.0f canvasY:160.0f canvasWidth:1440.0f
@@ -518,6 +520,10 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) removeCoreEventListener:(id<CoreEventListener>)listener {
-    [self.listenerList removeObject:listener];
+    int64_t delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.listenerList removeObject:listener];
+    });
 }
 @end
