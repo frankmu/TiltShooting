@@ -125,6 +125,8 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
     if (self.status != STOPPED) {
         return;
     }
+    [self.listenerList removeObjectsInArray: self.deletedListenerlist];
+    [self.deletedListenerlist removeAllObjects];
     self.currentLevel = level;
     [self.map2Box2D createWorldWithWidth:self.canvasW height:self.canvasH];
     self.status = RUNNING;
@@ -520,10 +522,6 @@ typedef BUBBLE_RULE (^fireEventBlock)(id<CoreEventListener>);
 }
 
 - (void) removeCoreEventListener:(id<CoreEventListener>)listener {
-    int64_t delayInSeconds = 1.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.listenerList removeObject:listener];
-    });
+    [self.deletedListenerlist addObject:listener];
 }
 @end
