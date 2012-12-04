@@ -194,6 +194,7 @@
 -(void) onExit{
     
     [super onExit];
+    id<ModelInterface> model = [[Model class] instance];
     //remove from listenlist of model?
     /* not stop here
      //stop model
@@ -203,6 +204,7 @@
      [model stop];
      }
      */
+    [model removeCoreEventListener:self];
     [Viewer NSLogDebug:self.debug withMsg:@"Exit gameLayer"];
 }
 
