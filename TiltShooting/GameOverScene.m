@@ -99,13 +99,14 @@
 {
 	//CCScene *sc = [MenuScene node];
     CCScene* mainScene = [CCBReader sceneWithNodeGraphFromFile:@"MainMenu.ccbi"];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccBLACK]];
 }
 -(void) retry:(id)sender
 {
     
-    CCScene *scene=[[MainScene node] initWithLevel:1];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2 scene:scene withColor:ccWHITE]];
+    //CCScene *scene=[[MainScene node] initWithLevel:1];
+    CCScene* modeScene = [CCBReader sceneWithNodeGraphFromFile:@"ModeMenu.ccbi"];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:modeScene withColor:ccBLACK]];
 }
 
 -(void) posttofb:(id)sender

@@ -54,7 +54,7 @@
         [self showBulletHoleOnButton:sender];
     }
     CCScene *scene=[[MainScene node] initWithLevel:1];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccBLACK]];
 
 }
 -(void) startNewFBGame:(id)sender{
@@ -232,7 +232,7 @@
             [self showBulletHoleOnButton:sender];
         }
         CCScene *scene=[[MainScene node] initWithLevel:1 withFBInfo:imageArray];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccBLACK]];
     }
     else{
     //haven't downloading the pictures
@@ -246,7 +246,7 @@
 - (void) onBack:(id) sender
 {
     CCScene* mainScene = [CCBReader sceneWithNodeGraphFromFile:@"MainMenu.ccbi"];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:mainScene withColor:ccBLACK]];
 }
 //invoked to return to mode menu
 -(void) facebookMenuOnBack:(id)sender{

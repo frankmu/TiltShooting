@@ -135,7 +135,7 @@
 }
 //********************test shake temp********************/
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-    float THRESHOLD = 2;
+    float THRESHOLD = 1.5;
     float timeGap=1;
     
     if (fabs(acceleration.x) > THRESHOLD ||fabs(acceleration.y) > THRESHOLD ||fabs(acceleration.z)> THRESHOLD )
@@ -235,7 +235,7 @@
     [model stop];
     //replace scene
     CCScene *sc = [GameOverScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:sc withColor:ccBLACK]];
     
 }
 
@@ -618,7 +618,7 @@
     //[sc setWin:TRUE];
     [sc start];
     
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:sc withColor:ccBLACK]];
     
     return BUBBLE_CONTINUE;
 
@@ -648,7 +648,7 @@
     [sc setWin:TRUE];
     [sc start];
     
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:sc withColor:ccBLACK]];
     
     return BUBBLE_CONTINUE;
 }
@@ -674,7 +674,7 @@
     [sc setScore:self.score];
     [sc setWin:FALSE];
     [sc start];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:sc withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:sc withColor:ccBLACK]];
     
     return BUBBLE_CONTINUE;
 }

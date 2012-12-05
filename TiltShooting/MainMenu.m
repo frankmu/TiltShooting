@@ -42,7 +42,7 @@
     
     //CCScene *scene=[[MainScene node] initWithLevel:1];
     CCScene* modeScene = [CCBReader sceneWithNodeGraphFromFile:@"ModeMenu.ccbi"];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:modeScene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:modeScene withColor:ccBLACK]];
 }
 -(void) startNewGame:(id)sender withLevel:(int)level{
     
@@ -56,7 +56,7 @@
     }
     //show optionScene
     CCScene *scene=[OptionScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccBLACK]];
 }
 //help
 
@@ -66,7 +66,7 @@
     }
     //show helpScene
     CCScene *scene=[HelperScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccBLACK]];
 }
 //show bullet holes effect on a button
 -(void) showBulletHoleOnButton:(CCMenuItemImage*)button{

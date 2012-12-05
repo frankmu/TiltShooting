@@ -102,7 +102,7 @@
 -(void) makeTransition:(ccTime)dt
 {
     CCScene *scene=[[MainScene node] initWithLevel:1];
-     //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
+     //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccBLACK]];
      CCTransitionSlideInL *transitionScene = [CCTransitionSlideInL transitionWithDuration:1.5 scene:scene];
      //[[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
      
@@ -118,7 +118,7 @@
     }
     
     CCScene *scene=[[MainScene node] initWithLevel:1];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccBLACK]];
 }
 -(void) startNewGame:(id)sender withLevel:(int)level{
     
@@ -136,7 +136,7 @@
     }
     //show optionScene
    CCScene *scene=[OptionScene node];
-   [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
+   [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccBLACK]];
 }
 //help
 
@@ -146,7 +146,7 @@
     }
     //show helpScene
     CCScene *scene=[HelperScene node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:3 scene:scene withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:scene withColor:ccBLACK]];
 }
 //show bullet holes effect on a button
 -(void) showBulletHoleOnButton:(CCMenuItemImage*)button{
@@ -188,7 +188,7 @@
     //check which button
     //[self scheduleOnce:@selector(makeTransition:) delay:1];
     //CCScene *scene=[[MainScene node] initWithLevel:1];
-    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccWHITE]];
+    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scene withColor:ccBLACK]];
     
 }
 
